@@ -8,8 +8,8 @@ button {
   height: 40px;
   padding: 10px 25px;
   border: 2px solid var(--color-accent);
-  font-family: monospace;
-  font-size: 15px;
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 12px;
   font-weight: 500;
   background: transparent;
   cursor: pointer;
@@ -128,12 +128,12 @@ span {
 .dropbtn {
   width: 130px;
   height: 40px;
-  font-size: 15px;
+  font-size: 12px;
   margin: 20px;
-  -webkit-user-select: none; 
-  -moz-user-select: none; 
-  -ms-user-select: none; 
-  user-select: none; 
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .dropbtn > .side-item-text::after {
   position: absolute;
@@ -188,4 +188,3 @@ span {
 .dropdown:hover .dropdown-content {
   display: block;
 }
-

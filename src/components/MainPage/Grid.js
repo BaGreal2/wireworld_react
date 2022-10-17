@@ -39,10 +39,20 @@ export default class Grid extends Component {
         clearGrid: this.props.clearGrid,
       });
     }
+    window.addEventListener("beforeunload", () => {
+      localStorage.setItem("grid", JSON.stringify(this.state.grid));
+      localStorage.setItem("rows", JSON.stringify(this.state.rows));
+      localStorage.setItem("cols", JSON.stringify(this.state.cols));
+    });
   }
   componentWillUnmount() {
     clearInterval(this.timer);
     this.timer = 0;
+    window.removeEventListener("beforeunload", () => {
+      localStorage.setItem("grid", JSON.stringify(this.state.grid));
+      localStorage.setItem("rows", JSON.stringify(this.state.rows));
+      localStorage.setItem("cols", JSON.stringify(this.state.cols));
+    });
   }
   componentDidUpdate() {
     if (this.state.reproductionTime !== this.props.reproductionTime) {
@@ -178,6 +188,7 @@ export default class Grid extends Component {
       if (this.state.isStart) {
         this.state.toggleStart();
       }
+      let saveNotResizedGrid = JSON.parse(JSON.stringify(this.state.grid));
       let saveGrid = new Array(valueInt);
       this.nextGrid = new Array(valueInt);
       for (let i = 0; i < valueInt; i++) {
@@ -186,7 +197,8 @@ export default class Grid extends Component {
       }
       for (let i = 0; i < valueInt; i++) {
         for (let j = 0; j < valueInt; j++) {
-          saveGrid[i][j] = 0;
+          saveGrid[i][j] =
+            saveNotResizedGrid[i] !== undefined ? saveNotResizedGrid[i][j] : 0;
           this.nextGrid[i][j] = 0;
         }
       }
@@ -210,6 +222,7 @@ export default class Grid extends Component {
       if (this.state.isStart) {
         this.state.toggleStart();
       }
+      let saveNotResizedGrid = JSON.parse(JSON.stringify(this.state.grid));
       let saveGrid = new Array(valueInt);
       this.nextGrid = new Array(valueInt);
       for (let i = 0; i < valueInt; i++) {
@@ -218,10 +231,12 @@ export default class Grid extends Component {
       }
       for (let i = 0; i < valueInt; i++) {
         for (let j = 0; j < valueInt; j++) {
-          saveGrid[i][j] = 0;
+          saveGrid[i][j] =
+            saveNotResizedGrid[i] !== undefined ? saveNotResizedGrid[i][j] : 0;
           this.nextGrid[i][j] = 0;
         }
       }
+
       this.setState({
         grid: JSON.parse(JSON.stringify(saveGrid)),
       });
@@ -242,6 +257,7 @@ export default class Grid extends Component {
       if (this.state.isStart) {
         this.state.toggleStart();
       }
+      let saveNotResizedGrid = JSON.parse(JSON.stringify(this.state.grid));
       let saveGrid = new Array(valueInt);
       this.nextGrid = new Array(valueInt);
       for (let i = 0; i < valueInt; i++) {
@@ -250,7 +266,8 @@ export default class Grid extends Component {
       }
       for (let i = 0; i < valueInt; i++) {
         for (let j = 0; j < valueInt; j++) {
-          saveGrid[i][j] = 0;
+          saveGrid[i][j] =
+            saveNotResizedGrid[i] !== undefined ? saveNotResizedGrid[i][j] : 0;
           this.nextGrid[i][j] = 0;
         }
       }

@@ -88,11 +88,14 @@ td.tail {
   height: 14px;
   cursor: pointer;
 }
-.inc-buttons:hover{
+.inc-buttons:hover {
   font-size: 10px;
 }
 .inc-container {
   margin: 0;
   display: flex;
   flex-direction: column;
+}
+.cross-res {
+  font-family: monospace;
 }
