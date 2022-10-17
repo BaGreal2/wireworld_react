@@ -13,6 +13,7 @@ export default class Controls extends Component {
       reproductionTime: props.reproductionTime,
       toggleStart: props.toggleStart,
       toggleClear: props.toggleClear,
+      toggleReset: props.toggleReset,
       startLabel: props.startLabel,
       lang: props.lang,
     };
@@ -35,6 +36,7 @@ export default class Controls extends Component {
         curr_click_value: this.props.curr_click_value,
         reproductionTime: this.props.reproductionTime,
         toggleStart: this.props.toggleStart,
+        toggleClear: this.props.toggleClear,
         startLabel: this.props.startLabel,
         lang: this.props.lang,
       });
@@ -66,6 +68,12 @@ export default class Controls extends Component {
           classname={"main_buttons custom-btn"}
           text={this.state.dict.clear}
           action={this.state.toggleClear}
+        ></Button>
+        <Button
+          id={"reset"}
+          classname={"main_buttons custom-btn"}
+          text={this.state.dict.reset}
+          action={this.state.toggleReset}
         ></Button>
         <Button
           id={"usr_levels"}

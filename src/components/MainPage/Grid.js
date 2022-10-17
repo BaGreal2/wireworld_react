@@ -14,7 +14,9 @@ export default class Grid extends Component {
       mouseDown: props.mouseDown,
       isStart: props.isStart,
       clearGrid: props.clearGrid,
+      resetGrid: props.resetGrid,
       toggleClear: props.toggleClear,
+      toggleReset: props.toggleReset,
       toggleStart: props.toggleStart,
     };
     this.nextGrid = JSON.parse(JSON.stringify(this.state.grid));
@@ -28,7 +30,8 @@ export default class Grid extends Component {
       this.state.reproductionTime !== this.props.reproductionTime ||
       this.state.mouseDown !== this.props.mouseDown ||
       this.state.isStart !== this.props.isStart ||
-      this.state.clearGrid !== this.props.clearGrid
+      this.state.clearGrid !== this.props.clearGrid ||
+      this.state.resetGrid !== this.props.resetGrid
     ) {
       this.setState({
         grid: this.props.grid,
@@ -37,6 +40,7 @@ export default class Grid extends Component {
         mouseDown: this.props.mouseDown,
         isStart: this.props.isStart,
         clearGrid: this.props.clearGrid,
+        resetGrid: this.props.resetGrid,
       });
     }
     window.addEventListener("beforeunload", () => {
@@ -67,13 +71,15 @@ export default class Grid extends Component {
       this.state.curr_click_value !== this.props.curr_click_value ||
       this.state.mouseDown !== this.props.mouseDown ||
       this.state.isStart !== this.props.isStart ||
-      this.state.clearGrid !== this.props.clearGrid
+      this.state.clearGrid !== this.props.clearGrid ||
+      this.state.resetGrid !== this.props.resetGrid
     ) {
       this.setState({
         curr_click_value: this.props.curr_click_value,
         mouseDown: this.props.mouseDown,
         isStart: this.props.isStart,
         clearGrid: this.props.clearGrid,
+        resetGrid: this.props.resetGrid,
       });
     }
 
@@ -88,6 +94,32 @@ export default class Grid extends Component {
       this.state.toggleClear();
       this.setState({
         clearGrid: false,
+      });
+    }
+    if (this.state.resetGrid) {
+      this.clearGrids();
+      this.setState({
+        rows: 55,
+        cols: 55,
+      });
+      let saveGrid = new Array(55);
+      this.nextGrid = new Array(55);
+      for (let i = 0; i < 55; i++) {
+        this.nextGrid[i] = new Array(55);
+        saveGrid[i] = new Array(55);
+      }
+      for (let i = 0; i < 55; i++) {
+        for (let j = 0; j < 55; j++) {
+          saveGrid[i][j] = 0;
+          this.nextGrid[i][j] = 0;
+        }
+      }
+      this.setState({
+        grid: JSON.parse(JSON.stringify(saveGrid)),
+      });
+      this.state.toggleReset();
+      this.setState({
+        resetGrid: false,
       });
     }
   }

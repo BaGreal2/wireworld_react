@@ -63,6 +63,7 @@ export default class MainPage extends Component {
         mouseDown: 0,
         isStart: false,
         clearGrid: false,
+        resetGrid: false,
         startLabel:
           localStorage.getItem("language") === "eng" ? "Start" : "Старт",
         lang: props.lang,
@@ -75,6 +76,7 @@ export default class MainPage extends Component {
         mouseDown: 0,
         isStart: false,
         clearGrid: false,
+        resetGrid: false,
         startLabel:
           localStorage.getItem("language") === "eng" ? "Start" : "Старт",
         lang: props.lang,
@@ -167,6 +169,15 @@ export default class MainPage extends Component {
       startLabel: this.state.dict.start,
     });
   };
+  toggleReset = () => {
+    this.setState({
+      isStart: false,
+      resetGrid: !this.state.resetGrid,
+    });
+    this.setState({
+      startLabel: this.state.dict.start,
+    });
+  };
   render() {
     return (
       <div>
@@ -184,8 +195,10 @@ export default class MainPage extends Component {
           mouseDown={this.state.mouseDown}
           isStart={this.state.isStart}
           clearGrid={this.state.clearGrid}
+          resetGrid={this.state.resetGrid}
           toggleStart={this.toggleStart}
           toggleClear={this.toggleClear}
+          toggleReset={this.toggleReset}
         ></Grid>
         <Controls
           onValueChange={this.changeClickValue}
@@ -194,6 +207,7 @@ export default class MainPage extends Component {
           reproductionTime={this.state.speed}
           toggleStart={this.toggleStart}
           toggleClear={this.toggleClear}
+          toggleReset={this.toggleReset}
           startLabel={this.state.startLabel}
           lang={this.state.lang}
         ></Controls>
