@@ -1,0 +1,28 @@
+.app-title {
+    position: absolute;
+    margin: 0;
+    top: 25px;
+    left: 80px;
+    color: var(--color-accent);
+    cursor: pointer;
+  }
+
+  #switch {
+    position: absolute;
+    top: 30px;
+    right: 80px;
+    background-color: var(--color-primary);
+    text-align: center;
+    vertical-align: middle;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #switch::after {
+    content: var(--switch-content);
+    color: var(--color-accent);
+    font-size: 25px;
+    margin: 0 auto;
+  }
