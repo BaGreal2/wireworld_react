@@ -1,4 +1,4 @@
-import "./Controls.css";
+import "./style/Controls.css";
 
 function Button(props) {
   return (

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./Controls.css";
+import "./style/Controls.css";
 import Button from "./Button";
 import Dropdown from "./Dropdown";
 import dictionary from "../../dictionary.json";
