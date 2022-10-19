@@ -3,7 +3,7 @@ import React, { Component } from "react";
 
 import Grid from "./Grid";
 import Controls from "./Controls";
-import Topbar from "./Topbar";
+import Topbar from "../Topbar/Topbar";
 import dictionary from "../../dictionary.json";
 
 let rows = 55;
@@ -27,31 +27,31 @@ if (localStorage.getItem("grid")) {
   }
 }
 
-function setTheme(themeName) {
-  localStorage.setItem("theme", themeName);
-  document.body.className = themeName;
-}
+// function setTheme(themeName) {
+//   localStorage.setItem("theme", themeName);
+//   document.body.className = themeName;
+// }
 
-(function () {
-  if (localStorage.getItem("theme") === "theme-dark") {
-    setTheme("theme-dark");
-  } else {
-    setTheme("theme-light");
-  }
-})();
+// (function () {
+//   if (localStorage.getItem("theme") === "theme-dark") {
+//     setTheme("theme-dark");
+//   } else {
+//     setTheme("theme-light");
+//   }
+// })();
 
-function setLanguage(lang) {
-  localStorage.setItem("language", lang);
-  document.body.id = lang;
-}
+// function setLanguage(lang) {
+//   localStorage.setItem("language", lang);
+//   document.body.id = lang;
+// }
 
-(function () {
-  if (localStorage.getItem("language") === "ukr") {
-    setLanguage("ukr");
-  } else {
-    setLanguage("eng");
-  }
-})();
+// (function () {
+//   if (localStorage.getItem("language") === "ukr") {
+//     setLanguage("ukr");
+//   } else {
+//     setLanguage("eng");
+//   }
+// })();
 
 export default class MainPage extends Component {
   constructor(props) {
@@ -118,21 +118,21 @@ export default class MainPage extends Component {
       });
     }
   }
-  toggleTheme = () => {
-    if (localStorage.getItem("theme") === "theme-dark") {
-      setTheme("theme-light");
-    } else {
-      setTheme("theme-dark");
-    }
-  };
-  toggleLanguage = () => {
-    if (localStorage.getItem("language") === "eng") {
-      setLanguage("ukr");
-    } else {
-      setLanguage("eng");
-    }
-    this.props.toggleLang();
-  };
+  // toggleTheme = () => {
+  //   if (localStorage.getItem("theme") === "theme-dark") {
+  //     setTheme("theme-light");
+  //   } else {
+  //     setTheme("theme-dark");
+  //   }
+  // };
+  // toggleLanguage = () => {
+  //   if (localStorage.getItem("language") === "eng") {
+  //     setLanguage("ukr");
+  //   } else {
+  //     setLanguage("eng");
+  //   }
+  //   this.props.toggleLang();
+  // };
   changeClickSpeed = (value) => {
     this.setState({
       speed: value,
@@ -182,8 +182,10 @@ export default class MainPage extends Component {
     return (
       <div>
         <Topbar
-          theme_func={this.toggleTheme}
-          lang_func={this.toggleLanguage}
+          theme_func={this.props.toggleTheme}
+          lang_func={this.props.toggleLang}
+          needTitle={true}
+          needLang={true}
         ></Topbar>
         <Grid
           rows={rows}

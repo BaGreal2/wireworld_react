@@ -25,7 +25,10 @@
     "enter_password": "Enter Password",
     "confirm_password": "Confirm Password",
     "have_acc": "Already have an account?",
-    "dont_have_acc": "Don't have an account?"
+    "dont_have_acc": "Don't have an account?",
+    "favourites": "Favourites",
+    "public": "Public",
+    "my_schemas": "My Schemas"
   },
   "ukr": {
     "start": "Старт",
@@ -53,6 +56,9 @@
     "enter_password": "Введіть пароль",
     "confirm_password": "Підтвердьте пароль",
     "have_acc": "Вже зареєстровані?",
-    "dont_have_acc": "Ще не зареєстровані?"
+    "dont_have_acc": "Ще не зареєстровані?",
+    "favourites": "Обрані",
+    "public": "Публічні",
+    "my_schemas": "Мої Схеми"
   }
 }

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "./style/Controls.css";
 import Button from "./Button";
 import Dropdown from "./Dropdown";
@@ -75,11 +76,13 @@ export default class Controls extends Component {
           text={this.state.dict.reset}
           action={this.state.toggleReset}
         ></Button>
-        <Button
-          id={"usr_levels"}
-          classname={"main_buttons custom-btn"}
-          text={this.state.dict.user_levels}
-        ></Button>
+        <Link to="/schemas" style={{ textDecoration: "none" }}>
+          <Button
+            id={"usr_levels"}
+            classname={"main_buttons custom-btn"}
+            text={this.state.dict.user_levels}
+          ></Button>
+        </Link>
         <Dropdown
           title={this.state.dict.pick_item}
           content={[
