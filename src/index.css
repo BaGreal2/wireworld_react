@@ -15,6 +15,8 @@
   --color-conductor: #f9f348;
   --color-head: #6248f9;
   --color-tail: #f9485a;
+  --color-empty-star: #ccc;
+  --color-filled-star: #f8ce0b;
 }
 .theme-dark {
   --color-primary: rgb(49, 47, 47);
@@ -26,6 +28,8 @@
   --color-conductor: #e0c134;
   --color-head: #4d38c4;
   --color-tail: #b93542;
+  --color-empty-star: rgb(154, 153, 153);
+  --color-filled-star: #e4c122;
 }
 #ukr {
   --lang-switch-content: "UKR";

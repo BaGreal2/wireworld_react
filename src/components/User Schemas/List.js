@@ -10,6 +10,7 @@ function List(props) {
             title={schema.title}
             description={schema.description}
             creator={schema.creator}
+            rating={schema.rating}
           ></Schema>
         );
       })}

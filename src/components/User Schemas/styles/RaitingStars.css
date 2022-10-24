@@ -1,0 +1,40 @@
+.rating-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 30%;
+  margin-right: 20%;
+  margin-bottom: 10px;
+}
+
+.stars-outer {
+  position: relative;
+  display: inline-block;
+}
+
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  /* width: 0; */
+}
+
+.stars-outer::before {
+  content: "\2605 \2605 \2605 \2605 \2605";
+  font-size: 2.2em;
+  color: var(--color-empty-star);
+}
+
+.stars-inner::before {
+  content: "\2605 \2605 \2605 \2605 \2605";
+  font-size: 2.2em;
+  color: var(--color-filled-star);
+}
+
+.stars-number {
+  padding-top: 8px;
+  text-align: center;
+  color: var(--color-accent);
+}

@@ -19,11 +19,6 @@ export default class Grid extends Component {
   //-------COMPONENT CHANGES----------------
 
   componentDidMount() {
-    if (this.state.grid !== this.props.grid) {
-      this.setState({
-        grid: this.props.grid,
-      });
-    }
     window.addEventListener("beforeunload", () => {
       localStorage.setItem("grid", JSON.stringify(this.state.grid));
       localStorage.setItem("rows", JSON.stringify(this.state.rows));

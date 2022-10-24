@@ -1,6 +1,6 @@
 import List from "./List";
 import Topbar from "../Topbar/Topbar";
-import "./User Schemas.css";
+import "./styles/User Schemas.css";
 
 function SchemasPage(props) {
   return (
@@ -10,7 +10,7 @@ function SchemasPage(props) {
         lang_func={props.toggleLang}
         needTitle={true}
       ></Topbar>
-      <List location={props.location} schemas={props.schemas}></List>
+      <List schemas={props.schemas}></List>
     </>
   );
 }

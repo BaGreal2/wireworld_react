@@ -17,7 +17,7 @@ function setTheme(themeName) {
   document.body.className = themeName;
 }
 
-(function() {
+(function () {
   if (localStorage.getItem("theme") === "theme-dark") {
     setTheme("theme-dark");
   } else {
@@ -30,7 +30,7 @@ function setLanguage(lang) {
   document.body.id = lang;
 }
 
-(function() {
+(function () {
   if (localStorage.getItem("language") === "ukr") {
     setLanguage("ukr");
   } else {
@@ -112,38 +112,45 @@ export default class App extends Component {
                   {
                     id: 1,
                     title: "OR XOR",
-                    description: "the or and xor schema",
+                    description:
+                      "the or and xor schema difjdso fosdkfodkfpsk fpsokfopsdk fposfk dofksdp",
                     creator: "xanin",
+                    rating: 3.2,
                   },
                   {
                     id: 2,
                     title: "AND",
                     description: "the and schema",
                     creator: "boom_bem",
+                    rating: 4.8,
                   },
                   {
                     id: 3,
                     title: "My Schema",
                     description: "my beautiful schema",
                     creator: "FunnyBall",
+                    rating: 2.8,
                   },
                   {
                     id: 4,
                     title: "OR XOR",
                     description: "the or and xor schema",
                     creator: "xanin",
+                    rating: 3.2,
                   },
                   {
                     id: 5,
                     title: "AND",
                     description: "the and schema",
                     creator: "boom_bem",
+                    rating: 4.8,
                   },
                   {
                     id: 6,
                     title: "My Schema",
                     description: "my beautiful schema",
                     creator: "FunnyBall",
+                    rating: 2.8,
                   },
                 ]}
                 lang={this.state.lang}
