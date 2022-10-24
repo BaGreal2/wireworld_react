@@ -27,61 +27,24 @@ if (localStorage.getItem("grid")) {
   }
 }
 
-// function setTheme(themeName) {
-//   localStorage.setItem("theme", themeName);
-//   document.body.className = themeName;
-// }
-
-// (function () {
-//   if (localStorage.getItem("theme") === "theme-dark") {
-//     setTheme("theme-dark");
-//   } else {
-//     setTheme("theme-light");
-//   }
-// })();
-
-// function setLanguage(lang) {
-//   localStorage.setItem("language", lang);
-//   document.body.id = lang;
-// }
-
-// (function () {
-//   if (localStorage.getItem("language") === "ukr") {
-//     setLanguage("ukr");
-//   } else {
-//     setLanguage("eng");
-//   }
-// })();
-
 export default class MainPage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      curr_click_value: 3,
+      speed: 100,
+      mouseDown: 0,
+      isStart: false,
+      clearGrid: false,
+      resetGrid: false,
+      startLabel:
+        localStorage.getItem("language") === "eng" ? "Start" : "Старт",
+      theme: props.theme,
+      dict: dictionary.eng,
+    };
     if (localStorage.getItem("language") === "ukr") {
-      this.state = {
-        curr_click_value: 3,
-        speed: 100,
-        mouseDown: 0,
-        isStart: false,
-        clearGrid: false,
-        resetGrid: false,
-        startLabel:
-          localStorage.getItem("language") === "eng" ? "Start" : "Старт",
-        lang: props.lang,
-        dict: dictionary.ukr,
-      };
-    } else {
-      this.state = {
-        curr_click_value: 3,
-        speed: 100,
-        mouseDown: 0,
-        isStart: false,
-        clearGrid: false,
-        resetGrid: false,
-        startLabel:
-          localStorage.getItem("language") === "eng" ? "Start" : "Старт",
-        lang: props.lang,
-        dict: dictionary.eng,
-      };
+      this.state.startLabel =
+        localStorage.getItem("language") === "eng" ? "Start" : "Старт";
     }
 
     document.body.onmousedown = () => {
@@ -98,18 +61,18 @@ export default class MainPage extends Component {
     };
   }
   componentDidUpdate() {
-    if (this.state.lang !== this.props.lang) {
+    if (this.state.theme !== this.props.theme) {
       this.setState({
-        lang: this.props.lang,
+        theme: this.props.theme,
       });
     }
-    if (this.state.lang === "ukr" && this.state.dict !== dictionary.ukr) {
+    if (this.props.lang === "ukr" && this.state.dict !== dictionary.ukr) {
       this.setState({
         dict: dictionary.ukr,
         startLabel: dictionary.ukr.start,
       });
     } else if (
-      this.state.lang === "eng" &&
+      this.props.lang === "eng" &&
       this.state.dict !== dictionary.eng
     ) {
       this.setState({
@@ -118,21 +81,6 @@ export default class MainPage extends Component {
       });
     }
   }
-  // toggleTheme = () => {
-  //   if (localStorage.getItem("theme") === "theme-dark") {
-  //     setTheme("theme-light");
-  //   } else {
-  //     setTheme("theme-dark");
-  //   }
-  // };
-  // toggleLanguage = () => {
-  //   if (localStorage.getItem("language") === "eng") {
-  //     setLanguage("ukr");
-  //   } else {
-  //     setLanguage("eng");
-  //   }
-  //   this.props.toggleLang();
-  // };
   changeClickSpeed = (value) => {
     this.setState({
       speed: value,
@@ -201,6 +149,7 @@ export default class MainPage extends Component {
           toggleStart={this.toggleStart}
           toggleClear={this.toggleClear}
           toggleReset={this.toggleReset}
+          theme={this.state.theme}
         ></Grid>
         <Controls
           onValueChange={this.changeClickValue}
@@ -211,7 +160,7 @@ export default class MainPage extends Component {
           toggleClear={this.toggleClear}
           toggleReset={this.toggleReset}
           startLabel={this.state.startLabel}
-          lang={this.state.lang}
+          lang={this.props.lang}
         ></Controls>
       </div>
     );

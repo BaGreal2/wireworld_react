@@ -1,11 +1,11 @@
 import React, { Component } from "react";
+import { Button } from "../../MainPage";
 import { Link } from "react-router-dom";
 import Topbar from "../../Topbar/Topbar";
 
 import "../Authorization.css";
 
 import dictionary from "../../../dictionary.json";
-import { Button } from "../../MainPage";
 
 export default class Login extends Component {
   constructor(props) {
@@ -19,18 +19,16 @@ export default class Login extends Component {
       this.state.dict = dictionary.eng;
     }
   }
+
+  //-------COMPONENT CHANGES----------------
+
   componentDidUpdate() {
-    if (this.state.lang !== this.props.lang) {
-      this.setState({
-        lang: this.props.lang,
-      });
-    }
-    if (this.state.lang === "ukr" && this.state.dict !== dictionary.ukr) {
+    if (this.props.lang === "ukr" && this.state.dict !== dictionary.ukr) {
       this.setState({
         dict: dictionary.ukr,
       });
     } else if (
-      this.state.lang === "eng" &&
+      this.props.lang === "eng" &&
       this.state.dict !== dictionary.eng
     ) {
       this.setState({
@@ -38,6 +36,7 @@ export default class Login extends Component {
       });
     }
   }
+
   render() {
     return (
       <>

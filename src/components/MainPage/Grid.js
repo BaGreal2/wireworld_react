@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Canvas } from "../Canvas";
 import "./style/Grid.css";
 
 export default class Grid extends Component {
@@ -9,38 +10,18 @@ export default class Grid extends Component {
       rows: props.rows,
       cols: props.cols,
       grid: props.grid,
-      curr_click_value: props.curr_click_value,
-      reproductionTime: props.reproductionTime,
-      mouseDown: props.mouseDown,
-      isStart: props.isStart,
-      clearGrid: props.clearGrid,
-      resetGrid: props.resetGrid,
-      toggleClear: props.toggleClear,
-      toggleReset: props.toggleReset,
-      toggleStart: props.toggleStart,
     };
+
     this.nextGrid = JSON.parse(JSON.stringify(this.state.grid));
     this.timer = 0;
   }
 
+  //-------COMPONENT CHANGES----------------
+
   componentDidMount() {
-    if (
-      this.state.grid !== this.props.grid ||
-      this.state.curr_click_value !== this.props.curr_click_value ||
-      this.state.reproductionTime !== this.props.reproductionTime ||
-      this.state.mouseDown !== this.props.mouseDown ||
-      this.state.isStart !== this.props.isStart ||
-      this.state.clearGrid !== this.props.clearGrid ||
-      this.state.resetGrid !== this.props.resetGrid
-    ) {
+    if (this.state.grid !== this.props.grid) {
       this.setState({
         grid: this.props.grid,
-        curr_click_value: this.props.curr_click_value,
-        reproductionTime: this.props.reproductionTime,
-        mouseDown: this.props.mouseDown,
-        isStart: this.props.isStart,
-        clearGrid: this.props.clearGrid,
-        resetGrid: this.props.resetGrid,
       });
     }
     window.addEventListener("beforeunload", () => {
@@ -49,6 +30,7 @@ export default class Grid extends Component {
       localStorage.setItem("cols", JSON.stringify(this.state.cols));
     });
   }
+
   componentWillUnmount() {
     clearInterval(this.timer);
     this.timer = 0;
@@ -58,6 +40,7 @@ export default class Grid extends Component {
       localStorage.setItem("cols", JSON.stringify(this.state.cols));
     });
   }
+
   componentDidUpdate() {
     if (this.state.reproductionTime !== this.props.reproductionTime) {
       clearInterval(this.timer);
@@ -67,36 +50,21 @@ export default class Grid extends Component {
         reproductionTime: this.props.reproductionTime,
       });
     }
-    if (
-      this.state.curr_click_value !== this.props.curr_click_value ||
-      this.state.mouseDown !== this.props.mouseDown ||
-      this.state.isStart !== this.props.isStart ||
-      this.state.clearGrid !== this.props.clearGrid ||
-      this.state.resetGrid !== this.props.resetGrid
-    ) {
-      this.setState({
-        curr_click_value: this.props.curr_click_value,
-        mouseDown: this.props.mouseDown,
-        isStart: this.props.isStart,
-        clearGrid: this.props.clearGrid,
-        resetGrid: this.props.resetGrid,
-      });
-    }
 
-    if (this.state.isStart && this.timer === 0) {
+    if (this.props.isStart && this.timer === 0) {
       this.timer = setInterval(this.play, this.state.reproductionTime);
-    } else if (!this.state.isStart && this.timer !== 0) {
+    } else if (!this.props.isStart && this.timer !== 0) {
       clearInterval(this.timer);
       this.timer = 0;
     }
-    if (this.state.clearGrid) {
+    if (this.props.clearGrid) {
       this.clearGrids();
-      this.state.toggleClear();
+      this.props.toggleClear();
       this.setState({
         clearGrid: false,
       });
     }
-    if (this.state.resetGrid) {
+    if (this.props.resetGrid) {
       this.clearGrids();
       this.setState({
         rows: 55,
@@ -117,12 +85,13 @@ export default class Grid extends Component {
       this.setState({
         grid: JSON.parse(JSON.stringify(saveGrid)),
       });
-      this.state.toggleReset();
+      this.props.toggleReset();
       this.setState({
         resetGrid: false,
       });
     }
   }
+
   copyAndResetGrid = () => {
     let saveGrid = JSON.parse(JSON.stringify(this.nextGrid));
 
@@ -135,6 +104,9 @@ export default class Grid extends Component {
       grid: saveGrid,
     });
   };
+
+  //-------GRID FUNCTIONS----------------
+
   countNeighbors = (row, col) => {
     let count = 0;
     if (row - 1 >= 0) {
@@ -179,6 +151,7 @@ export default class Grid extends Component {
       }
     }
   };
+
   play = () => {
     for (let i = 0; i < this.state.rows; i++) {
       for (let j = 0; j < this.state.cols; j++) {
@@ -190,7 +163,7 @@ export default class Grid extends Component {
 
   changeCellState = (row, col) => {
     let newGrid = JSON.parse(JSON.stringify(this.state.grid));
-    newGrid[row][col] = parseInt(this.state.curr_click_value);
+    newGrid[row][col] = parseInt(this.props.curr_click_value);
     this.setState({
       grid: JSON.parse(JSON.stringify(newGrid)),
     });
@@ -210,15 +183,15 @@ export default class Grid extends Component {
       grid: saveGrid,
     });
   };
-  changeGridRes = (value) => {
-    let valueInt = parseInt(value);
-    if (valueInt >= 9 && valueInt <= 99) {
+
+  setNewResGrid = (valueInt) => {
+    if (valueInt >= 1 && valueInt <= 400) {
       this.setState({
         rows: valueInt,
         cols: valueInt,
       });
-      if (this.state.isStart) {
-        this.state.toggleStart();
+      if (this.props.isStart) {
+        this.props.toggleStart();
       }
       let saveNotResizedGrid = JSON.parse(JSON.stringify(this.state.grid));
       let saveGrid = new Array(valueInt);
@@ -243,84 +216,41 @@ export default class Grid extends Component {
         cols: this.state.cols,
       });
     }
+  };
+
+  //-------CLICK FUNCTIONS----------------
+
+  changeGridRes = (value) => {
+    let valueInt = parseInt(value);
+    this.setNewResGrid(valueInt);
   };
   incGridRes = () => {
     let valueInt = this.state.rows + 1;
-    if (valueInt >= 9 && valueInt <= 99) {
-      this.setState({
-        rows: valueInt,
-        cols: valueInt,
-      });
-      if (this.state.isStart) {
-        this.state.toggleStart();
-      }
-      let saveNotResizedGrid = JSON.parse(JSON.stringify(this.state.grid));
-      let saveGrid = new Array(valueInt);
-      this.nextGrid = new Array(valueInt);
-      for (let i = 0; i < valueInt; i++) {
-        this.nextGrid[i] = new Array(valueInt);
-        saveGrid[i] = new Array(valueInt);
-      }
-      for (let i = 0; i < valueInt; i++) {
-        for (let j = 0; j < valueInt; j++) {
-          saveGrid[i][j] =
-            saveNotResizedGrid[i] !== undefined ? saveNotResizedGrid[i][j] : 0;
-          this.nextGrid[i][j] = 0;
-        }
-      }
-
-      this.setState({
-        grid: JSON.parse(JSON.stringify(saveGrid)),
-      });
-    } else {
-      this.setState({
-        rows: this.state.rows,
-        cols: this.state.cols,
-      });
-    }
+    this.setNewResGrid(valueInt);
   };
   decGridRes = () => {
     let valueInt = this.state.rows - 1;
-    if (valueInt >= 9 && valueInt <= 99) {
-      this.setState({
-        rows: valueInt,
-        cols: valueInt,
-      });
-      if (this.state.isStart) {
-        this.state.toggleStart();
-      }
-      let saveNotResizedGrid = JSON.parse(JSON.stringify(this.state.grid));
-      let saveGrid = new Array(valueInt);
-      this.nextGrid = new Array(valueInt);
-      for (let i = 0; i < valueInt; i++) {
-        this.nextGrid[i] = new Array(valueInt);
-        saveGrid[i] = new Array(valueInt);
-      }
-      for (let i = 0; i < valueInt; i++) {
-        for (let j = 0; j < valueInt; j++) {
-          saveGrid[i][j] =
-            saveNotResizedGrid[i] !== undefined ? saveNotResizedGrid[i][j] : 0;
-          this.nextGrid[i][j] = 0;
-        }
-      }
-      this.setState({
-        grid: JSON.parse(JSON.stringify(saveGrid)),
-      });
-    } else {
-      this.setState({
-        rows: this.state.rows,
-        cols: this.state.cols,
-      });
-    }
+    this.setNewResGrid(valueInt);
   };
+
+  //-------UPDATE CANVAS-------------------
+
+  updateGridFromCanvas = (x, y, curr) => {
+    let saveGrid = JSON.parse(JSON.stringify(this.state.grid));
+    saveGrid[x][y] = curr;
+    this.setState({
+      grid: JSON.parse(JSON.stringify(saveGrid)),
+    });
+  };
+
   render() {
     return (
       <div className="gridMainContainer">
         <div className="container-res">
           <input
             type="number"
-            min="9"
-            max="99"
+            min="1"
+            max="400"
             value={this.state.rows}
             onChange={(e) => {
               e.preventDefault();
@@ -331,8 +261,8 @@ export default class Grid extends Component {
           <p className="cross-res">x</p>
           <input
             type="number"
-            min="9"
-            max="99"
+            min="1"
+            max="400"
             value={this.state.cols}
             onChange={(e) => {
               e.preventDefault();
@@ -362,51 +292,15 @@ export default class Grid extends Component {
           </div>
         </div>
         <div id="gridContainer">
-          <table>
-            <tbody
-              style={{
-                gridTemplateRows: "repeat(" + this.state.rows + ", 1fr)",
-              }}
-            >
-              {this.state.grid.map((el, i) => {
-                return (
-                  <tr
-                    key={i}
-                    style={{
-                      gridTemplateColumns:
-                        "repeat(" + this.state.cols + ", 1fr)",
-                    }}
-                  >
-                    {el.map((inner_el, j) => {
-                      return (
-                        <td
-                          className={
-                            this.state.grid[i][j] === 0
-                              ? "empty"
-                              : this.state.grid[i][j] === 1
-                              ? "head"
-                              : this.state.grid[i][j] === 2
-                              ? "tail"
-                              : this.state.grid[i][j] === 3
-                              ? "conductor"
-                              : "empty"
-                          }
-                          id={i + "_" + j}
-                          key={i + "_" + j}
-                          onClick={() => this.changeCellState(i, j)}
-                          onMouseMove={
-                            this.state.mouseDown === 1
-                              ? () => this.changeCellState(i, j)
-                              : () => {}
-                          }
-                        ></td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <Canvas
+            curr_click_value={this.props.curr_click_value}
+            rows={this.state.rows}
+            cols={this.state.cols}
+            grid={this.state.grid}
+            updateGrid={this.updateGridFromCanvas}
+            mouseDown={this.props.mouseDown}
+            theme={this.props.theme}
+          ></Canvas>
         </div>
       </div>
     );

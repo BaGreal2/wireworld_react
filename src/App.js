@@ -17,7 +17,7 @@ function setTheme(themeName) {
   document.body.className = themeName;
 }
 
-(function () {
+(function() {
   if (localStorage.getItem("theme") === "theme-dark") {
     setTheme("theme-dark");
   } else {
@@ -30,7 +30,7 @@ function setLanguage(lang) {
   document.body.id = lang;
 }
 
-(function () {
+(function() {
   if (localStorage.getItem("language") === "ukr") {
     setLanguage("ukr");
   } else {
@@ -43,6 +43,7 @@ export default class App extends Component {
     super(props);
     this.state = {
       lang: localStorage.getItem("language"),
+      theme: localStorage.getItem("theme"),
     };
   }
   toggleLang = () => {
@@ -61,6 +62,9 @@ export default class App extends Component {
     } else {
       setTheme("theme-dark");
     }
+    this.setState({
+      theme: localStorage.getItem("theme"),
+    });
   };
   render() {
     return (
@@ -94,6 +98,7 @@ export default class App extends Component {
                 toggleLang={this.toggleLang}
                 toggleTheme={this.toggleTheme}
                 lang={this.state.lang}
+                theme={this.state.theme}
               />
             }
           />

@@ -3,7 +3,6 @@ import Topbar from "../Topbar/Topbar";
 import "./User Schemas.css";
 
 function SchemasPage(props) {
-  console.log(props);
   return (
     <>
       <Topbar
