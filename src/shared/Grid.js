@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Canvas } from "../Canvas";
-import "./style/Grid.css";
+import { Canvas } from "./Canvas";
+import "./Grid.css";
 
 export default class Grid extends Component {
   constructor(props) {
@@ -20,16 +20,6 @@ export default class Grid extends Component {
 
   componentDidMount() {
     window.addEventListener("beforeunload", () => {
-      localStorage.setItem("grid", JSON.stringify(this.state.grid));
-      localStorage.setItem("rows", JSON.stringify(this.state.rows));
-      localStorage.setItem("cols", JSON.stringify(this.state.cols));
-    });
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timer);
-    this.timer = 0;
-    window.removeEventListener("beforeunload", () => {
       localStorage.setItem("grid", JSON.stringify(this.state.grid));
       localStorage.setItem("rows", JSON.stringify(this.state.rows));
       localStorage.setItem("cols", JSON.stringify(this.state.cols));
@@ -87,6 +77,19 @@ export default class Grid extends Component {
     }
   }
 
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    this.timer = 0;
+    window.removeEventListener("beforeunload", () => {
+      localStorage.setItem("grid", JSON.stringify(this.state.grid));
+      localStorage.setItem("rows", JSON.stringify(this.state.rows));
+      localStorage.setItem("cols", JSON.stringify(this.state.cols));
+      localStorage.setItem("gridImg", JSON.stringify(this.state.grid));
+    });
+  }
+
+  //-------GRID FUNCTIONS----------------
+
   copyAndResetGrid = () => {
     let saveGrid = JSON.parse(JSON.stringify(this.nextGrid));
 
@@ -99,8 +102,6 @@ export default class Grid extends Component {
       grid: saveGrid,
     });
   };
-
-  //-------GRID FUNCTIONS----------------
 
   countNeighbors = (row, col) => {
     let count = 0;

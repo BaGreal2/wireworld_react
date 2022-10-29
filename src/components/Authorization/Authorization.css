@@ -85,3 +85,9 @@
   color: var(--color-accent);
   font-size: 12px;
 }
+
+.logout-btn {
+  position: absolute;
+  left: 20px;
+  top: 90%;
+}

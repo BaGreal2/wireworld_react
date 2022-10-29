@@ -7,6 +7,7 @@ function List(props) {
         return (
           <Schema
             key={schema.id}
+            id={schema.id}
             title={schema.title}
             description={schema.description}
             creator={schema.creator}

@@ -10,7 +10,9 @@ import "./App.css";
 
 import { MainPage } from "./components/MainPage";
 import { Registration, Login } from "./components/Authorization";
+import { PostPage } from "./components/PostPage";
 import { SchemasPage } from "./components/User Schemas";
+import { SchemaPage } from "./components/SchemaPage";
 
 function setTheme(themeName) {
   localStorage.setItem("theme", themeName);
@@ -103,6 +105,16 @@ export default class App extends Component {
             }
           />
           <Route
+            path="/post"
+            element={
+              <PostPage
+                toggleLang={this.toggleLang}
+                toggleTheme={this.toggleTheme}
+                lang={this.state.lang}
+              />
+            }
+          />
+          <Route
             path="/schemas"
             element={
               <SchemasPage
@@ -157,6 +169,7 @@ export default class App extends Component {
               />
             }
           />
+          <Route path="/schemas/:id" element={<SchemaPage />} />
           <Route path="*" element={<Navigate to="/main" replace />} />
         </Routes>
       </Router>

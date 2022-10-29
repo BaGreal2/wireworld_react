@@ -1,5 +1,5 @@
 import List from "./List";
-import Topbar from "../Topbar/Topbar";
+import { Topbar } from "../../shared";
 import "./styles/User Schemas.css";
 
 function SchemasPage(props) {

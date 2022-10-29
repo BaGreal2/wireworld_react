@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./style/Controls.css";
-import Button from "./Button";
-import Dropdown from "./Dropdown";
+import { Button } from "../../shared";
+import { Dropdown } from "../../shared";
+import PostSchema from "./PostSchema";
+import { Logout } from "../Authorization";
+
 import dictionary from "../../dictionary.json";
 
 export default class Controls extends Component {
@@ -32,6 +35,7 @@ export default class Controls extends Component {
   render() {
     return (
       <div className="controls">
+        <Logout text={this.state.dict.logout}></Logout>
         <Button
           id={"start"}
           classname={"main_buttons custom-btn"}
@@ -99,6 +103,7 @@ export default class Controls extends Component {
               : this.state.dict.medium
           }
         ></Dropdown>
+        <PostSchema text={this.state.dict.post}></PostSchema>
       </div>
     );
   }

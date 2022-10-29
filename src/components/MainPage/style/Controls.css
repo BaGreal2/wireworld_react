@@ -189,3 +189,9 @@ span {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+.post-btn {
+  position: absolute;
+  right: 16.5%;
+  top: 9.2%;
+}

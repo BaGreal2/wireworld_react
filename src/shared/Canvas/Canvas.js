@@ -33,6 +33,9 @@ export default class Canvas extends Component {
 
   componentDidMount() {
     this.ctx = this.canvasRef.getContext("2d");
+    window.addEventListener("beforeunload", () => {
+      localStorage.setItem("gridImg", this.canvasRef.toDataURL("png"));
+    });
     this.cellSize = this.canvasRef.width / this.props.rows;
     if (this.props.theme !== localStorage.getItem("theme")) {
       if (localStorage.getItem("theme") === "theme-dark") {
@@ -57,9 +60,19 @@ export default class Canvas extends Component {
         this.colors = this.lightColors;
       }
     }
+    // localStorage.setItem("grid", JSON.stringify(this.props.grid));
+    // localStorage.setItem("rows", JSON.stringify(this.props.rows));
+    // localStorage.setItem("cols", JSON.stringify(this.props.cols));
+    // localStorage.setItem("gridImg", this.canvasRef.toDataURL("png"));
 
     this.resetCanvas();
     this.updateView();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("beforeunload", () => {
+      localStorage.setItem("gridImg", this.canvasRef.toDataUrl("png"));
+    });
   }
 
   //-------CANVAS FUNCTIONS----------------

@@ -1,5 +1,3 @@
-import "./style/Controls.css";
-
 function Dropdown(props) {
   return (
     <>

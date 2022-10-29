@@ -1,9 +1,9 @@
 import "../../App.css";
 import React, { Component } from "react";
 
-import Grid from "./Grid";
+import { Grid } from "../../shared";
 import Controls from "./Controls";
-import Topbar from "../Topbar/Topbar";
+import { Topbar } from "../../shared";
 import dictionary from "../../dictionary.json";
 
 let rows = 55;
@@ -126,6 +126,9 @@ export default class MainPage extends Component {
       startLabel: this.state.dict.start,
     });
   };
+
+  gridBackup = (rows, cols, grid) => {};
+
   render() {
     return (
       <div>

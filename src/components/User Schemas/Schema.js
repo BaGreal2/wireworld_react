@@ -1,4 +1,5 @@
 import RaitingStars from "./RaitingStars";
+import { Link } from "react-router-dom";
 
 function Schema(props) {
   return (
@@ -8,7 +9,10 @@ function Schema(props) {
           <h2 className="schema-title">{props.title}</h2>
           <p className="schema-description">{props.description}</p>
         </div>
-        <button className="schema-load">▶</button>
+        {/* /schemas/:id */}
+        <Link to={"/schemas/" + props.id} style={{ textDecoration: "none" }}>
+          <button className="schema-load">▶</button>
+        </Link>
       </div>
       <div className="creator-rating">
         <p className="schema-creator">By: {props.creator}</p>

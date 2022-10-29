@@ -1,6 +1,6 @@
 .rating-wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 30%;
   margin-right: 20%;
@@ -10,6 +10,7 @@
 .stars-outer {
   position: relative;
   display: inline-block;
+  margin-right: 10px;
 }
 
 .stars-inner {
@@ -18,7 +19,6 @@
   left: 0;
   white-space: nowrap;
   overflow: hidden;
-  /* width: 0; */
 }
 
 .stars-outer::before {

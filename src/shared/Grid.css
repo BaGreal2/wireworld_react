@@ -9,7 +9,8 @@ table {
 #gridContainer {
   padding-bottom: 10px;
   width: 73vh;
-  height: 73vh;
+  /* height: 73vh; */
+  max-width: 98%;
   margin: auto auto;
 }
 tbody {

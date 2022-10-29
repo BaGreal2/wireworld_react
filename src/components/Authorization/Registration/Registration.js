@@ -1,22 +1,19 @@
 import React, { Component } from "react";
-import { Button } from "../../MainPage";
+import { Button } from "../../../shared";
 import { Link } from "react-router-dom";
-import Topbar from "../../Topbar/Topbar";
+import { Topbar } from "../../../shared";
 
 import "../Authorization.css";
 
 import dictionary from "../../../dictionary.json";
 
 export default class Registration extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      lang: props.lang,
-    };
+  constructor() {
+    super();
     if (localStorage.getItem("language") === "ukr") {
-      this.state.dict = dictionary.ukr;
+      this.state = { dict: dictionary.ukr };
     } else {
-      this.state.dict = dictionary.eng;
+      this.state = { dict: dictionary.eng };
     }
   }
 

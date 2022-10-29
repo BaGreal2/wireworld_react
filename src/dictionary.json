@@ -28,7 +28,11 @@
     "dont_have_acc": "Don't have an account?",
     "favourites": "Favourites",
     "public": "Public",
-    "my_schemas": "My Schemas"
+    "my_schemas": "My Schemas",
+    "logout": "Logout",
+    "post": "Post Schema",
+    "title": "Title",
+    "description": "Description"
   },
   "ukr": {
     "start": "Старт",
@@ -59,6 +63,10 @@
     "dont_have_acc": "Ще не зареєстровані?",
     "favourites": "Обрані",
     "public": "Публічні",
-    "my_schemas": "Мої Схеми"
+    "my_schemas": "Мої Схеми",
+    "logout": "Вийти",
+    "post": "Опублікувати",
+    "title": "Назва",
+    "description": "Опис"
   }
 }
