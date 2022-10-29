@@ -10,9 +10,11 @@ export default class Logout extends Component {
       <Link to="/login" className="auth-redirect-link">
         <Button
           id="logout"
-          classname={"main_buttons custom-btn logout-btn"}
+          classname={"custom-btn logout-btn"}
           text={this.props.text}
-        />
+        >
+          {this.props.children}
+        </Button>
       </Link>
     );
   }

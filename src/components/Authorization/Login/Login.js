@@ -71,7 +71,11 @@ export default class Login extends Component {
               </label>
             </div>
             <div className="auth-buttons">
-              <Link to="/main" style={{ textDecoration: "none" }}>
+              <Link
+                to="/main"
+                style={{ textDecoration: "none" }}
+                className="auth-link"
+              >
                 <Button
                   id="sign_in"
                   classname={"main_buttons custom-btn"}

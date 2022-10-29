@@ -138,6 +138,17 @@ export default class MainPage extends Component {
           needTitle={true}
           needLang={true}
         ></Topbar>
+        <Controls
+          onValueChange={this.changeClickValue}
+          onSpeedChange={this.changeClickSpeed}
+          curr_click_value={this.state.curr_click_value}
+          reproductionTime={this.state.speed}
+          toggleStart={this.toggleStart}
+          toggleClear={this.toggleClear}
+          toggleReset={this.toggleReset}
+          startLabel={this.state.startLabel}
+          lang={this.props.lang}
+        ></Controls>
         <Grid
           rows={rows}
           cols={cols}
@@ -154,17 +165,6 @@ export default class MainPage extends Component {
           toggleReset={this.toggleReset}
           theme={this.state.theme}
         ></Grid>
-        <Controls
-          onValueChange={this.changeClickValue}
-          onSpeedChange={this.changeClickSpeed}
-          curr_click_value={this.state.curr_click_value}
-          reproductionTime={this.state.speed}
-          toggleStart={this.toggleStart}
-          toggleClear={this.toggleClear}
-          toggleReset={this.toggleReset}
-          startLabel={this.state.startLabel}
-          lang={this.props.lang}
-        ></Controls>
       </div>
     );
   }

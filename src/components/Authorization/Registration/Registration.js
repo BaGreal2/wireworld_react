@@ -97,7 +97,11 @@ export default class Registration extends Component {
               </label>
             </div>
             <div className="auth-buttons">
-              <Link to="/main" style={{ textDecoration: "none" }}>
+              <Link
+                to="/main"
+                style={{ textDecoration: "none" }}
+                className="auth-link"
+              >
                 <Button
                   id="sign_up"
                   classname={"main_buttons custom-btn"}

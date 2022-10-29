@@ -5,6 +5,7 @@ import { Button } from "../../shared";
 import { Dropdown } from "../../shared";
 import PostSchema from "./PostSchema";
 import { Logout } from "../Authorization";
+import { ExitIcon, UploadIcon } from "../../svg";
 
 import dictionary from "../../dictionary.json";
 
@@ -35,7 +36,9 @@ export default class Controls extends Component {
   render() {
     return (
       <div className="controls">
-        <Logout text={this.state.dict.logout}></Logout>
+        <Logout text={""}>
+          <ExitIcon />
+        </Logout>
         <Button
           id={"start"}
           classname={"main_buttons custom-btn"}
@@ -103,7 +106,9 @@ export default class Controls extends Component {
               : this.state.dict.medium
           }
         ></Dropdown>
-        <PostSchema text={this.state.dict.post}></PostSchema>
+        <PostSchema text={""}>
+          <UploadIcon />
+        </PostSchema>
       </div>
     );
   }
