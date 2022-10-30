@@ -10,7 +10,6 @@ export default function ExitIconComp() {
         y="0px"
         viewBox="0 0 320.002 320.002"
         className="icon-svg"
-        // style="enable-background:new 0 0 320.002 320.002;"
         xmlSpace="preserve"
       >
         <g id="XMLID_6_">

@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import { Canvas } from "./Canvas";
+import PostSchema from "./PostSchema";
+import { UploadIcon } from "../svg";
+import { Logout } from "../components/Authorization";
+import { ExitIcon } from "../svg";
 import "./Grid.css";
 
 export default class Grid extends Component {
@@ -19,6 +23,7 @@ export default class Grid extends Component {
   //-------COMPONENT CHANGES----------------
 
   componentDidMount() {
+    this.childCanvas = React.createRef();
     window.addEventListener("beforeunload", () => {
       localStorage.setItem("grid", JSON.stringify(this.state.grid));
       localStorage.setItem("rows", JSON.stringify(this.state.rows));
@@ -84,7 +89,6 @@ export default class Grid extends Component {
       localStorage.setItem("grid", JSON.stringify(this.state.grid));
       localStorage.setItem("rows", JSON.stringify(this.state.rows));
       localStorage.setItem("cols", JSON.stringify(this.state.cols));
-      localStorage.setItem("gridImg", JSON.stringify(this.state.grid));
     });
   }
 
@@ -228,6 +232,39 @@ export default class Grid extends Component {
     let valueInt = this.state.rows - 1;
     this.setNewResGrid(valueInt);
   };
+  saveLocalGridScreen = () => {
+    let ctx = this.childCanvas.current.canvasRef;
+    localStorage.setItem("grid", JSON.stringify(this.state.grid));
+    localStorage.setItem("rows", JSON.stringify(this.state.rows));
+    localStorage.setItem("cols", JSON.stringify(this.state.cols));
+    localStorage.setItem("gridImg", ctx.toDataURL("png"));
+  };
+  clearLocalAll = () => {
+    this.clearGrids();
+    this.setState({
+      rows: 55,
+      cols: 55,
+    });
+    let saveGrid = new Array(55);
+    this.nextGrid = new Array(55);
+    for (let i = 0; i < 55; i++) {
+      this.nextGrid[i] = new Array(55);
+      saveGrid[i] = new Array(55);
+    }
+    for (let i = 0; i < 55; i++) {
+      for (let j = 0; j < 55; j++) {
+        saveGrid[i][j] = 0;
+        this.nextGrid[i][j] = 0;
+      }
+    }
+    this.setState({
+      grid: JSON.parse(JSON.stringify(saveGrid)),
+    });
+
+    localStorage.setItem("grid", JSON.stringify(saveGrid));
+    localStorage.setItem("rows", JSON.stringify(55));
+    localStorage.setItem("cols", JSON.stringify(55));
+  };
 
   //-------UPDATE CANVAS-------------------
 
@@ -287,6 +324,7 @@ export default class Grid extends Component {
             </button>
           </div>
         </div>
+
         <div id="gridContainer">
           <Canvas
             curr_click_value={this.props.curr_click_value}
@@ -296,7 +334,14 @@ export default class Grid extends Component {
             updateGrid={this.updateGridFromCanvas}
             mouseDown={this.props.mouseDown}
             theme={this.props.theme}
+            ref={this.childCanvas}
           ></Canvas>
+          <PostSchema onClick={this.saveLocalGridScreen} text={""}>
+            <UploadIcon />
+          </PostSchema>
+          <Logout onClick={this.clearLocalAll} text={""}>
+            <ExitIcon />
+          </Logout>
         </div>
       </div>
     );

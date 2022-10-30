@@ -12,6 +12,7 @@ export default class Logout extends Component {
           id="logout"
           classname={"custom-btn logout-btn"}
           text={this.props.text}
+          action={this.props.onClick}
         >
           {this.props.children}
         </Button>

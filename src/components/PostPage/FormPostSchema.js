@@ -39,7 +39,7 @@ export default function FormPostSchema(props) {
           <span className="ch-remain">{description_value}/90</span>
         </div>
         <Button
-          id="sign_in"
+          id="post_schema"
           classname={"main_buttons custom-btn"}
           text={props.post}
         />

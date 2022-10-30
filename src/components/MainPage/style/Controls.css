@@ -27,11 +27,13 @@ button {
 
 span {
   color: #222;
+  transition: 0.1s linear all;
 }
 
 .controls {
   width: 73vh;
   margin: auto auto;
+  margin-top: 50px;
   margin-bottom: 0;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -166,7 +168,7 @@ span {
 }
 
 .dropdown-content {
-  display: none;
+  display: flex;
   position: absolute;
   /* text-align: center; */
   flex-direction: column;
@@ -176,9 +178,12 @@ span {
   left: -15px;
   background-color: var(--color-primary-hue);
   min-width: 120px;
-  min-height: 200px;
+  height: 0;
+  /* min-height: 0px; */
+  overflow: hidden;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  transition: 0.4s ease all;
 }
 
 .dropdown-content button span {
@@ -201,26 +206,39 @@ span {
 
 .dropdown:hover .dropdown-content {
   display: flex;
+  height: 230px;
+  /* min-height: 200px; */
+  -prefix-animation: slide 1s ease 3.5s forwards;
 }
-
-.post-btn {
-  position: absolute;
-  right: 16.5%;
-  top: 9.2%;
+@-prefix-keyframes slide {
+  from {
+    height: 0;
+  }
+  to {
+    height: 200px;
+  }
 }
-
 .icon-svg {
   fill: var(--color-primary);
   display: block;
   width: 50%;
   margin: 0 auto;
+  transition: 0.1s linear all;
+}
+
+.post-link {
+  position: relative;
+  width: fit-content;
+  left: 75vh;
+  bottom: 76.2vh;
 }
 
 .post-btn {
+  position: relative;
   height: 50px;
   width: 50px;
-  border: 2px solid var(--color-accent);
-  background-color: var(--color-accent);
+  border: 2px solid var(--color-buttons);
+  background-color: var(--color-buttons);
   line-height: 42px;
   transition: 0.3s linear all;
   padding: 0;
@@ -229,5 +247,24 @@ span {
   background-color: var(--color-primary);
 }
 .post-btn:hover .icon-svg {
+  fill: var(--color-accent);
+}
+
+.logout-btn {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  border: 2px solid var(--color-buttons);
+  background-color: var(--color-buttons);
+  line-height: 42px;
+  transition: 0.3s linear all;
+  padding: 0;
+  left: 5vh;
+  bottom: 4vh;
+}
+.logout-btn:hover {
+  background-color: var(--color-primary);
+}
+.logout-btn:hover .icon-svg {
   fill: var(--color-accent);
 }

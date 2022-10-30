@@ -60,10 +60,6 @@ export default class Canvas extends Component {
         this.colors = this.lightColors;
       }
     }
-    // localStorage.setItem("grid", JSON.stringify(this.props.grid));
-    // localStorage.setItem("rows", JSON.stringify(this.props.rows));
-    // localStorage.setItem("cols", JSON.stringify(this.props.cols));
-    // localStorage.setItem("gridImg", this.canvasRef.toDataURL("png"));
 
     this.resetCanvas();
     this.updateView();

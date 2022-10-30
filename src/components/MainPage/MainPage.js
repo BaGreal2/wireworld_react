@@ -37,11 +37,33 @@ export default class MainPage extends Component {
       isStart: false,
       clearGrid: false,
       resetGrid: false,
+      rows: 55,
+      cols: 55,
       startLabel:
         localStorage.getItem("language") === "eng" ? "Start" : "Старт",
       theme: props.theme,
       dict: dictionary.eng,
     };
+    if (localStorage.getItem("rows")) {
+      this.state.rows = JSON.parse(localStorage.getItem("rows"));
+      this.state.cols = JSON.parse(localStorage.getItem("cols"));
+    }
+
+    if (localStorage.getItem("grid")) {
+      this.state.grid = JSON.parse(localStorage.getItem("grid"));
+    } else {
+      let saveGrid = new Array(this.state.rows);
+      for (let i = 0; i < this.state.rows; i++) {
+        saveGrid[i] = new Array(this.state.cols);
+      }
+
+      for (let i = 0; i < this.state.rows; i++) {
+        for (let j = 0; j < this.state.cols; j++) {
+          saveGrid[i][j] = 0;
+        }
+      }
+      this.state.grid = JSON.parse(JSON.stringify(saveGrid));
+    }
     if (localStorage.getItem("language") === "ukr") {
       this.state.startLabel =
         localStorage.getItem("language") === "eng" ? "Start" : "Старт";
@@ -78,6 +100,23 @@ export default class MainPage extends Component {
       this.setState({
         dict: dictionary.eng,
         startLabel: dictionary.eng.start,
+      });
+    }
+    if (
+      localStorage.getItem("rows") &&
+      this.state.rows !== JSON.parse(localStorage.getItem("rows"))
+    ) {
+      this.setState({
+        rows: JSON.parse(localStorage.getItem("rows")),
+        cols: JSON.parse(localStorage.getItem("cols")),
+      });
+    }
+    if (
+      localStorage.getItem("grid") &&
+      JSON.stringify(this.state.grid) !== localStorage.getItem("grid")
+    ) {
+      this.setState({
+        grid: JSON.parse(localStorage.getItem("grid")),
       });
     }
   }
@@ -150,10 +189,10 @@ export default class MainPage extends Component {
           lang={this.props.lang}
         ></Controls>
         <Grid
-          rows={rows}
-          cols={cols}
-          grid={grid}
-          nextGrid={grid}
+          rows={this.state.rows}
+          cols={this.state.cols}
+          grid={this.state.grid}
+          nextGrid={this.state.grid}
           curr_click_value={this.state.curr_click_value}
           reproductionTime={this.state.speed}
           mouseDown={this.state.mouseDown}

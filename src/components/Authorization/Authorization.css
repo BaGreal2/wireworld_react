@@ -89,23 +89,3 @@
   color: var(--color-accent);
   font-size: 12px;
 }
-
-.logout-btn {
-  position: absolute;
-  height: 50px;
-  width: 50px;
-  border: 2px solid var(--color-accent);
-  background-color: var(--color-accent);
-  line-height: 42px;
-  transition: 0.3s linear all;
-  padding: 0;
-
-  left: 20px;
-  top: 90%;
-}
-.logout-btn:hover {
-  background-color: var(--color-primary);
-}
-.logout-btn:hover .icon-svg {
-  fill: var(--color-accent);
-}
