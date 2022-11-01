@@ -1,3 +1,4 @@
+import React from "react";
 import RaitingStars from "./RaitingStars";
 import { Link } from "react-router-dom";
 
@@ -10,7 +11,11 @@ function Schema(props) {
           <p className="schema-description">{props.description}</p>
         </div>
         {/* /schemas/:id */}
-        <Link to={"/schemas/" + props.id} style={{ textDecoration: "none" }}>
+        <Link
+          to={"/schemas/" + props.id}
+          className="schema-load-link"
+          style={{ textDecoration: "none" }}
+        >
           <button className="schema-load">▶</button>
         </Link>
       </div>

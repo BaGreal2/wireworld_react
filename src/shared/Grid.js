@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { useBeforeunload } from "react-beforeunload";
 import { Canvas } from "./Canvas";
 import PostSchema from "./PostSchema";
 import { UploadIcon } from "../svg";
@@ -6,344 +7,285 @@ import { Logout } from "../components/Authorization";
 import { ExitIcon } from "../svg";
 import "./Grid.css";
 
-export default class Grid extends Component {
-  constructor(props) {
-    super(props);
+import { useDispatch } from "react-redux";
+import { authActions } from "../redux/auth";
 
-    this.state = {
-      rows: props.rows,
-      cols: props.cols,
-      grid: props.grid,
-    };
-
-    this.nextGrid = JSON.parse(JSON.stringify(this.state.grid));
-    this.timer = 0;
-  }
-
-  //-------COMPONENT CHANGES----------------
-
-  componentDidMount() {
-    this.childCanvas = React.createRef();
-    window.addEventListener("beforeunload", () => {
-      localStorage.setItem("grid", JSON.stringify(this.state.grid));
-      localStorage.setItem("rows", JSON.stringify(this.state.rows));
-      localStorage.setItem("cols", JSON.stringify(this.state.cols));
-    });
-  }
-
-  componentDidUpdate() {
-    if (this.state.reproductionTime !== this.props.reproductionTime) {
-      clearInterval(this.timer);
-      this.timer = 0;
-      this.timer = setInterval(this.play, this.props.reproductionTime);
-      this.setState({
-        reproductionTime: this.props.reproductionTime,
-      });
-    }
-
-    if (this.props.isStart && this.timer === 0) {
-      this.timer = setInterval(this.play, this.state.reproductionTime);
-    } else if (!this.props.isStart && this.timer !== 0) {
-      clearInterval(this.timer);
-      this.timer = 0;
-    }
-    if (this.props.clearGrid) {
-      this.clearGrids();
-      this.props.toggleClear();
-      this.setState({
-        clearGrid: false,
-      });
-    }
-    if (this.props.resetGrid) {
-      this.clearGrids();
-      this.setState({
-        rows: 55,
-        cols: 55,
-      });
-      let saveGrid = new Array(55);
-      this.nextGrid = new Array(55);
-      for (let i = 0; i < 55; i++) {
-        this.nextGrid[i] = new Array(55);
-        saveGrid[i] = new Array(55);
-      }
-      for (let i = 0; i < 55; i++) {
-        for (let j = 0; j < 55; j++) {
-          saveGrid[i][j] = 0;
-          this.nextGrid[i][j] = 0;
-        }
-      }
-      this.setState({
-        grid: JSON.parse(JSON.stringify(saveGrid)),
-      });
-      this.props.toggleReset();
-      this.setState({
-        resetGrid: false,
-      });
-    }
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timer);
-    this.timer = 0;
-    window.removeEventListener("beforeunload", () => {
-      localStorage.setItem("grid", JSON.stringify(this.state.grid));
-      localStorage.setItem("rows", JSON.stringify(this.state.rows));
-      localStorage.setItem("cols", JSON.stringify(this.state.cols));
-    });
-  }
+export default function Grid(props) {
+  const [size, setSize] = useState(props.size);
+  const [grid, setGrid] = useState(props.grid);
+  // eslint-disable-next-line no-unused-vars
+  const [clearGrid, setClearGrid] = useState(props.clearGrid);
+  // eslint-disable-next-line no-unused-vars
+  const [resetGrid, setResetGrid] = useState(props.resetGrid);
+  const nextGrid = useRef(JSON.parse(JSON.stringify(grid)));
+  const childCanvas = useRef(null);
+  const dispatch = useDispatch();
 
   //-------GRID FUNCTIONS----------------
 
-  copyAndResetGrid = () => {
-    let saveGrid = JSON.parse(JSON.stringify(this.nextGrid));
+  const copyAndResetGrid = () => {
+    let saveGrid = JSON.parse(JSON.stringify(nextGrid.current));
 
-    for (let i = 0; i < this.state.rows; i++) {
-      for (let j = 0; j < this.state.cols; j++) {
-        this.nextGrid[i][j] = 0;
+    for (let i = 0; i < size; i++) {
+      for (let j = 0; j < size; j++) {
+        nextGrid.current[i][j] = 0;
       }
     }
-    this.setState({
-      grid: saveGrid,
-    });
+    setGrid(JSON.parse(JSON.stringify(saveGrid)));
   };
 
-  countNeighbors = (row, col) => {
+  const countNeighbors = (row, col) => {
     let count = 0;
     if (row - 1 >= 0) {
-      if (this.state.grid[row - 1][col] === 1) count++;
+      if (grid[row - 1][col] === 1) count++;
     }
     if (row - 1 >= 0 && col - 1 >= 0) {
-      if (this.state.grid[row - 1][col - 1] === 1) count++;
+      if (grid[row - 1][col - 1] === 1) count++;
     }
-    if (row - 1 >= 0 && col + 1 < this.state.cols) {
-      if (this.state.grid[row - 1][col + 1] === 1) count++;
+    if (row - 1 >= 0 && col + 1 < size) {
+      if (grid[row - 1][col + 1] === 1) count++;
     }
     if (col - 1 >= 0) {
-      if (this.state.grid[row][col - 1] === 1) count++;
+      if (grid[row][col - 1] === 1) count++;
     }
-    if (col + 1 < this.state.cols) {
-      if (this.state.grid[row][col + 1] === 1) count++;
+    if (col + 1 < size) {
+      if (grid[row][col + 1] === 1) count++;
     }
-    if (row + 1 < this.state.rows) {
-      if (this.state.grid[row + 1][col] === 1) count++;
+    if (row + 1 < size) {
+      if (grid[row + 1][col] === 1) count++;
     }
-    if (row + 1 < this.state.rows && col - 1 >= 0) {
-      if (this.state.grid[row + 1][col - 1] === 1) count++;
+    if (row + 1 < size && col - 1 >= 0) {
+      if (grid[row + 1][col - 1] === 1) count++;
     }
-    if (row + 1 < this.state.rows && col + 1 < this.state.cols) {
-      if (this.state.grid[row + 1][col + 1] === 1) count++;
+    if (row + 1 < size && col + 1 < size) {
+      if (grid[row + 1][col + 1] === 1) count++;
     }
     return count;
   };
 
-  applyRules = (row, col) => {
-    let numNeighbors = this.countNeighbors(row, col);
+  const applyRules = (row, col) => {
+    let numNeighbors = countNeighbors(row, col);
 
-    if (this.state.grid[row][col] === 1) {
-      this.nextGrid[row][col] = 2;
-    } else if (this.state.grid[row][col] === 2) {
-      this.nextGrid[row][col] = 3;
-    } else if (this.state.grid[row][col] === 3) {
+    if (grid[row][col] === 1) {
+      nextGrid.current[row][col] = 2;
+    } else if (grid[row][col] === 2) {
+      nextGrid.current[row][col] = 3;
+    } else if (grid[row][col] === 3) {
       if (numNeighbors === 2 || numNeighbors === 1) {
-        this.nextGrid[row][col] = 1;
+        nextGrid.current[row][col] = 1;
       } else {
-        this.nextGrid[row][col] = 3;
+        nextGrid.current[row][col] = 3;
       }
     }
   };
 
-  play = () => {
-    for (let i = 0; i < this.state.rows; i++) {
-      for (let j = 0; j < this.state.cols; j++) {
-        this.applyRules(i, j);
+  const play = () => {
+    if (props.isStart) {
+      for (let i = 0; i < size; i++) {
+        for (let j = 0; j < size; j++) {
+          applyRules(i, j);
+        }
       }
+      copyAndResetGrid();
     }
-    this.copyAndResetGrid();
   };
 
-  changeCellState = (row, col) => {
-    let newGrid = JSON.parse(JSON.stringify(this.state.grid));
-    newGrid[row][col] = parseInt(this.props.curr_click_value);
-    this.setState({
-      grid: JSON.parse(JSON.stringify(newGrid)),
-    });
-    return;
-  };
-
-  clearGrids = () => {
-    let saveGrid = JSON.parse(JSON.stringify(this.state.grid));
-    for (let i = 0; i < this.state.rows; i++) {
-      for (let j = 0; j < this.state.cols; j++) {
+  const clearGrids = () => {
+    let saveGrid = JSON.parse(JSON.stringify(grid));
+    for (let i = 0; i < size; i++) {
+      for (let j = 0; j < size; j++) {
         saveGrid[i][j] = 0;
-        this.nextGrid[i][j] = 0;
+        nextGrid.current[i][j] = 0;
       }
     }
-
-    this.setState({
-      grid: saveGrid,
-    });
+    setGrid(JSON.parse(JSON.stringify(saveGrid)));
   };
 
-  setNewResGrid = (valueInt) => {
+  const setNewResGrid = (valueInt) => {
     if (valueInt >= 1 && valueInt <= 400) {
-      this.setState({
-        rows: valueInt,
-        cols: valueInt,
-      });
-      if (this.props.isStart) {
-        this.props.toggleStart();
+      setSize(valueInt);
+      if (props.isStart) {
+        props.toggleStart();
       }
-      let saveNotResizedGrid = JSON.parse(JSON.stringify(this.state.grid));
+      let saveNotResizedGrid = JSON.parse(JSON.stringify(grid));
       let saveGrid = new Array(valueInt);
-      this.nextGrid = new Array(valueInt);
       for (let i = 0; i < valueInt; i++) {
-        this.nextGrid[i] = new Array(valueInt);
+        nextGrid.current[i] = new Array(valueInt);
         saveGrid[i] = new Array(valueInt);
       }
       for (let i = 0; i < valueInt; i++) {
         for (let j = 0; j < valueInt; j++) {
           saveGrid[i][j] =
             saveNotResizedGrid[i] !== undefined ? saveNotResizedGrid[i][j] : 0;
-          this.nextGrid[i][j] = 0;
+          nextGrid.current[i][j] = 0;
         }
       }
-      this.setState({
-        grid: JSON.parse(JSON.stringify(saveGrid)),
-      });
+      setGrid(JSON.parse(JSON.stringify(saveGrid)));
     } else {
-      this.setState({
-        rows: this.state.rows,
-        cols: this.state.cols,
-      });
+      setSize(size);
     }
   };
 
   //-------CLICK FUNCTIONS----------------
 
-  changeGridRes = (value) => {
+  const changeGridRes = (value) => {
     let valueInt = parseInt(value);
-    this.setNewResGrid(valueInt);
+    setNewResGrid(valueInt);
   };
-  incGridRes = () => {
-    let valueInt = this.state.rows + 1;
-    this.setNewResGrid(valueInt);
+  const incGridRes = () => {
+    let valueInt = size + 1;
+    setNewResGrid(valueInt);
   };
-  decGridRes = () => {
-    let valueInt = this.state.rows - 1;
-    this.setNewResGrid(valueInt);
+  const decGridRes = () => {
+    let valueInt = size - 1;
+    setNewResGrid(valueInt);
   };
-  saveLocalGridScreen = () => {
-    let ctx = this.childCanvas.current.canvasRef;
-    localStorage.setItem("grid", JSON.stringify(this.state.grid));
-    localStorage.setItem("rows", JSON.stringify(this.state.rows));
-    localStorage.setItem("cols", JSON.stringify(this.state.cols));
+  const saveLocalGridScreen = () => {
+    let ctx = childCanvas.current;
+    localStorage.setItem("grid", JSON.stringify(grid));
+    localStorage.setItem("size", JSON.stringify(size));
     localStorage.setItem("gridImg", ctx.toDataURL("png"));
   };
-  clearLocalAll = () => {
-    this.clearGrids();
-    this.setState({
-      rows: 55,
-      cols: 55,
-    });
+  const clearLocalAll = () => {
+    clearGrids();
+    setSize(55);
     let saveGrid = new Array(55);
-    this.nextGrid = new Array(55);
     for (let i = 0; i < 55; i++) {
-      this.nextGrid[i] = new Array(55);
+      nextGrid.current[i] = new Array(55);
       saveGrid[i] = new Array(55);
     }
     for (let i = 0; i < 55; i++) {
       for (let j = 0; j < 55; j++) {
         saveGrid[i][j] = 0;
-        this.nextGrid[i][j] = 0;
+        nextGrid.current[i][j] = 0;
       }
     }
-    this.setState({
-      grid: JSON.parse(JSON.stringify(saveGrid)),
-    });
+    setGrid(JSON.parse(JSON.stringify(saveGrid)));
 
     localStorage.setItem("grid", JSON.stringify(saveGrid));
-    localStorage.setItem("rows", JSON.stringify(55));
-    localStorage.setItem("cols", JSON.stringify(55));
+    localStorage.setItem("size", JSON.stringify(55));
+    dispatch(authActions.logout());
   };
 
   //-------UPDATE CANVAS-------------------
 
-  updateGridFromCanvas = (x, y, curr) => {
-    let saveGrid = JSON.parse(JSON.stringify(this.state.grid));
+  const updateGridFromCanvas = (x, y, curr) => {
+    let saveGrid = JSON.parse(JSON.stringify(grid));
     saveGrid[x][y] = curr;
-    this.setState({
-      grid: JSON.parse(JSON.stringify(saveGrid)),
-    });
+    setGrid(JSON.parse(JSON.stringify(saveGrid)));
   };
 
-  render() {
-    return (
-      <div className="gridMainContainer">
-        <div className="container-res">
-          <input
-            type="number"
-            min="1"
-            max="400"
-            value={this.state.rows}
-            onChange={(e) => {
-              e.preventDefault();
-              this.changeGridRes(e.target.value);
-            }}
-            className="input-resolution"
-          ></input>
-          <p className="cross-res">x</p>
-          <input
-            type="number"
-            min="1"
-            max="400"
-            value={this.state.cols}
-            onChange={(e) => {
-              e.preventDefault();
-              this.changeGridRes(e.target.value);
-            }}
-            className="input-resolution"
-          ></input>
-          <div className="inc-container">
-            <button
-              name="inc"
-              className="inc-buttons"
-              onClick={() => {
-                this.incGridRes();
-              }}
-            >
-              ⬆
-            </button>
-            <button
-              name="dcm"
-              className="inc-buttons"
-              onClick={() => {
-                this.decGridRes();
-              }}
-            >
-              ⬇
-            </button>
-          </div>
-        </div>
+  //-------COMPONENT CHANGES----------------
 
-        <div id="gridContainer">
-          <Canvas
-            curr_click_value={this.props.curr_click_value}
-            rows={this.state.rows}
-            cols={this.state.cols}
-            grid={this.state.grid}
-            updateGrid={this.updateGridFromCanvas}
-            mouseDown={this.props.mouseDown}
-            theme={this.props.theme}
-            ref={this.childCanvas}
-          ></Canvas>
-          <PostSchema onClick={this.saveLocalGridScreen} text={""}>
-            <UploadIcon />
-          </PostSchema>
-          <Logout onClick={this.clearLocalAll} text={""}>
-            <ExitIcon />
-          </Logout>
+  useBeforeunload((e) => {
+    localStorage.setItem("grid", JSON.stringify(grid));
+    localStorage.setItem("size", JSON.stringify(size));
+  });
+
+  useEffect(() => {
+    const timer = setInterval(play, props.reproductionTime);
+
+    if (props.clearGrid) {
+      clearGrids();
+      props.toggleClear();
+      setClearGrid(false);
+    }
+
+    if (props.resetGrid) {
+      clearGrids();
+      setSize(55);
+      let saveGrid = new Array(55);
+      for (let i = 0; i < 55; i++) {
+        nextGrid.current[i] = new Array(55);
+        saveGrid[i] = new Array(55);
+      }
+      for (let i = 0; i < 55; i++) {
+        for (let j = 0; j < 55; j++) {
+          saveGrid[i][j] = 0;
+          nextGrid.current[i][j] = 0;
+        }
+      }
+      setGrid(JSON.parse(JSON.stringify(saveGrid)));
+      props.toggleReset();
+      setResetGrid(false);
+    }
+
+    return () => {
+      clearInterval(timer);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    props.resetGrid,
+    props.clearGrid,
+    props.isStart,
+    props.reproductionTime,
+    grid,
+  ]);
+
+  return (
+    <div className="gridMainContainer">
+      <div className="container-res">
+        <input
+          type="number"
+          min="1"
+          max="400"
+          value={size}
+          onChange={(e) => {
+            e.preventDefault();
+            changeGridRes(e.target.value);
+          }}
+          className="input-resolution"
+        ></input>
+        <p className="cross-res">x</p>
+        <input
+          type="number"
+          min="1"
+          max="400"
+          value={size}
+          onChange={(e) => {
+            e.preventDefault();
+            changeGridRes(e.target.value);
+          }}
+          className="input-resolution"
+        ></input>
+        <div className="inc-container">
+          <button
+            name="inc"
+            className="inc-buttons"
+            onClick={() => {
+              incGridRes();
+            }}
+          >
+            ⬆
+          </button>
+          <button
+            name="dcm"
+            className="inc-buttons"
+            onClick={() => {
+              decGridRes();
+            }}
+          >
+            ⬇
+          </button>
         </div>
       </div>
-    );
-  }
+
+      <div id="gridContainer">
+        <Canvas
+          curr_click_value={props.curr_click_value}
+          size={size}
+          grid={grid}
+          updateGrid={updateGridFromCanvas}
+          theme={props.theme}
+          forwardedRef={childCanvas}
+        ></Canvas>
+        <PostSchema onClick={saveLocalGridScreen} text={""}>
+          <UploadIcon />
+        </PostSchema>
+        <Logout onClick={clearLocalAll} text={""}>
+          <ExitIcon />
+        </Logout>
+      </div>
+    </div>
+  );
 }

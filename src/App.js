@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -8,11 +8,14 @@ import {
 
 import "./App.css";
 
+import * as AuthGate from "./config/AuthGate";
 import { MainPage } from "./components/MainPage";
 import { Registration, Login } from "./components/Authorization";
 import { PostPage } from "./components/PostPage";
 import { SchemasPage } from "./components/User Schemas";
 import { SchemaPage } from "./components/SchemaPage";
+
+import "./config/axios";
 
 function setTheme(themeName) {
   localStorage.setItem("theme", themeName);
@@ -40,86 +43,86 @@ function setLanguage(lang) {
   }
 })();
 
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      lang: localStorage.getItem("language"),
-      theme: localStorage.getItem("theme"),
-    };
-  }
-  toggleLang = () => {
+export default function App() {
+  const [lang, setLangState] = useState(localStorage.getItem("language"));
+  const [theme, setThemeState] = useState(localStorage.getItem("theme"));
+
+  const toggleLang = () => {
     if (localStorage.getItem("language") === "ukr") {
       setLanguage("eng");
     } else {
       setLanguage("ukr");
     }
-    this.setState({
-      lang: localStorage.getItem("language"),
-    });
+    setLangState(localStorage.getItem("language"));
   };
-  toggleTheme = () => {
+  const toggleTheme = () => {
     if (localStorage.getItem("theme") === "theme-dark") {
       setTheme("theme-light");
     } else {
       setTheme("theme-dark");
     }
-    this.setState({
-      theme: localStorage.getItem("theme"),
-    });
+    setThemeState(localStorage.getItem("theme"));
   };
-  render() {
-    return (
-      <Router>
-        <Routes>
-          <Route exact path="/" element={<Navigate to="/registration" />} />
-          <Route
-            path="/registration"
-            element={
+  return (
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<Navigate to="/login" />} />
+        <Route
+          path="/registration"
+          element={
+            <AuthGate.PublicOnly>
               <Registration
-                toggleLang={this.toggleLang}
-                toggleTheme={this.toggleTheme}
-                lang={this.state.lang}
+                toggleLang={toggleLang}
+                toggleTheme={toggleTheme}
+                lang={lang}
               />
-            }
-          />
-          <Route
-            path="/login"
-            element={
+            </AuthGate.PublicOnly>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <AuthGate.PublicOnly>
               <Login
-                toggleLang={this.toggleLang}
-                toggleTheme={this.toggleTheme}
-                lang={this.state.lang}
+                toggleLang={toggleLang}
+                toggleTheme={toggleTheme}
+                lang={lang}
               />
-            }
-          />
-          <Route
-            path="/main"
-            element={
+            </AuthGate.PublicOnly>
+          }
+        />
+        <Route
+          path="/main"
+          element={
+            <AuthGate.AuthRequired>
               <MainPage
-                toggleLang={this.toggleLang}
-                toggleTheme={this.toggleTheme}
-                lang={this.state.lang}
-                theme={this.state.theme}
+                toggleLang={toggleLang}
+                toggleTheme={toggleTheme}
+                lang={lang}
+                theme={theme}
               />
-            }
-          />
-          <Route
-            path="/post"
-            element={
+            </AuthGate.AuthRequired>
+          }
+        />
+        <Route
+          path="/post"
+          element={
+            <AuthGate.AuthRequired>
               <PostPage
-                toggleLang={this.toggleLang}
-                toggleTheme={this.toggleTheme}
-                lang={this.state.lang}
+                toggleLang={toggleLang}
+                toggleTheme={toggleTheme}
+                lang={lang}
               />
-            }
-          />
-          <Route
-            path="/schemas"
-            element={
+            </AuthGate.AuthRequired>
+          }
+        />
+        <Route
+          path="/schemas"
+          element={
+            <AuthGate.AuthRequired>
               <SchemasPage
-                toggleLang={this.toggleLang}
-                toggleTheme={this.toggleTheme}
+                toggleLang={toggleLang}
+                toggleTheme={toggleTheme}
                 schemas={[
                   {
                     id: 1,
@@ -165,14 +168,14 @@ export default class App extends Component {
                     rating: 2.8,
                   },
                 ]}
-                lang={this.state.lang}
+                lang={lang}
               />
-            }
-          />
-          <Route path="/schemas/:id" element={<SchemaPage />} />
-          <Route path="*" element={<Navigate to="/main" replace />} />
-        </Routes>
-      </Router>
-    );
-  }
+            </AuthGate.AuthRequired>
+          }
+        />
+        <Route path="/schemas/:id" element={<SchemaPage />} />
+        <Route path="*" element={<Navigate to="/main" replace />} />
+      </Routes>
+    </Router>
+  );
 }

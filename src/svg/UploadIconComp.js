@@ -1,4 +1,6 @@
-export default function ExitIconComp() {
+import React from "react";
+
+export default function UploadIconComp() {
   return (
     <>
       <svg

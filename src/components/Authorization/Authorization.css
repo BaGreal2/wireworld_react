@@ -80,10 +80,8 @@
 #sign_up,
 #sign_in {
   margin-bottom: 15px;
-  width: 100%;
-}
-.auth-link {
   width: 150px;
+  height: 40px;
 }
 #redirect {
   color: var(--color-accent);

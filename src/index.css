@@ -47,9 +47,9 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* padding-top: 45px; */
   min-height: 100vh;
   -webkit-tap-highlight-color: transparent;
+  touch-action: none;
 }
 
 input[type="number"] {

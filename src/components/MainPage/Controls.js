@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./style/Controls.css";
 import { Button } from "../../shared";
@@ -6,104 +6,94 @@ import { Dropdown } from "../../shared";
 
 import dictionary from "../../dictionary.json";
 
-export default class Controls extends Component {
-  constructor(props) {
-    super(props);
-
+export default function Controls(props) {
+  let [dict, setDict] = useState(() => {
     if (localStorage.getItem("language") === "ukr") {
-      this.state = { dict: dictionary.ukr };
+      return dictionary.ukr;
     } else {
-      this.state = { dict: dictionary.eng };
+      return dictionary.eng;
     }
-  }
-  componentDidUpdate() {
-    if (this.props.lang === "ukr" && this.state.dict !== dictionary.ukr) {
-      this.setState({
-        dict: dictionary.ukr,
-      });
-    } else if (
-      this.props.lang === "eng" &&
-      this.state.dict !== dictionary.eng
-    ) {
-      this.setState({
-        dict: dictionary.eng,
-      });
+  });
+
+  //-------COMPONENT CHANGES----------------
+
+  useEffect(() => {
+    if (props.lang === "ukr" && dict !== dictionary.ukr) {
+      setDict(dictionary.ukr);
+    } else if (props.lang === "eng" && dict !== dictionary.eng) {
+      setDict(dictionary.eng);
     }
-  }
-  render() {
-    return (
-      <div className="controls">
+  }, [props.lang, dict]);
+
+  return (
+    <div className="controls">
+      <Button
+        id={"start"}
+        classname={"main_buttons custom-btn"}
+        text={props.startLabel}
+        action={props.toggleStart}
+      ></Button>
+      <Button
+        id={"clear"}
+        classname={"main_buttons custom-btn"}
+        text={dict.clear}
+        action={props.toggleClear}
+      ></Button>
+      <Button
+        id={"reset"}
+        classname={"main_buttons custom-btn"}
+        text={dict.reset}
+        action={props.toggleReset}
+      ></Button>
+      <Link to="/schemas" style={{ textDecoration: "none" }}>
         <Button
-          id={"start"}
+          id={"usr_levels"}
           classname={"main_buttons custom-btn"}
-          text={this.props.startLabel}
-          action={this.props.toggleStart}
+          text={dict.user_levels}
         ></Button>
-        <Button
-          id={"clear"}
-          classname={"main_buttons custom-btn"}
-          text={this.state.dict.clear}
-          action={this.props.toggleClear}
-        ></Button>
-        <Button
-          id={"reset"}
-          classname={"main_buttons custom-btn"}
-          text={this.state.dict.reset}
-          action={this.props.toggleReset}
-        ></Button>
-        <Link to="/schemas" style={{ textDecoration: "none" }}>
-          <Button
-            id={"usr_levels"}
-            classname={"main_buttons custom-btn"}
-            text={this.state.dict.user_levels}
-          ></Button>
-        </Link>
-        <Dropdown
-          title={this.state.dict.pick_item}
-          content={[
-            { id: "empty", value: "0", text: this.state.dict.empty },
-            { id: "head", value: "1", text: this.state.dict.head },
-            { id: "tail", value: "2", text: this.state.dict.tail },
-            { id: "conductor", value: "3", text: this.state.dict.conductor },
-          ]}
-          onItemChange={this.props.onValueChange}
-          selected={
-            parseInt(this.props.curr_click_value) === 0
-              ? this.state.dict.empty
-              : parseInt(this.props.curr_click_value) === 1
-              ? this.state.dict.head
-              : parseInt(this.props.curr_click_value) === 2
-              ? this.state.dict.tail
-              : parseInt(this.props.curr_click_value) === 3
-              ? this.state.dict.conductor
-              : this.state.dict.conductor
-          }
-        ></Dropdown>
-        <Dropdown
-          title={this.state.dict.pick_speed}
-          content={[
-            { id: "empty", value: "210", text: this.state.dict.slow },
-            { id: "head", value: "100", text: this.state.dict.medium },
-            { id: "tail", value: "30", text: this.state.dict.fast },
-            { id: "conductor", value: "10", text: this.state.dict.unlimited },
-          ]}
-          onItemChange={this.props.onSpeedChange}
-          selected={
-            parseInt(this.props.reproductionTime) === 210
-              ? this.state.dict.slow
-              : parseInt(this.props.reproductionTime) === 100
-              ? this.state.dict.medium
-              : parseInt(this.props.reproductionTime) === 30
-              ? this.state.dict.fast
-              : parseInt(this.props.reproductionTime) === 10
-              ? this.state.dict.unlimited
-              : this.state.dict.medium
-          }
-        ></Dropdown>
-        {/* <PostSchema text={""}>
-          <UploadIcon />
-        </PostSchema> */}
-      </div>
-    );
-  }
+      </Link>
+      <Dropdown
+        title={dict.pick_item}
+        content={[
+          { id: "empty", value: "0", text: dict.empty },
+          { id: "head", value: "1", text: dict.head },
+          { id: "tail", value: "2", text: dict.tail },
+          { id: "conductor", value: "3", text: dict.conductor },
+        ]}
+        onItemChange={props.onValueChange}
+        selected={
+          parseInt(props.curr_click_value) === 0
+            ? dict.empty
+            : parseInt(props.curr_click_value) === 1
+            ? dict.head
+            : parseInt(props.curr_click_value) === 2
+            ? dict.tail
+            : parseInt(props.curr_click_value) === 3
+            ? dict.conductor
+            : dict.conductor
+        }
+      ></Dropdown>
+      <Dropdown
+        title={dict.pick_speed}
+        content={[
+          { id: "empty", value: "210", text: dict.slow },
+          { id: "head", value: "100", text: dict.medium },
+          { id: "tail", value: "30", text: dict.fast },
+          { id: "conductor", value: "10", text: dict.unlimited },
+        ]}
+        onItemChange={props.onSpeedChange}
+        selected={
+          parseInt(props.reproductionTime) === 210
+            ? dict.slow
+            : parseInt(props.reproductionTime) === 100
+            ? dict.medium
+            : parseInt(props.reproductionTime) === 30
+            ? dict.fast
+            : parseInt(props.reproductionTime) === 10
+            ? dict.unlimited
+            : dict.medium
+        }
+      ></Dropdown>
+    </div>
+  );
 }

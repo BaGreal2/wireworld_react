@@ -1,210 +1,128 @@
 import "../../App.css";
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Grid } from "../../shared";
 import Controls from "./Controls";
 import { Topbar } from "../../shared";
 import dictionary from "../../dictionary.json";
 
-let rows = 55;
-let cols = 55;
-if (localStorage.getItem("rows") && localStorage.getItem("cols")) {
-  rows = JSON.parse(localStorage.getItem("rows"));
-  cols = JSON.parse(localStorage.getItem("cols"));
-}
-let grid = new Array(rows);
-if (localStorage.getItem("grid")) {
-  grid = JSON.parse(localStorage.getItem("grid"));
-} else {
-  for (let i = 0; i < rows; i++) {
-    grid[i] = new Array(cols);
-  }
-
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      grid[i][j] = 0;
-    }
-  }
-}
-
-export default class MainPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      curr_click_value: 3,
-      speed: 100,
-      mouseDown: 0,
-      isStart: false,
-      clearGrid: false,
-      resetGrid: false,
-      rows: 55,
-      cols: 55,
-      startLabel:
-        localStorage.getItem("language") === "eng" ? "Start" : "Старт",
-      theme: props.theme,
-      dict: dictionary.eng,
-    };
-    if (localStorage.getItem("rows")) {
-      this.state.rows = JSON.parse(localStorage.getItem("rows"));
-      this.state.cols = JSON.parse(localStorage.getItem("cols"));
-    }
-
+export default function MainPage({ toggleLang, toggleTheme, lang, theme }) {
+  const [curr_click_value, setCurr_click_value] = useState(3);
+  const [speed, setSpeed] = useState(100);
+  const [isStart, setIsStart] = useState(false);
+  const [clearGrid, setClearGrid] = useState(false);
+  const [resetGrid, setResetGrid] = useState(false);
+  const [dict, setDict] = useState(dictionary.eng);
+  const [startLabel, setStartLabel] = useState(() => {
+    return localStorage.getItem("language") === "eng" ? "Start" : "Старт";
+  });
+  const [size, setSize] = useState(() => {
+    return localStorage.getItem("size")
+      ? JSON.parse(localStorage.getItem("size"))
+      : 55;
+  });
+  const [grid, setGrid] = useState(() => {
     if (localStorage.getItem("grid")) {
-      this.state.grid = JSON.parse(localStorage.getItem("grid"));
+      return JSON.parse(localStorage.getItem("grid"));
     } else {
-      let saveGrid = new Array(this.state.rows);
-      for (let i = 0; i < this.state.rows; i++) {
-        saveGrid[i] = new Array(this.state.cols);
+      let saveGrid = new Array(size);
+      for (let i = 0; i < size; i++) {
+        saveGrid[i] = new Array(size);
       }
 
-      for (let i = 0; i < this.state.rows; i++) {
-        for (let j = 0; j < this.state.cols; j++) {
+      for (let i = 0; i < size; i++) {
+        for (let j = 0; j < size; j++) {
           saveGrid[i][j] = 0;
         }
       }
-      this.state.grid = JSON.parse(JSON.stringify(saveGrid));
+      return JSON.parse(JSON.stringify(saveGrid));
     }
-    if (localStorage.getItem("language") === "ukr") {
-      this.state.startLabel =
-        localStorage.getItem("language") === "eng" ? "Start" : "Старт";
+  });
+
+  useEffect(() => {
+    if (lang === "ukr" && dict !== dictionary.ukr) {
+      setDict(dictionary.ukr);
+      setStartLabel(dictionary.ukr.start);
+    } else if (lang === "eng" && dict !== dictionary.eng) {
+      setDict(dictionary.eng);
+      setStartLabel(dictionary.eng.start);
     }
 
-    document.body.onmousedown = () => {
-      let updatedMouseDown = this.state.mouseDown + 1;
-      this.setState({
-        mouseDown: updatedMouseDown,
-      });
-    };
-    document.body.onmouseup = () => {
-      let updatedMouseDown = this.state.mouseDown - 1;
-      this.setState({
-        mouseDown: updatedMouseDown,
-      });
-    };
-  }
-  componentDidUpdate() {
-    if (this.state.theme !== this.props.theme) {
-      this.setState({
-        theme: this.props.theme,
-      });
-    }
-    if (this.props.lang === "ukr" && this.state.dict !== dictionary.ukr) {
-      this.setState({
-        dict: dictionary.ukr,
-        startLabel: dictionary.ukr.start,
-      });
-    } else if (
-      this.props.lang === "eng" &&
-      this.state.dict !== dictionary.eng
-    ) {
-      this.setState({
-        dict: dictionary.eng,
-        startLabel: dictionary.eng.start,
-      });
-    }
     if (
-      localStorage.getItem("rows") &&
-      this.state.rows !== JSON.parse(localStorage.getItem("rows"))
+      localStorage.getItem("size") &&
+      size !== JSON.parse(localStorage.getItem("size"))
     ) {
-      this.setState({
-        rows: JSON.parse(localStorage.getItem("rows")),
-        cols: JSON.parse(localStorage.getItem("cols")),
-      });
+      setSize(JSON.parse(localStorage.getItem("size")));
     }
+
     if (
       localStorage.getItem("grid") &&
-      JSON.stringify(this.state.grid) !== localStorage.getItem("grid")
+      JSON.stringify(grid) !== localStorage.getItem("grid")
     ) {
-      this.setState({
-        grid: JSON.parse(localStorage.getItem("grid")),
-      });
+      setGrid(JSON.parse(localStorage.getItem("grid")));
     }
-  }
-  changeClickSpeed = (value) => {
-    this.setState({
-      speed: value,
-    });
+  }, [lang, dict, size, grid]);
+  const changeClickSpeed = (value) => {
+    setSpeed(value);
   };
-  changeClickValue = (value) => {
-    this.setState({
-      curr_click_value: value,
-    });
+  const changeClickValue = (value) => {
+    setCurr_click_value(value);
   };
-  toggleStart = () => {
-    this.setState({
-      isStart: !this.state.isStart,
-    });
-    this.changeStartLabel();
+  const toggleStart = () => {
+    setIsStart(!isStart);
+    changeStartLabel();
   };
-  changeStartLabel = () => {
-    if (this.state.isStart) {
-      this.setState({
-        startLabel: this.state.dict.continue,
-      });
+  const changeStartLabel = () => {
+    if (isStart) {
+      setStartLabel(dict.continue);
     } else {
-      this.setState({
-        startLabel: this.state.dict.pause,
-      });
+      setStartLabel(dict.pause);
     }
   };
-  toggleClear = () => {
-    this.setState({
-      isStart: false,
-      clearGrid: !this.state.clearGrid,
-    });
-    this.setState({
-      startLabel: this.state.dict.start,
-    });
+  const toggleClear = () => {
+    setIsStart(false);
+    setClearGrid(!clearGrid);
+    setStartLabel(dict.start);
   };
-  toggleReset = () => {
-    this.setState({
-      isStart: false,
-      resetGrid: !this.state.resetGrid,
-    });
-    this.setState({
-      startLabel: this.state.dict.start,
-    });
+  const toggleReset = () => {
+    setIsStart(false);
+    setResetGrid(!resetGrid);
+    setStartLabel(dict.start);
   };
 
-  gridBackup = (rows, cols, grid) => {};
-
-  render() {
-    return (
-      <div>
-        <Topbar
-          theme_func={this.props.toggleTheme}
-          lang_func={this.props.toggleLang}
-          needTitle={true}
-          needLang={true}
-        ></Topbar>
-        <Controls
-          onValueChange={this.changeClickValue}
-          onSpeedChange={this.changeClickSpeed}
-          curr_click_value={this.state.curr_click_value}
-          reproductionTime={this.state.speed}
-          toggleStart={this.toggleStart}
-          toggleClear={this.toggleClear}
-          toggleReset={this.toggleReset}
-          startLabel={this.state.startLabel}
-          lang={this.props.lang}
-        ></Controls>
-        <Grid
-          rows={this.state.rows}
-          cols={this.state.cols}
-          grid={this.state.grid}
-          nextGrid={this.state.grid}
-          curr_click_value={this.state.curr_click_value}
-          reproductionTime={this.state.speed}
-          mouseDown={this.state.mouseDown}
-          isStart={this.state.isStart}
-          clearGrid={this.state.clearGrid}
-          resetGrid={this.state.resetGrid}
-          toggleStart={this.toggleStart}
-          toggleClear={this.toggleClear}
-          toggleReset={this.toggleReset}
-          theme={this.state.theme}
-        ></Grid>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Topbar
+        theme_func={toggleTheme}
+        lang_func={toggleLang}
+        needTitle={true}
+        needLang={true}
+      ></Topbar>
+      <Controls
+        onValueChange={changeClickValue}
+        onSpeedChange={changeClickSpeed}
+        curr_click_value={curr_click_value}
+        reproductionTime={speed}
+        toggleStart={toggleStart}
+        toggleClear={toggleClear}
+        toggleReset={toggleReset}
+        startLabel={startLabel}
+        lang={lang}
+      ></Controls>
+      <Grid
+        size={size}
+        grid={grid}
+        nextGrid={grid}
+        curr_click_value={curr_click_value}
+        reproductionTime={speed}
+        isStart={isStart}
+        clearGrid={clearGrid}
+        resetGrid={resetGrid}
+        toggleStart={toggleStart}
+        toggleClear={toggleClear}
+        toggleReset={toggleReset}
+        theme={theme}
+      ></Grid>
+    </div>
+  );
 }

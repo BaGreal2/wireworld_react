@@ -1,3 +1,4 @@
+import React from "react";
 import Schema from "./Schema";
 
 function List(props) {
