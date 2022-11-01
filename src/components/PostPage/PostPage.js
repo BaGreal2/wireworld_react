@@ -1,4 +1,7 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Alert } from "../../shared/Alert";
+import { useNavigate } from "react-router-dom";
 import { Topbar } from "../../shared";
 import FormPostSchema from "./FormPostSchema";
 
@@ -7,6 +10,10 @@ import "./PostPage.css";
 import dictionary from "../../dictionary.json";
 
 export default function PostPage({ toggleLang, toggleTheme, lang }) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  let navigate = useNavigate();
+
   let [dict, setDict] = useState(() => {
     if (localStorage.getItem("language") === "ukr") {
       return dictionary.ukr;
@@ -14,6 +21,35 @@ export default function PostPage({ toggleLang, toggleTheme, lang }) {
       return dictionary.eng;
     }
   });
+
+  function createSchema(data) {
+    data.preventDefault();
+    setLoading(true);
+    let title = data.target[0].value;
+    let description = data.target[1].value;
+    data = {
+      title,
+      description,
+      cell_arr: localStorage.getItem("grid"),
+      size: JSON.parse(localStorage.getItem("size")),
+      rating: [],
+      creator: localStorage.getItem("username"),
+    };
+
+    axios({
+      method: "POST",
+      url: "/schemas",
+      data,
+    })
+      .then((res) => {
+        navigate(`/schemas/${res.data._id}`, true);
+      })
+      .catch((error) => {
+        console.dir(error);
+        setError(error);
+        setLoading(false);
+      });
+  }
 
   //-------COMPONENT CHANGES----------------
 
@@ -27,6 +63,19 @@ export default function PostPage({ toggleLang, toggleTheme, lang }) {
 
   return (
     <>
+      {error && !loading && (
+        // <Alert status="error" borderRadius="lg">
+        //   <AlertIcon />
+        //   <AlertTitle>{error.message}</AlertTitle>
+        //   <AlertDescription>{error.response?.data.message}</AlertDescription>
+        // </Alert>
+        <Alert
+          alertTitle={error.message}
+          alertDescription={error.responce?.data.message}
+          className="post-alert"
+        />
+      )}
+
       <Topbar
         theme_func={toggleTheme}
         lang_func={toggleLang}
@@ -37,6 +86,7 @@ export default function PostPage({ toggleLang, toggleTheme, lang }) {
         title={dict.title}
         description={dict.description}
         post={dict.post}
+        onSubmit={createSchema}
       />
     </>
   );

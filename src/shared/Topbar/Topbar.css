@@ -53,3 +53,15 @@
   font-size: 15px;
   margin: 0 auto;
 }
+
+.app-get-back {
+  position: absolute;
+  fill: var(--color-accent);
+  display: block;
+  width: 35px;
+  margin: 0;
+  top: 30px;
+  left: 50px;
+  cursor: pointer;
+  transition: 0.1s linear all;
+}

@@ -10,7 +10,6 @@ function Schema(props) {
           <h2 className="schema-title">{props.title}</h2>
           <p className="schema-description">{props.description}</p>
         </div>
-        {/* /schemas/:id */}
         <Link
           to={"/schemas/" + props.id}
           className="schema-load-link"

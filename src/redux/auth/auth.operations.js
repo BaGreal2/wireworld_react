@@ -12,6 +12,7 @@ export const login = (data) => (dispatch) => {
     data,
   })
     .then((res) => {
+      localStorage.setItem("username", data.username);
       setToken(res.data.token);
       dispatch(actions.loginSuccess(res.data));
     })
@@ -29,6 +30,7 @@ export const register = (data) => (dispatch) => {
     data,
   })
     .then((res) => {
+      localStorage.setItem("username", data.username);
       setToken(res.data.token);
       dispatch(actions.registerSuccess(res.data));
     })

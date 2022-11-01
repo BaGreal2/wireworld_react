@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
-  Container,
-} from "@chakra-ui/react";
+import { Alert } from "../../../shared/Alert";
 import { Button } from "../../../shared";
 import { Link } from "react-router-dom";
 import { Topbar } from "../../../shared";
@@ -33,7 +27,6 @@ export default function Registration({ lang, toggleTheme, toggleLang }) {
       username,
       password,
     };
-    console.log(JSON.stringify(reg_obj));
     dispatch(authOperations.register(reg_obj));
   }
 
@@ -56,15 +49,8 @@ export default function Registration({ lang, toggleTheme, toggleLang }) {
     }
   }, [lang, dict]);
   return (
-    <Container>
-      {authError ? console.log(authError) : <></>}
-      {authError && (
-        <Alert status="error" borderRadius="lg">
-          <AlertIcon />
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>{authError}</AlertDescription>
-        </Alert>
-      )}
+    <>
+      {authError && <Alert alertTitle="Error" alertDescription={authError} />}
       <Topbar
         theme_func={toggleTheme}
         lang_func={toggleLang}
@@ -129,6 +115,6 @@ export default function Registration({ lang, toggleTheme, toggleLang }) {
           </div>
         </form>
       </div>
-    </Container>
+    </>
   );
 }

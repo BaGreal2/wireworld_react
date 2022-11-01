@@ -77,3 +77,8 @@
 .schema-load-link {
   margin-right: 3%;
 }
+.pages-btns-container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}

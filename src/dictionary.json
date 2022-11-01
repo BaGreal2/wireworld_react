@@ -32,7 +32,9 @@
     "logout": "Logout",
     "post": "Post Schema",
     "title": "Title",
-    "description": "Description"
+    "description": "Description",
+    "previous": "Prev",
+    "next": "Next"
   },
   "ukr": {
     "start": "Старт",
@@ -67,6 +69,8 @@
     "logout": "Вийти",
     "post": "Опублікувати",
     "title": "Назва",
-    "description": "Опис"
+    "description": "Опис",
+    "previous": "Попередня",
+    "next": "Наступна"
   }
 }

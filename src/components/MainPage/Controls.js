@@ -33,25 +33,31 @@ export default function Controls(props) {
         text={props.startLabel}
         action={props.toggleStart}
       ></Button>
-      <Button
-        id={"clear"}
-        classname={"main_buttons custom-btn"}
-        text={dict.clear}
-        action={props.toggleClear}
-      ></Button>
-      <Button
-        id={"reset"}
-        classname={"main_buttons custom-btn"}
-        text={dict.reset}
-        action={props.toggleReset}
-      ></Button>
-      <Link to="/schemas" style={{ textDecoration: "none" }}>
+      {props.isMain && (
         <Button
-          id={"usr_levels"}
+          id={"clear"}
           classname={"main_buttons custom-btn"}
-          text={dict.user_levels}
+          text={dict.clear}
+          action={props.toggleClear}
         ></Button>
-      </Link>
+      )}
+      {props.isMain && (
+        <Button
+          id={"reset"}
+          classname={"main_buttons custom-btn"}
+          text={dict.reset}
+          action={props.toggleReset}
+        ></Button>
+      )}
+      {props.isMain && (
+        <Link to="/schemas" style={{ textDecoration: "none" }}>
+          <Button
+            id={"usr_levels"}
+            classname={"main_buttons custom-btn"}
+            text={dict.user_levels}
+          ></Button>
+        </Link>
+      )}
       <Dropdown
         title={dict.pick_item}
         content={[

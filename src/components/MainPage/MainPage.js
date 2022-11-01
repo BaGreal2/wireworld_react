@@ -1,4 +1,3 @@
-import "../../App.css";
 import React, { useEffect, useState } from "react";
 
 import { Grid } from "../../shared";
@@ -108,6 +107,7 @@ export default function MainPage({ toggleLang, toggleTheme, lang, theme }) {
         toggleReset={toggleReset}
         startLabel={startLabel}
         lang={lang}
+        isMain={true}
       ></Controls>
       <Grid
         size={size}
@@ -122,6 +122,8 @@ export default function MainPage({ toggleLang, toggleTheme, lang, theme }) {
         toggleClear={toggleClear}
         toggleReset={toggleReset}
         theme={theme}
+        showUpload={true}
+        isMain={true}
       ></Grid>
     </div>
   );

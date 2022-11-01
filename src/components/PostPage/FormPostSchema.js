@@ -6,7 +6,7 @@ export default function FormPostSchema(props) {
   const [title_value, setTitleValue] = useState(0);
   return (
     <>
-      <form className="post-form">
+      <form className="post-form" onSubmit={props.onSubmit}>
         <img
           className="canvas-screenshot"
           src={localStorage.getItem("gridImg")}
@@ -42,6 +42,7 @@ export default function FormPostSchema(props) {
           id="post_schema"
           classname={"main_buttons custom-btn"}
           text={props.post}
+          type="submit"
         />
       </form>
     </>

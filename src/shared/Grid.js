@@ -161,9 +161,10 @@ export default function Grid(props) {
       }
     }
     setGrid(JSON.parse(JSON.stringify(saveGrid)));
-
-    localStorage.setItem("grid", JSON.stringify(saveGrid));
-    localStorage.setItem("size", JSON.stringify(55));
+    if (props.isMain) {
+      localStorage.setItem("grid", JSON.stringify(saveGrid));
+      localStorage.setItem("size", JSON.stringify(55));
+    }
     dispatch(authActions.logout());
   };
 
@@ -178,8 +179,10 @@ export default function Grid(props) {
   //-------COMPONENT CHANGES----------------
 
   useBeforeunload((e) => {
-    localStorage.setItem("grid", JSON.stringify(grid));
-    localStorage.setItem("size", JSON.stringify(size));
+    if (props.isMain) {
+      localStorage.setItem("grid", JSON.stringify(grid));
+      localStorage.setItem("size", JSON.stringify(size));
+    }
   });
 
   useEffect(() => {
@@ -279,9 +282,12 @@ export default function Grid(props) {
           theme={props.theme}
           forwardedRef={childCanvas}
         ></Canvas>
-        <PostSchema onClick={saveLocalGridScreen} text={""}>
-          <UploadIcon />
-        </PostSchema>
+        {props.showUpload && (
+          <PostSchema onClick={saveLocalGridScreen} text={""}>
+            <UploadIcon />
+          </PostSchema>
+        )}
+
         <Logout onClick={clearLocalAll} text={""}>
           <ExitIcon />
         </Logout>

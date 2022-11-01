@@ -7,12 +7,17 @@ function List(props) {
       {props.schemas.map((schema) => {
         return (
           <Schema
-            key={schema.id}
-            id={schema.id}
+            key={schema._id}
+            id={schema._id}
             title={schema.title}
             description={schema.description}
             creator={schema.creator}
-            rating={schema.rating}
+            rating={
+              schema.rating.length > 1
+                ? schema.rating.reduce((partSum, a) => partSum + a, 0) /
+                  schema.rating.length
+                : 0
+            }
           ></Schema>
         );
       })}

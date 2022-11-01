@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useState, useEffect, useReducer } from "react";
+import { Container, CircularProgress, Flex } from "@chakra-ui/react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from "react-router-dom";
+import { Alert } from "./shared/Alert";
 
 import "./App.css";
 
@@ -16,6 +19,30 @@ import { SchemasPage } from "./components/User Schemas";
 import { SchemaPage } from "./components/SchemaPage";
 
 import "./config/axios";
+
+function schemasReducer(state, { type, payload }) {
+  switch (type) {
+    case "SET":
+      return payload;
+
+    // case 'LIKE':
+    //   return state.map((post) =>
+    //     post._id === payload._id
+    //       ? { ...post, usersLiked: payload.usersLiked }
+    //       : post
+    //   );
+
+    // case 'READ_LATER':
+    //   return state.map((post) =>
+    //     post._id === payload._id
+    //       ? { ...post, usersReading: payload.usersReading }
+    //       : post
+    //   );
+
+    default:
+      throw new Error("Action type not implemented");
+  }
+}
 
 function setTheme(themeName) {
   localStorage.setItem("theme", themeName);
@@ -46,6 +73,13 @@ function setLanguage(lang) {
 export default function App() {
   const [lang, setLangState] = useState(localStorage.getItem("language"));
   const [theme, setThemeState] = useState(localStorage.getItem("theme"));
+  const [schemasLoading, setSchemasLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState();
+  const [schemas, schemasDispatch] = useReducer(schemasReducer, []);
+
+  //const dispatch = useDispatch();
 
   const toggleLang = () => {
     if (localStorage.getItem("language") === "ukr") {
@@ -55,6 +89,7 @@ export default function App() {
     }
     setLangState(localStorage.getItem("language"));
   };
+
   const toggleTheme = () => {
     if (localStorage.getItem("theme") === "theme-dark") {
       setTheme("theme-light");
@@ -63,6 +98,30 @@ export default function App() {
     }
     setThemeState(localStorage.getItem("theme"));
   };
+
+  const decPage = () => {
+    setPage(page - 1);
+  };
+
+  const incPage = () => {
+    setPage(page + 1);
+  };
+
+  useEffect(() => {
+    setSchemasLoading(true);
+
+    axios({
+      method: "GET",
+      url: `/schemas?perPage=5&page=${page}`,
+    })
+      .then((res) => {
+        schemasDispatch({ type: "SET", payload: res.data.schemas });
+        setCount(res.data.count);
+      })
+      .catch((error) => setError(error))
+      .finally(() => setSchemasLoading(false));
+  }, [page]);
+
   return (
     <Router>
       <Routes>
@@ -120,60 +179,51 @@ export default function App() {
           path="/schemas"
           element={
             <AuthGate.AuthRequired>
-              <SchemasPage
-                toggleLang={toggleLang}
-                toggleTheme={toggleTheme}
-                schemas={[
-                  {
-                    id: 1,
-                    title: "OR XOR",
-                    description:
-                      "the or and xor schema difjdso fosdkfodkfpsk fpsokfopsdk fposfk dofksdp",
-                    creator: "xanin",
-                    rating: 3.2,
-                  },
-                  {
-                    id: 2,
-                    title: "AND",
-                    description: "the and schema",
-                    creator: "boom_bem",
-                    rating: 4.8,
-                  },
-                  {
-                    id: 3,
-                    title: "My Schema",
-                    description: "my beautiful schema",
-                    creator: "FunnyBall",
-                    rating: 2.8,
-                  },
-                  {
-                    id: 4,
-                    title: "OR XOR",
-                    description: "the or and xor schema",
-                    creator: "xanin",
-                    rating: 3.2,
-                  },
-                  {
-                    id: 5,
-                    title: "AND",
-                    description: "the and schema",
-                    creator: "boom_bem",
-                    rating: 4.8,
-                  },
-                  {
-                    id: 6,
-                    title: "My Schema",
-                    description: "my beautiful schema",
-                    creator: "FunnyBall",
-                    rating: 2.8,
-                  },
-                ]}
-                lang={lang}
-              />
+              <Container>
+                {schemasLoading && (
+                  <Flex justifyContent="center">
+                    <CircularProgress
+                      isIndeterminate
+                      size="100px"
+                      thickness="5px"
+                      color="black"
+                    />
+                  </Flex>
+                )}
+                {error && !schemasLoading && (
+                  <Alert
+                    alertTitle={error.message}
+                    alertDescription={error.responce?.data.message}
+                    className="schemas-alert"
+                  />
+                )}
+                {schemas.length > 0 && !schemasLoading && !error && (
+                  <SchemasPage
+                    toggleLang={toggleLang}
+                    toggleTheme={toggleTheme}
+                    schemas={schemas}
+                    lang={lang}
+                    decPage={decPage}
+                    incPage={incPage}
+                    page={page}
+                    count={count}
+                  />
+                )}
+              </Container>
             </AuthGate.AuthRequired>
           }
         />
-        <Route path="/schemas/:id" element={<SchemaPage />} />
+        <Route
+          path="/schemas/:id"
+          element={
+            <SchemaPage
+              toggleLang={toggleLang}
+              toggleTheme={toggleTheme}
+              lang={lang}
+              theme={theme}
+            />
+          }
+        />
         <Route path="*" element={<Navigate to="/main" replace />} />
       </Routes>
     </Router>

@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { GetBackIcon } from "../../svg";
 import "./Topbar.css";
 
 export default function Topbar({
@@ -7,7 +8,9 @@ export default function Topbar({
   lang_func,
   needTitle = false,
   needLang = false,
+  needBack = false,
 }) {
+  let navigate = useNavigate();
   return (
     <>
       <div className="switches">
@@ -16,23 +19,20 @@ export default function Topbar({
           className="custom-btn btn-1"
           onClick={theme_func}
         ></button>
-        {needLang ? (
+        {needLang && (
           <button
             id="switch_lang"
             className="custom-btn btn-1"
             onClick={lang_func}
           ></button>
-        ) : (
-          <></>
         )}
       </div>
-      {needTitle ? (
+      {needTitle && (
         <Link to="/main" style={{ textDecoration: "none" }}>
           <h1 className="app-title">WireWorld</h1>
         </Link>
-      ) : (
-        <></>
       )}
+      {needBack && <GetBackIcon onClick={() => navigate(-1)} />}
     </>
   );
 }
