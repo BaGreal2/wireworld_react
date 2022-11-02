@@ -45,14 +45,7 @@ export default function Login({ lang, toggleTheme, toggleLang }) {
 
   return (
     <>
-      {authError && (
-        // <Alert status="error" borderRadius="lg">
-        //   <AlertIcon />
-        //   <AlertTitle>Error</AlertTitle>
-        //   <AlertDescription>{authError}</AlertDescription>
-        // </Alert>
-        <Alert alertTitle="Error" alertDescription={authError} />
-      )}
+      {authError && <Alert alertTitle="Error" alertDescription={authError} />}
       <Topbar
         theme_func={toggleTheme}
         lang_func={toggleLang}

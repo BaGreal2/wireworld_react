@@ -2,6 +2,14 @@ button {
   /* margin: 20px; */
   outline: none;
 }
+button:disabled,
+button[disabled] {
+  opacity: 0.7;
+}
+label:disabled,
+label[disabled] {
+  opacity: 0.7;
+}
 
 .custom-btn {
   width: 90px;
@@ -37,10 +45,16 @@ span {
   margin-bottom: 0;
   padding-top: 20px;
   padding-bottom: 20px;
-  /* margin-top: 30px; */
-  /* text-align: center; */
   display: flex;
   justify-content: space-between;
+}
+.controls-post {
+  width: 73vh;
+  margin: auto auto;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 40px;
 }
 
 .btn-1 {
@@ -267,4 +281,32 @@ span {
 }
 .logout-btn:hover .icon-svg {
   fill: var(--color-accent);
+}
+
+.rate-schema-container {
+  width: 50%;
+  display: flex;
+  gap: 10px;
+  text-align: center;
+}
+.rate-schema-label {
+  color: var(--color-accent);
+  text-align: left;
+  padding-top: 3px;
+  width: fit-content;
+}
+.rate-schema-select {
+  width: 60%;
+  background-color: var(--color-buttons);
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding-left: 10px;
+  border: none;
+}
+.rate-schema-select:hover {
+  background-color: transparent;
+  color: var(--color-accent);
+  padding-left: 8px;
+  border: 2px solid var(--color-accent);
 }

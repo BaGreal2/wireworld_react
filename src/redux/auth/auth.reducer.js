@@ -1,9 +1,9 @@
-import { createReducer } from '@reduxjs/toolkit';
-import { persistCombineReducers } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import { createReducer } from "@reduxjs/toolkit";
+import { persistCombineReducers } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-import { authActions as actions } from './';
-import { clearToken } from '../../utils/setAuthHeader';
+import { authActions as actions } from "./";
+import { clearToken } from "../../utils/setAuthHeader";
 
 const tokenReducer = createReducer(null, {
   [actions.loginSuccess]: (_, { payload }) => payload.token,
@@ -17,7 +17,7 @@ const tokenReducer = createReducer(null, {
 
 const userReducer = createReducer(null, {
   [actions.loginSuccess]: (_, { payload }) => payload.user,
-  [actions.registerSuccess]: (_, { payload }) => payload.newUser,
+  [actions.registerSuccess]: (_, { payload }) => payload.user,
   [actions.fetchUserDataSuccess]: (_, { payload }) => payload,
   [actions.fetchUserDataError]: () => null,
   [actions.logout]: () => null,
@@ -49,9 +49,9 @@ const errorReducer = createReducer(null, {
 
 export default persistCombineReducers(
   {
-    key: 'auth',
+    key: "auth",
     storage,
-    whitelist: ['token', 'user'],
+    whitelist: ["token", "user"],
   },
   {
     token: tokenReducer,

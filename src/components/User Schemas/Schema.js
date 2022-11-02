@@ -11,7 +11,10 @@ import "../../config/axios";
 function Schema(props) {
   const [error, setError] = useState(null);
   const deletePost = () => {
-    let data = { username: localStorage.getItem("username") };
+    let data = {
+      userId: JSON.parse(JSON.parse(localStorage.getItem("persist:auth")).user)
+        ._id,
+    };
     axios({
       method: "DELETE",
       url: `/schemas/${props.id}`,

@@ -11,6 +11,7 @@ import { Alert } from "../../shared/Alert";
 import dictionary from "../../dictionary.json";
 
 import "../../config/axios";
+import "./SchemaPage.css";
 
 function schemaReducer(state, { type, payload }) {
   switch (type) {
@@ -21,7 +22,14 @@ function schemaReducer(state, { type, payload }) {
   }
 }
 
-export default function SchemaPage({ toggleLang, toggleTheme, lang, theme }) {
+export default function SchemaPage({
+  toggleLang,
+  toggleTheme,
+  lang,
+  theme,
+  update,
+  updateList,
+}) {
   const [curr_click_value, setCurr_click_value] = useState(3);
   const [speed, setSpeed] = useState(100);
   const [isStart, setIsStart] = useState(false);
@@ -57,16 +65,20 @@ export default function SchemaPage({ toggleLang, toggleTheme, lang, theme }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lang, dict]);
+
   const changeClickSpeed = (value) => {
     setSpeed(value);
   };
+
   const changeClickValue = (value) => {
     setCurr_click_value(value);
   };
+
   const toggleStart = () => {
     setIsStart(!isStart);
     changeStartLabel();
   };
+
   const changeStartLabel = () => {
     if (isStart) {
       setStartLabel(dict.continue);
@@ -74,17 +86,45 @@ export default function SchemaPage({ toggleLang, toggleTheme, lang, theme }) {
       setStartLabel(dict.pause);
     }
   };
+
   const toggleClear = () => {
     setIsStart(false);
     setClearGrid(!clearGrid);
     setStartLabel(dict.start);
   };
+
   const toggleReset = () => {
     setIsStart(false);
     setResetGrid(!resetGrid);
     setStartLabel(dict.start);
   };
 
+  const sendRate = (data) => {
+    data.preventDefault();
+    let dataNum = Number(data.target[0].value);
+    let newRating = [...schema.rating, dataNum];
+    let dataUpdate = {
+      title: schema.title,
+      description: schema.description,
+      cell_arr: schema.cell_arr,
+      size: schema.size,
+      rating: newRating,
+      creator: schema.creator,
+      creatorName: schema.creatorName,
+    };
+    axios({
+      method: "PUT",
+      url: `/schemas/${schema._id}`,
+      data: dataUpdate,
+    })
+      .then((res) => {
+        console.log(res.data.editedSchema);
+        updateList(!update);
+      })
+      .catch((error) => {
+        console.dir(error);
+      });
+  };
   return (
     <div>
       {schemaLoading && (
@@ -112,6 +152,7 @@ export default function SchemaPage({ toggleLang, toggleTheme, lang, theme }) {
             needLang={true}
             needBack={true}
           ></Topbar>
+          <h1 className="schema-open-title">{schema.title}</h1>
           <Controls
             onValueChange={changeClickValue}
             onSpeedChange={changeClickSpeed}
@@ -123,6 +164,11 @@ export default function SchemaPage({ toggleLang, toggleTheme, lang, theme }) {
             startLabel={startLabel}
             lang={lang}
             isMain={false}
+            isOwner={
+              JSON.parse(JSON.parse(localStorage.getItem("persist:auth")).user)
+                ._id === schema.creator
+            }
+            sendRate={sendRate}
           ></Controls>
           <Grid
             size={schema.size}

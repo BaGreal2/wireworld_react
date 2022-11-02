@@ -34,7 +34,13 @@
     "title": "Title",
     "description": "Description",
     "previous": "Prev",
-    "next": "Next"
+    "next": "Next",
+    "no_schemas": "No schemas found!",
+    "rate": "Rate",
+    "star": "Star",
+    "stars": "Stars",
+    "stars_5": "Stars",
+    "rate_schema": "Rate Schema:"
   },
   "ukr": {
     "start": "Старт",
@@ -71,6 +77,12 @@
     "title": "Назва",
     "description": "Опис",
     "previous": "Попередня",
-    "next": "Наступна"
+    "next": "Наступна",
+    "no_schemas": "Не знайдено жодних схем!",
+    "rate": "Оцінити",
+    "star": "Зірка",
+    "stars": "Зірки",
+    "stars_5": "Зірок",
+    "rate_schema": "Оцініть Схему:"
   }
 }

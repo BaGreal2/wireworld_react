@@ -12,7 +12,9 @@ export default function RaitingStars(props) {
           style={{ width: `${percentageWidth}%` }}
         ></div>
       </div>
-      <div className="stars-number">{props.ratingNum}</div>
+      <div className="stars-number">
+        {Math.round(props.ratingNum * 10) / 10}
+      </div>
     </div>
   );
 }

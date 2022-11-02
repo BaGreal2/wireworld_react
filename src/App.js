@@ -17,6 +17,7 @@ import { Registration, Login } from "./components/Authorization";
 import { PostPage } from "./components/PostPage";
 import { SchemasPage } from "./components/User Schemas";
 import { SchemaPage } from "./components/SchemaPage";
+import { NoSchemas } from "./shared";
 
 import "./config/axios";
 
@@ -85,7 +86,12 @@ export default function App() {
   const updateList = (value) => {
     setUpdate(value);
     if (page - 1 === (count - 1) / 5) {
-      setPage(page - 1);
+      setPage(() => {
+        if (page === 1) {
+          return page;
+        }
+        return page - 1;
+      });
     }
   };
 
@@ -110,7 +116,6 @@ export default function App() {
   const decPage = () => {
     setPage(page - 1);
   };
-
   const incPage = () => {
     setPage(page + 1);
   };
@@ -221,6 +226,13 @@ export default function App() {
                     updateList={updateList}
                   />
                 )}
+                {schemas.length === 0 && !schemasLoading && !error && (
+                  <NoSchemas
+                    toggleLang={toggleLang}
+                    toggleTheme={toggleTheme}
+                    lang={lang}
+                  />
+                )}
               </Container>
             </AuthGate.AuthRequired>
           }
@@ -233,6 +245,8 @@ export default function App() {
               toggleTheme={toggleTheme}
               lang={lang}
               theme={theme}
+              update={update}
+              updateList={updateList}
             />
           }
         />

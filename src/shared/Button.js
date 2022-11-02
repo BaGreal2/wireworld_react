@@ -8,6 +8,7 @@ function Button(props) {
         className={props.classname}
         onClick={props.action}
         type={props.type ? props.type : "button"}
+        disabled={props.disabled ? props.disabled : false}
       >
         {props.text ? <span>{props.text}</span> : <></>}
         {props.children ? props.children : <></>}

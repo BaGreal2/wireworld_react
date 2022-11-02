@@ -24,9 +24,8 @@ export default function Controls(props) {
       setDict(dictionary.eng);
     }
   }, [props.lang, dict]);
-
   return (
-    <div className="controls">
+    <div className={props.isMain ? "controls" : "controls-post"}>
       <Button
         id={"start"}
         classname={"main_buttons custom-btn"}
@@ -100,6 +99,35 @@ export default function Controls(props) {
             : dict.medium
         }
       ></Dropdown>
+      {!props.isMain && (
+        <>
+          <form className="rate-schema-container" onSubmit={props.sendRate}>
+            <label
+              className="rate-schema-label"
+              disabled={props.isOwner ? true : false}
+            >
+              {dict.rate_schema}
+            </label>
+            <select
+              className="rate-schema-select"
+              disabled={props.isOwner ? true : false}
+            >
+              <option value="1">1 {dict.star}</option>
+              <option value="2">2 {dict.stars}</option>
+              <option value="3">3 {dict.stars}</option>
+              <option value="4">4 {dict.stars}</option>
+              <option value="5">5 {dict.stars_5}</option>
+            </select>
+            <Button
+              type="submit"
+              id={"submit_rating"}
+              classname={"main_buttons custom-btn"}
+              text={dict.rate}
+              disabled={props.isOwner ? true : false}
+            />
+          </form>
+        </>
+      )}
     </div>
   );
 }

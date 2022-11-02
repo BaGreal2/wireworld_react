@@ -39,7 +39,11 @@ export default function PostPage({
       cell_arr: localStorage.getItem("grid"),
       size: JSON.parse(localStorage.getItem("size")),
       rating: [],
-      creator: localStorage.getItem("username"),
+      creator: JSON.parse(JSON.parse(localStorage.getItem("persist:auth")).user)
+        ._id,
+      creatorName: JSON.parse(
+        JSON.parse(localStorage.getItem("persist:auth")).user
+      ).username,
     };
 
     axios({

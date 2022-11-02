@@ -12,12 +12,11 @@ export const login = (data) => (dispatch) => {
     data,
   })
     .then((res) => {
-      localStorage.setItem("username", data.username);
       setToken(res.data.token);
       dispatch(actions.loginSuccess(res.data));
     })
     .catch((error) => {
-      dispatch(actions.loginError(error.message));
+      dispatch(actions.loginError(error.response.data.message));
     });
 };
 
@@ -30,12 +29,11 @@ export const register = (data) => (dispatch) => {
     data,
   })
     .then((res) => {
-      localStorage.setItem("username", data.username);
       setToken(res.data.token);
       dispatch(actions.registerSuccess(res.data));
     })
     .catch((error) => {
-      dispatch(actions.registerError(error.message));
+      dispatch(actions.registerError(error.response.data.message));
     });
 };
 
