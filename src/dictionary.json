@@ -40,7 +40,8 @@
     "star": "Star",
     "stars": "Stars",
     "stars_5": "Stars",
-    "rate_schema": "Rate Schema:"
+    "rate_schema": "Rate Schema:",
+    "mobile_view": "Site isn't available for mobile devices! Please open it on desktop!"
   },
   "ukr": {
     "start": "Старт",
@@ -83,6 +84,7 @@
     "star": "Зірка",
     "stars": "Зірки",
     "stars_5": "Зірок",
-    "rate_schema": "Оцініть Схему:"
+    "rate_schema": "Оцініть Схему:",
+    "mobile_view": "Сайт недоступний для мобільних девайсів! Відкрийте сторінку на компʼютері!"
   }
 }
