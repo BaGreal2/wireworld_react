@@ -38,14 +38,12 @@ export default function SchemaPage({ toggleLang, toggleTheme, lang, theme }) {
 
   useEffect(() => {
     setSchemaLoading(true);
-    console.log(schema);
 
     axios({
       method: "GET",
       url: `/schemas/${searchParams.id}`,
     })
       .then((res) => {
-        console.log(res.data.schema);
         schemaDispatch({ type: "SET", payload: res.data.schema });
       })
       .catch((error) => setError(error))
@@ -57,6 +55,7 @@ export default function SchemaPage({ toggleLang, toggleTheme, lang, theme }) {
       setDict(dictionary.eng);
       setStartLabel(dictionary.eng.start);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lang, dict]);
   const changeClickSpeed = (value) => {
     setSpeed(value);
@@ -110,7 +109,6 @@ export default function SchemaPage({ toggleLang, toggleTheme, lang, theme }) {
           <Topbar
             theme_func={toggleTheme}
             lang_func={toggleLang}
-            needTitle={false}
             needLang={true}
             needBack={true}
           ></Topbar>

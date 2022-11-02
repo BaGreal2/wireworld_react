@@ -3,3 +3,4 @@ export { default as UploadIcon } from "./UploadIconComp";
 export { default as StartIcon } from "./StartIconComp";
 export { default as AlertIcon } from "./AlertIconComp";
 export { default as GetBackIcon } from "./GetBackIconComp";
+export { default as DeleteIcon } from "./DeleteIconComp";

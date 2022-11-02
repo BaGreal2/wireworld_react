@@ -287,10 +287,11 @@ export default function Grid(props) {
             <UploadIcon />
           </PostSchema>
         )}
-
-        <Logout onClick={clearLocalAll} text={""}>
-          <ExitIcon />
-        </Logout>
+        {props.showUpload && (
+          <Logout onClick={clearLocalAll} text={""}>
+            <ExitIcon />
+          </Logout>
+        )}
       </div>
     </div>
   );

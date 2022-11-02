@@ -18,6 +18,9 @@ function List(props) {
                   schema.rating.length
                 : 0
             }
+            showDelete={schema.creator === localStorage.getItem("username")}
+            update={props.update}
+            updateList={props.updateList}
           ></Schema>
         );
       })}

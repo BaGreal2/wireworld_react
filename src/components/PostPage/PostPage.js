@@ -9,7 +9,13 @@ import "./PostPage.css";
 
 import dictionary from "../../dictionary.json";
 
-export default function PostPage({ toggleLang, toggleTheme, lang }) {
+export default function PostPage({
+  toggleLang,
+  toggleTheme,
+  lang,
+  update,
+  updateList,
+}) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   let navigate = useNavigate();
@@ -42,6 +48,7 @@ export default function PostPage({ toggleLang, toggleTheme, lang }) {
       data,
     })
       .then((res) => {
+        updateList(!update);
         navigate(`/schemas/${res.data._id}`, true);
       })
       .catch((error) => {
@@ -64,11 +71,6 @@ export default function PostPage({ toggleLang, toggleTheme, lang }) {
   return (
     <>
       {error && !loading && (
-        // <Alert status="error" borderRadius="lg">
-        //   <AlertIcon />
-        //   <AlertTitle>{error.message}</AlertTitle>
-        //   <AlertDescription>{error.response?.data.message}</AlertDescription>
-        // </Alert>
         <Alert
           alertTitle={error.message}
           alertDescription={error.responce?.data.message}
@@ -79,8 +81,8 @@ export default function PostPage({ toggleLang, toggleTheme, lang }) {
       <Topbar
         theme_func={toggleTheme}
         lang_func={toggleLang}
-        needTitle={true}
         needLang={true}
+        needBack={true}
       ></Topbar>
       <FormPostSchema
         title={dict.title}

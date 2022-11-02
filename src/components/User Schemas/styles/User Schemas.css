@@ -1,5 +1,6 @@
 .schemas-wrapper {
   display: flex;
+
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -8,6 +9,7 @@
 }
 .schemas-element {
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -81,4 +83,18 @@
   display: flex;
   justify-content: space-around;
   margin-bottom: 30px;
+}
+
+.delete-icon {
+  position: absolute;
+  left: 82%;
+  width: 30px;
+  height: 35px;
+  margin-bottom: 10px;
+  fill: var(--color-accent);
+  transition: 0.1s linear all;
+  cursor: pointer;
+}
+.delete-icon:hover {
+  fill: var(--color-side-text);
 }

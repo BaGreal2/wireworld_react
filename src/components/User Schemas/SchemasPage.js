@@ -15,6 +15,8 @@ function SchemasPage({
   incPage,
   page,
   count,
+  update,
+  updateList,
 }) {
   let [dict, setDict] = useState(() => {
     if (localStorage.getItem("language") === "ukr") {
@@ -23,13 +25,14 @@ function SchemasPage({
       return dictionary.eng;
     }
   });
+
   useEffect(() => {
     if (lang === "ukr" && dict !== dictionary.ukr) {
       setDict(dictionary.ukr);
     } else if (lang === "eng" && dict !== dictionary.eng) {
       setDict(dictionary.eng);
     }
-  }, [lang, dict, page, count]);
+  }, [lang, dict, page, count, update]);
   return (
     <>
       <Topbar
@@ -38,7 +41,7 @@ function SchemasPage({
         needLang={true}
         needBack={true}
       ></Topbar>
-      <List schemas={schemas}></List>
+      <List schemas={schemas} update={update} updateList={updateList}></List>
       <div className="pages-btns-container">
         {page > 1 && (
           <Button

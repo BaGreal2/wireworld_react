@@ -1,10 +1,36 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
+
 import RaitingStars from "./RaitingStars";
 import { Link } from "react-router-dom";
+import { Alert } from "../../shared/Alert";
+import { DeleteIcon } from "../../svg";
+
+import "../../config/axios";
 
 function Schema(props) {
+  const [error, setError] = useState(null);
+  const deletePost = () => {
+    let data = { username: localStorage.getItem("username") };
+    axios({
+      method: "DELETE",
+      url: `/schemas/${props.id}`,
+      data,
+    })
+      .then((res) => {
+        props.updateList(!props.update);
+      })
+      .catch((error) => setError(error));
+  };
   return (
     <div className="schemas-element">
+      {error && (
+        <Alert
+          alertTitle={error.message}
+          alertDescription={error.responce?.data.message}
+          className="schema-alert"
+        />
+      )}
       <div className="schemas-element-sub">
         <div className="schema-text">
           <h2 className="schema-title">{props.title}</h2>
@@ -21,6 +47,7 @@ function Schema(props) {
       <div className="creator-rating">
         <p className="schema-creator">By: {props.creator}</p>
         <RaitingStars ratingNum={props.rating}></RaitingStars>
+        {props.showDelete && <DeleteIcon onClick={deletePost} />}
       </div>
     </div>
   );

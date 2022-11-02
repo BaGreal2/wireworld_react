@@ -78,8 +78,16 @@ export default function App() {
   const [page, setPage] = useState(1);
   const [count, setCount] = useState();
   const [schemas, schemasDispatch] = useReducer(schemasReducer, []);
+  const [update, setUpdate] = useState(false);
 
   //const dispatch = useDispatch();
+
+  const updateList = (value) => {
+    setUpdate(value);
+    if (page - 1 === (count - 1) / 5) {
+      setPage(page - 1);
+    }
+  };
 
   const toggleLang = () => {
     if (localStorage.getItem("language") === "ukr") {
@@ -120,7 +128,7 @@ export default function App() {
       })
       .catch((error) => setError(error))
       .finally(() => setSchemasLoading(false));
-  }, [page]);
+  }, [page, update]);
 
   return (
     <Router>
@@ -171,6 +179,8 @@ export default function App() {
                 toggleLang={toggleLang}
                 toggleTheme={toggleTheme}
                 lang={lang}
+                update={update}
+                updateList={updateList}
               />
             </AuthGate.AuthRequired>
           }
@@ -207,6 +217,8 @@ export default function App() {
                     incPage={incPage}
                     page={page}
                     count={count}
+                    update={update}
+                    updateList={updateList}
                   />
                 )}
               </Container>

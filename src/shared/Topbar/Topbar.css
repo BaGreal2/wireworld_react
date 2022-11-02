@@ -65,3 +65,7 @@
   cursor: pointer;
   transition: 0.1s linear all;
 }
+
+.app-get-back:hover {
+  fill: var(--color-side-text);
+}
