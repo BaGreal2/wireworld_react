@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Button } from '../Button';
 
 import styles from './styles/Dropdown.module.css';
 

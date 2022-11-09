@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '../Button';
 import { GetBackIcon } from '../../svg';
 
 import styles from './styles/Topbar.module.css';
