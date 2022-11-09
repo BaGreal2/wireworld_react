@@ -1,0 +1,157 @@
+.custom_btn {
+	width: 90px;
+	height: 40px;
+	padding: 10px 25px;
+	border: 2px solid var(--color-accent);
+	font-family: 'Ubuntu Mono', monospace;
+	font-size: 13.5px;
+	font-weight: 500;
+	background: transparent;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	position: relative;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.custom_btn span {
+	text-align: center;
+	color: var(--color-primary);
+}
+
+.main_buttons {
+	background: var(--color-buttons);
+	color: var(--color-primary);
+	transition: 0.3s linear all;
+	line-height: 42px;
+	padding: 0;
+	border: none;
+}
+.main_buttons span {
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.main_buttons:before,
+.main_buttons:after {
+	position: absolute;
+	content: '';
+	height: 0%;
+	width: 2px;
+	background: var(--color-accent);
+}
+.main_buttons:before {
+	right: 0;
+	top: 0;
+	transition: all 500ms ease;
+}
+.main_buttons:after {
+	left: 0;
+	bottom: 0;
+	transition: all 500ms ease;
+}
+.main_buttons:hover {
+	background: transparent;
+}
+.main_buttons:hover .title {
+	color: var(--color-accent);
+}
+.main_buttons:hover:before {
+	transition: all 500ms ease;
+	height: 100%;
+}
+.main_buttons:hover:after {
+	transition: all 500ms ease;
+	height: 100%;
+}
+.main_buttons span:before,
+.main_buttons span:after {
+	position: absolute;
+	content: '';
+	background: var(--color-accent);
+}
+.main_buttons span:before {
+	left: 0;
+	top: 0;
+	width: 0%;
+	height: 2px;
+	transition: all 500ms ease;
+}
+.main_buttons span:after {
+	right: 0;
+	bottom: 0;
+	width: 0%;
+	height: 2px;
+	transition: all 500ms ease;
+}
+.main_buttons span:hover:before {
+	width: 100%;
+}
+.main_buttons span:hover:after {
+	width: 100%;
+}
+.app_title {
+	position: absolute;
+	font-family: monospace;
+	margin: 0;
+	top: 25px;
+	left: 80px;
+	color: var(--color-accent);
+	cursor: pointer;
+}
+
+.switches {
+	position: absolute;
+	padding: 0;
+	margin: 0;
+	top: 30px;
+	right: 80px;
+	display: flex;
+	flex-direction: column;
+	width: fit-content;
+}
+
+.switch {
+	background-color: var(--color-primary);
+	text-align: center;
+	vertical-align: middle;
+	width: 40px;
+	height: 40px;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 10px;
+}
+
+.switch::after {
+	content: var(--switch-content);
+	color: var(--color-accent);
+	font-size: 25px;
+	margin: 0 auto;
+}
+
+.switch_lang {
+	background-color: var(--color-primary);
+	text-align: center;
+	vertical-align: middle;
+	width: 40px;
+	height: 40px;
+	margin: 0;
+	padding: 0;
+}
+
+.switch_lang::after {
+	content: var(--lang-switch-content);
+	color: var(--color-accent);
+	font-size: 15px;
+	margin: 0 auto;
+}
+
+.btn_switch {
+	transition: all 0.3s ease;
+}
+.btn_switch:hover {
+	box-shadow: -7px -7px 20px 0px #fff9, -4px -4px 5px 0px #fff9,
+		7px 7px 20px 0px rgba(0, 0, 0, 0.591), 4px 4px 5px 0px rgba(0, 0, 0, 0.623);
+}

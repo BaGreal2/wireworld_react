@@ -1,0 +1,10 @@
+.mobile_view_container {
+	width: 70%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.mobile_view_text {
+	color: var(--color-accent);
+	font-size: 1.5em;
+}

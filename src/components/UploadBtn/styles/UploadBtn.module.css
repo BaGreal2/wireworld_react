@@ -1,0 +1,34 @@
+.upload_link {
+	position: relative;
+	width: fit-content;
+	left: 75vh;
+	bottom: 76.2vh;
+}
+
+.upload_btn {
+	position: relative;
+	height: 50px;
+	width: 50px;
+	border: 2px solid var(--color-buttons);
+	background-color: var(--color-buttons);
+	line-height: 42px;
+	transition: 0.3s linear all;
+	padding: 0;
+}
+.upload_btn:hover {
+	background-color: var(--color-primary);
+}
+.upload_btn:hover .icon-svg {
+	fill: var(--color-accent);
+}
+
+.redirect_link {
+	text-align: center;
+	text-decoration: var(--color-accent) solid underline;
+}
+.redirect_link:active {
+	text-decoration: var(--color-accent) solid underline;
+}
+.redirect_link:focus {
+	text-decoration: var(--color-accent) solid underline;
+}

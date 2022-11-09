@@ -1,0 +1,87 @@
+.registration {
+	width: 100%;
+	height: 100%;
+}
+.auth_form {
+	width: fit-content;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 0 auto;
+}
+.auth_input_container {
+	position: relative;
+	width: 400px;
+	height: 50px;
+	margin-top: 10px;
+}
+.auth_input {
+	width: 100%;
+	height: 100%;
+	outline: none;
+	border: none;
+	background-color: transparent;
+	color: var(--color-accent);
+	border-bottom: 1px solid var(--color-accent);
+	font-family: 'Ubuntu Mono', monospace;
+	font-size: 20px;
+}
+
+.auth_label {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	font-size: 10px;
+	color: var(--color-side-text);
+	pointer-events: none;
+	transition: all 300ms ease;
+}
+.auth_input::placeholder {
+	color: transparent;
+}
+.auth_input:placeholder-shown ~ .auth_label {
+	font-size: 16px;
+	top: 16px;
+	left: 4px;
+}
+.auth_input:focus ~ .auth_label {
+	top: 0px;
+	left: 0px;
+	font-size: 10px;
+}
+.auth_input_container:hover ~ .auth_label {
+	top: 0px;
+	left: 0px;
+	font-size: 10px;
+}
+.auth_title {
+	width: fit-content;
+	margin: 0 auto;
+	margin-bottom: 20px;
+	color: var(--color-accent);
+}
+.auth_buttons {
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+}
+.auth_redirect_link {
+	text-align: center;
+	text-decoration: var(--color-accent) solid underline;
+}
+.auth_redirect_link:active {
+	text-decoration: var(--color-accent) solid underline;
+}
+.auth_redirect_link:focus {
+	text-decoration: var(--color-accent) solid underline;
+}
+.sign_up {
+	margin-bottom: 15px;
+	width: 150px;
+	height: 40px;
+}
+.redirect {
+	color: var(--color-accent);
+	font-size: 12px;
+}

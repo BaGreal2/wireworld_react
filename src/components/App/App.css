@@ -1,0 +1,144 @@
+@font-face {
+	font-family: 'Ubuntu Mono';
+	src: local('UbuntuMono'), url(../../fonts/UbuntuMono.ttf) format('truetype');
+}
+.theme-light {
+	--color-primary: white;
+	--color-accent: black;
+	--color-primary-hue: rgb(235, 234, 234);
+	--color-buttons: black;
+	--switch-content: '\263C';
+	--color-side-text: #676767;
+	--color-conductor: #f9f348;
+	--color-head: #6248f9;
+	--color-tail: #f9485a;
+	--color-empty-star: #ccc;
+	--color-filled-star: #f8ce0b;
+}
+.theme-dark {
+	--color-primary: rgb(49, 47, 47);
+	--color-accent: rgb(252, 240, 240);
+	--color-primary-hue: rgb(30, 30, 30);
+	--color-buttons: rgba(231, 223, 223, 0.9);
+	--switch-content: '\263E';
+	--color-side-text: #9d9c9c;
+	--color-conductor: #e0c134;
+	--color-head: #4d38c4;
+	--color-tail: #b93542;
+	--color-empty-star: rgb(154, 153, 153);
+	--color-filled-star: #e4c122;
+}
+#ukr {
+	--lang-switch-content: 'UKR';
+}
+#eng {
+	--lang-switch-content: 'ENG';
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: 'Ubuntu Mono', monospace;
+	background-color: var(--color-primary);
+	transition: 0.3s linear all;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	min-height: 100vh;
+	-webkit-tap-highlight-color: transparent;
+	touch-action: none;
+}
+
+input[type='number'] {
+	-webkit-appearance: textfield;
+	-moz-appearance: textfield;
+	appearance: textfield;
+}
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+}
+p {
+	font-weight: 500;
+	text-align: center;
+	font-size: 15px;
+	color: var(--color-side-text);
+}
+button {
+	outline: none;
+}
+button:disabled,
+button[disabled] {
+	opacity: 0.7;
+}
+label:disabled,
+label[disabled] {
+	opacity: 0.7;
+}
+
+span {
+	color: #222;
+	transition: 0.1s linear all;
+}
+
+.circular-container {
+	position: absolute;
+	top: 17%;
+	left: 50%;
+	transform: translate(-50%, -17%);
+}
+
+.icon-svg-wrapper:hover .icon-svg {
+	fill: var(--color-accent);
+}
+
+.icon-svg {
+	fill: var(--color-primary);
+	display: block;
+	width: 50%;
+	margin: 0 auto;
+	transition: 0.1s linear all;
+}
+
+.upload-alert {
+	top: 20%;
+	left: 50%;
+	transform: translate(-50%, -100%);
+}
+
+.delete-icon {
+	position: absolute;
+	left: 82%;
+	width: 30px;
+	height: 35px;
+	margin-bottom: 10px;
+	fill: var(--color-accent);
+	transition: 0.1s linear all;
+	cursor: pointer;
+}
+.delete-icon:hover {
+	fill: var(--color-side-text);
+}
+
+.schemas-alert {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.app-get-back {
+	position: absolute;
+	fill: var(--color-accent);
+	display: block;
+	width: 35px;
+	margin: 0;
+	top: 30px;
+	left: 50px;
+	cursor: pointer;
+	transition: 0.1s linear all;
+}
+
+.app-get-back:hover {
+	fill: var(--color-side-text);
+}

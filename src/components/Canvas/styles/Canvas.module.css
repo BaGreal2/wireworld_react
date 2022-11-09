@@ -1,0 +1,6 @@
+.canvas {
+	width: 73vh;
+	max-width: 100%;
+	cursor: crosshair;
+	border: 1px solid var(--color-accent);
+}

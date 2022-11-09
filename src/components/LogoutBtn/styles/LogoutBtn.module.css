@@ -1,0 +1,29 @@
+.logout_btn {
+	position: absolute;
+	height: 50px;
+	width: 50px;
+	border: 2px solid var(--color-buttons);
+	background-color: var(--color-buttons);
+	line-height: 42px;
+	transition: 0.3s linear all;
+	padding: 0;
+	left: 5vh;
+	bottom: 4vh;
+}
+.logout_btn:hover {
+	background-color: var(--color-primary);
+}
+.logout_btn:hover .icon-svg {
+	fill: var(--color-accent);
+}
+
+.redirect_link {
+	text-align: center;
+	text-decoration: var(--color-accent) solid underline;
+}
+.redirect_link:active {
+	text-decoration: var(--color-accent) solid underline;
+}
+.redirect_link:focus {
+	text-decoration: var(--color-accent) solid underline;
+}

@@ -1,0 +1,46 @@
+.controls {
+	width: 73vh;
+	margin: auto auto;
+	margin-top: 50px;
+	margin-bottom: 0;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	display: flex;
+	justify-content: space-between;
+}
+.controls_upload {
+	width: 73vh;
+	margin: auto auto;
+	margin-top: 50px;
+	margin-bottom: 20px;
+	display: flex;
+	gap: 40px;
+}
+
+.rate_schema_container {
+	width: 50%;
+	display: flex;
+	gap: 10px;
+	text-align: center;
+}
+.rate_schema_label {
+	color: var(--color-accent);
+	text-align: left;
+	padding-top: 3px;
+	width: fit-content;
+}
+.rate_schema_select {
+	width: 60%;
+	background-color: var(--color-buttons);
+	color: var(--color-primary);
+	cursor: pointer;
+	transition: background-color 0.3s ease, color 0.3s ease;
+	padding-left: 10px;
+	border: none;
+}
+.rate_schema_select:hover {
+	background-color: transparent;
+	color: var(--color-accent);
+	padding-left: 8px;
+	border: 2px solid var(--color-accent);
+}

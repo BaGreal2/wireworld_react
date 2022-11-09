@@ -1,0 +1,9 @@
+.no_schemas_container {
+	width: fit-content;
+	margin: 0 auto;
+}
+
+.no_schemas_text {
+	color: var(--color-accent);
+	font-size: 3em;
+}

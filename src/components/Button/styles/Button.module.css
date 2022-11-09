@@ -1,0 +1,95 @@
+.custom_btn {
+	width: 90px;
+	height: 40px;
+	padding: 10px 25px;
+	border: 2px solid var(--color-accent);
+	font-family: 'Ubuntu Mono', monospace;
+	font-size: 13.5px;
+	font-weight: 500;
+	background: transparent;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	position: relative;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.custom_btn span {
+	text-align: center;
+	color: var(--color-primary);
+}
+
+.main_buttons {
+	background: var(--color-buttons);
+	color: var(--color-primary);
+	transition: 0.3s linear all;
+	line-height: 42px;
+	padding: 0;
+	border: none;
+}
+.main_buttons span {
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.main_buttons:before,
+.main_buttons:after {
+	position: absolute;
+	content: '';
+	height: 0%;
+	width: 2px;
+	background: var(--color-accent);
+}
+.main_buttons:before {
+	right: 0;
+	top: 0;
+	transition: all 500ms ease;
+}
+.main_buttons:after {
+	left: 0;
+	bottom: 0;
+	transition: all 500ms ease;
+}
+.main_buttons:hover {
+	color: var(--color-accent);
+	background: transparent;
+}
+.main_buttons:hover span {
+	color: var(--color-accent);
+}
+.main_buttons:hover:before {
+	transition: all 500ms ease;
+	height: 100%;
+}
+.main_buttons:hover:after {
+	transition: all 500ms ease;
+	height: 100%;
+}
+.main_buttons span:before,
+.main_buttons span:after {
+	position: absolute;
+	content: '';
+	background: var(--color-accent);
+}
+.main_buttons span:before {
+	left: 0;
+	top: 0;
+	width: 0%;
+	height: 2px;
+	transition: all 500ms ease;
+}
+.main_buttons span:after {
+	right: 0;
+	bottom: 0;
+	width: 0%;
+	height: 2px;
+	transition: all 500ms ease;
+}
+.main_buttons span:hover:before {
+	width: 100%;
+}
+.main_buttons span:hover:after {
+	width: 100%;
+}
