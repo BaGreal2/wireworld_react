@@ -16,11 +16,7 @@ export const routes = [
 		key: 'home',
 		path: urls.home,
 		exact: true,
-		element: (
-			<AuthGate.AuthRequired>
-				<HomeView />
-			</AuthGate.AuthRequired>
-		),
+		element: <HomeView />,
 	},
 	{
 		key: 'about',

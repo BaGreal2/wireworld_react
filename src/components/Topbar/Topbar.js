@@ -30,6 +30,8 @@ export default function Topbar({ theme_func, lang_func, lang }) {
 					change_theme={dict.change_theme}
 					about={dict.about}
 					logout={dict.logout}
+					sign_in={dict.sign_in}
+					sign_up={dict.sign_up}
 					onLangChange={lang_func}
 					onThemeChange={theme_func}
 				/>

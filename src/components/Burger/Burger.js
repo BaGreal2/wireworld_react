@@ -7,9 +7,10 @@ import {
 	ListIcon,
 } from '../../svg';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '../../redux/auth';
 import { allowScroll, blockScroll } from '../../handlers/useScrollBlock';
+import { authSelectors } from '../../redux/auth';
 
 import styles from './styles/Burger.module.css';
 
@@ -19,10 +20,13 @@ export default function Burger({
 	change_theme,
 	about,
 	logout,
+	sign_in,
+	sign_up,
 	onLangChange,
 	onThemeChange,
 }) {
 	let [open, setOpen] = useState(false);
+	const isAuthenticated = useSelector(authSelectors.isAuthenticated);
 	let [isDarkMode, setDarkMode] = useState(
 		localStorage.getItem('theme') === 'theme-light' ? true : false
 	);
@@ -58,7 +62,6 @@ export default function Burger({
 		localStorage.setItem('size', JSON.stringify(55));
 		dispatch(authActions.logout());
 	};
-
 	return (
 		<div className={styles.menu_container}>
 			<a href="#top">
@@ -118,10 +121,18 @@ export default function Burger({
 					style={{ textDecoration: 'none' }}
 					onClick={() => clearLocalAll()}
 				>
-					{logout}
-					<div className={styles.icon_container}>
-						<LogoutIcon />
-					</div>
+					{isAuthenticated ? (
+						<>
+							{logout}
+							<div className={styles.icon_container}>
+								<LogoutIcon />
+							</div>
+						</>
+					) : (
+						<>
+							{sign_in} & {sign_up}
+						</>
+					)}
 				</Link>
 			</div>
 		</div>
