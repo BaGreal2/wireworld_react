@@ -81,6 +81,7 @@ export default function SchemaListView() {
 				lang_func={toggleLang}
 				needLang={true}
 				needBack={true}
+				lang={lang}
 			></Topbar>
 			{schemasLoading && (
 				<Flex justifyContent="center">

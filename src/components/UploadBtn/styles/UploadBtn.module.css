@@ -2,7 +2,7 @@
 	position: relative;
 	width: fit-content;
 	left: 75vh;
-	bottom: 76.2vh;
+	bottom: 73.535vh;
 }
 
 .upload_btn {
@@ -14,12 +14,11 @@
 	line-height: 42px;
 	transition: 0.3s linear all;
 	padding: 0;
+	color: var(--color-primary);
 }
 .upload_btn:hover {
+	color: var(--color-accent);
 	background-color: var(--color-primary);
-}
-.upload_btn:hover .icon-svg {
-	fill: var(--color-accent);
 }
 
 .redirect_link {

@@ -1,5 +1,4 @@
 .grid_container {
-	padding-bottom: 10px;
 	width: 73vh;
 	max-width: 98%;
 	margin: auto auto;
@@ -14,6 +13,7 @@
 .cross_res {
 	width: fit-content;
 	margin: 5px;
+	color: var(--color-side-text);
 }
 .input_resolution {
 	background-color: transparent;

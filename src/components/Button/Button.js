@@ -11,6 +11,7 @@ function Button({
 	disabled = false,
 	text,
 	children,
+	isUpload = false,
 }) {
 	return (
 		<>
@@ -23,8 +24,17 @@ function Button({
 				type={type ? type : 'button'}
 				disabled={disabled}
 			>
-				{text ? <span>{text}</span> : <></>}
-				{children ? children : <></>}
+				{text ? (
+					<>
+						<span>
+							{text}
+							{children && !isUpload ? children : <></>}
+						</span>
+					</>
+				) : (
+					<></>
+				)}
+				{children && isUpload ? children : <></>}
 			</button>
 		</>
 	);

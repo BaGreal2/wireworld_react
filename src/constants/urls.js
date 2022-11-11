@@ -4,4 +4,5 @@ export const urls = {
 	register: '/register',
 	upload: '/upload',
 	schemas: '/schemas',
+	about: '/about',
 };

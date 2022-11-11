@@ -113,3 +113,11 @@
 .description_input::placeholder {
 	color: transparent;
 }
+.upload_icon {
+	position: absolute;
+	top: 50%;
+	transition: all 0.15s linear;
+	transform: translateY(-50%);
+	right: 9%;
+	width: 15%;
+}

@@ -30,6 +30,7 @@ export default function UserSchema() {
 				lang_func={toggleLang}
 				needLang={true}
 				needBack={true}
+				lang={lang}
 			/>
 			<SchemaPage
 				start={dict.start}

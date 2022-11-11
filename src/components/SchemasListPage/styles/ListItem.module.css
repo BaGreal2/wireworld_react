@@ -41,6 +41,7 @@
 	width: fit-content;
 }
 .schema_description {
+	color: var(--color-side-text);
 	margin: 0;
 	text-align: left;
 	margin-left: 20px;
@@ -48,6 +49,7 @@
 	width: fit-content;
 }
 .schema_creator {
+	color: var(--color-side-text);
 	margin: 0;
 	margin-left: 20px;
 	width: fit-content;

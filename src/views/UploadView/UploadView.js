@@ -76,6 +76,7 @@ export default function UploadView() {
 				lang_func={toggleLang}
 				needLang={true}
 				needBack={true}
+				lang={lang}
 			></Topbar>
 			<UploadForm
 				title={dict.title}

@@ -2,6 +2,7 @@ import React from 'react';
 import List from './List';
 import { Button } from '../Button';
 import NoSchemas from './NoSchemas';
+import { PlayIcon } from '../../svg';
 
 import styles from './styles/SchemasListPage.module.css';
 
@@ -28,10 +29,14 @@ export default function SchemasListPage({
 					></List>
 					<div className={styles.pages_btns_container}>
 						{page > 1 && (
-							<Button isMain={true} text={previous} action={decPage} />
+							<Button isMain={true} text={previous} action={decPage}>
+								<PlayIcon className={styles.prev_icon} />
+							</Button>
 						)}
 						{page < count / 5 && (
-							<Button isMain={true} text={next} action={incPage} />
+							<Button isMain={true} text={next} action={incPage}>
+								<PlayIcon className={styles.next_icon} />
+							</Button>
 						)}
 					</div>
 				</>

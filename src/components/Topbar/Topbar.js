@@ -1,37 +1,43 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { GetBackIcon } from '../../svg';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Burger } from '../Burger';
 
+import dictionary from '../../dictionary.json';
 import styles from './styles/Topbar.module.css';
 
-export default function Topbar({
-	theme_func,
-	lang_func,
-	needTitle = false,
-	needLang = false,
-	needBack = false,
-}) {
-	let navigate = useNavigate();
+export default function Topbar({ theme_func, lang_func, lang }) {
+	let [dict, setDict] = useState(() => {
+		if (localStorage.getItem('language') === 'ukr') {
+			return dictionary.ukr;
+		} else {
+			return dictionary.eng;
+		}
+	});
+
+	useEffect(() => {
+		if (lang === 'ukr' && dict !== dictionary.ukr) {
+			setDict(dictionary.ukr);
+		} else if (lang === 'eng' && dict !== dictionary.eng) {
+			setDict(dictionary.eng);
+		}
+	}, [lang, dict]);
 	return (
 		<>
 			<div className={styles.switches}>
-				<button
-					className={`${styles.custom_btn} ${styles.btn_switch} ${styles.switch}`}
-					onClick={theme_func}
+				<Burger
+					user_schemas={dict.user_schemas}
+					change_lang={dict.change_lang}
+					change_theme={dict.change_theme}
+					about={dict.about}
+					logout={dict.logout}
+					onLangChange={lang_func}
+					onThemeChange={theme_func}
 				/>
-				{needLang && (
-					<button
-						className={`${styles.custom_btn} ${styles.btn_switch} ${styles.switch_lang}`}
-						onClick={lang_func}
-					/>
-				)}
 			</div>
-			{needTitle && (
-				<Link to="/" style={{ textDecoration: 'none' }}>
-					<h1 className={styles.app_title}>WireWorld</h1>
-				</Link>
-			)}
-			{needBack && <GetBackIcon onClick={() => navigate(-1)} />}
+
+			<Link to="/" style={{ textDecoration: 'none' }}>
+				<h1 className={styles.app_title}>WireWorld</h1>
+			</Link>
 		</>
 	);
 }

@@ -58,6 +58,7 @@ export default function RegisterView() {
 				lang_func={toggleLang}
 				needTitle={true}
 				needLang={true}
+				lang={lang}
 			/>
 			{authError && <Alert alertTitle="Error" alertDescription={authError} />}
 			{loading && !authError && (

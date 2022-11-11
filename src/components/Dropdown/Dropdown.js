@@ -4,9 +4,11 @@ import styles from './styles/Dropdown.module.css';
 
 function Dropdown(props) {
 	const [hideDropdown, setHideDropdown] = useState(true);
-	const toggleDropdown = () => {
+
+	const toggleDropdownFunc = () => {
 		setHideDropdown(!hideDropdown);
 	};
+
 	return (
 		<>
 			<div
@@ -16,7 +18,6 @@ function Dropdown(props) {
 				} ${styles.custom_btn} ${
 					hideDropdown ? styles.dropdown_hide : styles.dropdown_show
 				}`}
-				onClick={() => toggleDropdown()}
 			>
 				<div className={styles.dropdown_content}>
 					{props.content.map((elem, i) => {
@@ -26,8 +27,8 @@ function Dropdown(props) {
 								key={i}
 								onClick={() => {
 									props.onItemChange(elem.value);
-									console.log(2);
-									toggleDropdown();
+
+									toggleDropdownFunc();
 								}}
 								value={elem.value}
 								className={`${styles.main_buttons} ${styles.custom_btn} ${styles.dropdown_element}`}
@@ -40,7 +41,16 @@ function Dropdown(props) {
 					})}
 				</div>
 
-				<span className={styles.title}>{props.title} </span>
+				<span
+					onClick={() => {
+						toggleDropdownFunc();
+						props.onClick();
+					}}
+					className={styles.title}
+				>
+					{props.title}
+					{props.children ? props.children : <></>}
+				</span>
 				<div
 					className={styles.side_item_text}
 					data-content={props.selected}

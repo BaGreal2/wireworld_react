@@ -3,11 +3,6 @@ import { useBeforeunload } from 'react-beforeunload';
 import { Canvas } from '../Canvas';
 import { UploadBtn } from '../UploadBtn';
 import { UploadIcon } from '../../svg';
-import { LogoutBtn } from '../LogoutBtn';
-import { ExitIcon } from '../../svg';
-
-import { useDispatch } from 'react-redux';
-import { authActions } from '../../redux/auth';
 
 import styles from './styles/Grid.module.css';
 
@@ -20,7 +15,6 @@ export default function Grid(props) {
 	const [resetGrid, setResetGrid] = useState(props.resetGrid);
 	const nextGrid = useRef(JSON.parse(JSON.stringify(grid)));
 	const childCanvas = useRef(null);
-	const dispatch = useDispatch();
 
 	//-------GRID FUNCTIONS----------------
 
@@ -147,27 +141,6 @@ export default function Grid(props) {
 		localStorage.setItem('size', JSON.stringify(size));
 		localStorage.setItem('gridImg', ctx.toDataURL('png'));
 	};
-	const clearLocalAll = () => {
-		clearGrids();
-		setSize(55);
-		let saveGrid = new Array(55);
-		for (let i = 0; i < 55; i++) {
-			nextGrid.current[i] = new Array(55);
-			saveGrid[i] = new Array(55);
-		}
-		for (let i = 0; i < 55; i++) {
-			for (let j = 0; j < 55; j++) {
-				saveGrid[i][j] = 0;
-				nextGrid.current[i][j] = 0;
-			}
-		}
-		setGrid(JSON.parse(JSON.stringify(saveGrid)));
-		if (props.isMain) {
-			localStorage.setItem('grid', JSON.stringify(saveGrid));
-			localStorage.setItem('size', JSON.stringify(55));
-		}
-		dispatch(authActions.logout());
-	};
 
 	//-------UPDATE CANVAS-------------------
 
@@ -287,11 +260,6 @@ export default function Grid(props) {
 					<UploadBtn onClick={saveLocalGridScreen} text={''}>
 						<UploadIcon />
 					</UploadBtn>
-				)}
-				{props.showUpload && (
-					<LogoutBtn onClick={clearLocalAll} text={''}>
-						<ExitIcon />
-					</LogoutBtn>
 				)}
 			</div>
 		</div>

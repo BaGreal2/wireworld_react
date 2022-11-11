@@ -44,3 +44,10 @@
 	padding-left: 8px;
 	border: 2px solid var(--color-accent);
 }
+.main_buttons_icon {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 12%;
+	width: 15%;
+}

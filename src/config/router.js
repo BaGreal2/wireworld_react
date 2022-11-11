@@ -4,6 +4,7 @@ import { urls } from '../constants/urls';
 import * as AuthGate from './AuthGate';
 
 const HomeView = lazy(() => import('../views/HomeView'));
+const AboutView = lazy(() => import('../views/AboutView'));
 const LoginView = lazy(() => import('../views/LoginView'));
 const RegisterView = lazy(() => import('../views/RegisterView'));
 const SchemaListView = lazy(() => import('../views/SchemaListView'));
@@ -16,6 +17,12 @@ export const routes = [
 		path: urls.home,
 		exact: true,
 		element: <HomeView />,
+	},
+	{
+		key: 'about',
+		path: urls.about,
+		exact: true,
+		element: <AboutView />,
 	},
 	{
 		key: 'login',

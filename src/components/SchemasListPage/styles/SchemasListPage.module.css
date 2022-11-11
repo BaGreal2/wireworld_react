@@ -3,3 +3,21 @@
 	justify-content: space-around;
 	margin-bottom: 30px;
 }
+.prev_icon {
+	position: absolute;
+	top: 50%;
+	fill: var(--color-primary);
+	transition: all 0.15s linear;
+	transform: translateY(-50%) rotate(-180deg);
+	right: 12%;
+	width: 15%;
+}
+.next_icon {
+	position: absolute;
+	top: 50%;
+	fill: var(--color-primary);
+	transition: all 0.15s linear;
+	transform: translateY(-50%);
+	right: 12%;
+	width: 15%;
+}

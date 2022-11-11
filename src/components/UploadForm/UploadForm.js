@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '../Button';
+import { UploadIcon } from '../../svg';
 
 import styles from './styles/UploadForm.module.css';
 
@@ -45,7 +46,9 @@ export default function UploadForm(props) {
 					isMain={true}
 					text={props.post}
 					type="submit"
-				/>
+				>
+					<UploadIcon className={styles.upload_icon} />
+				</Button>
 			</form>
 		</>
 	);

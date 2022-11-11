@@ -1,5 +1,7 @@
 .schema_open_title {
 	color: var(--color-accent);
 	margin: 20px auto;
+	margin-bottom: 0;
+	border: none;
 	text-align: center;
 }

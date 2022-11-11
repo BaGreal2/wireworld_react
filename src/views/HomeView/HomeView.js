@@ -112,7 +112,7 @@ export default function HomeView() {
 				theme_func={toggleTheme}
 				lang_func={toggleLang}
 				needTitle={true}
-				needLang={true}
+				lang={lang}
 			></Topbar>
 			<Controls
 				onValueChange={changeClickValue}
@@ -124,6 +124,7 @@ export default function HomeView() {
 				toggleReset={toggleReset}
 				startLabel={startLabel}
 				lang={lang}
+				isStart={isStart}
 				isMain={true}
 			></Controls>
 			<Grid

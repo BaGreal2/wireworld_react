@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Button } from '../Button';
 import { Dropdown } from '../Dropdown';
+import {
+	PlayIcon,
+	ClearIcon,
+	ResetIcon,
+	AnimatedPlusMinusIcon,
+} from '../../svg';
 
 import dictionary from '../../dictionary.json';
 
 import styles from './styles/Controls.module.css';
 
 export default function Controls(props) {
+	let [isOpenedItem, setIsOpenedItem] = useState(false);
+	let [isOpenedSpeed, setIsOpenedSpeed] = useState(false);
 	let [dict, setDict] = useState(() => {
 		if (localStorage.getItem('language') === 'ukr') {
 			return dictionary.ukr;
@@ -15,6 +22,13 @@ export default function Controls(props) {
 			return dictionary.eng;
 		}
 	});
+
+	const toggleOpenItem = () => {
+		setIsOpenedItem((prev) => !prev);
+	};
+	const toggleOpenSpeed = () => {
+		setIsOpenedSpeed((prev) => !prev);
+	};
 
 	//-------COMPONENT CHANGES----------------
 
@@ -24,7 +38,7 @@ export default function Controls(props) {
 		} else if (props.lang === 'eng' && dict !== dictionary.eng) {
 			setDict(dictionary.eng);
 		}
-	}, [props.lang, dict]);
+	}, [props.lang, dict, isOpenedItem, isOpenedSpeed]);
 	return (
 		<div className={props.isMain ? styles.controls : styles.controls_upload}>
 			<Button
@@ -32,14 +46,21 @@ export default function Controls(props) {
 				isMain={true}
 				text={props.startLabel}
 				action={props.toggleStart}
-			></Button>
+			>
+				<PlayIcon
+					className={styles.main_buttons_icon}
+					isStart={props.isStart}
+				/>
+			</Button>
 			{props.isMain && (
 				<Button
 					id={'clear'}
 					isMain={true}
 					text={dict.clear}
 					action={props.toggleClear}
-				></Button>
+				>
+					<ClearIcon className={styles.main_buttons_icon} />
+				</Button>
 			)}
 			{props.isMain && (
 				<Button
@@ -47,19 +68,13 @@ export default function Controls(props) {
 					isMain={true}
 					text={dict.reset}
 					action={props.toggleReset}
-				></Button>
-			)}
-			{props.isMain && (
-				<Link to="/schemas" style={{ textDecoration: 'none' }}>
-					<Button
-						id={'usr_levels'}
-						isMain={true}
-						text={dict.user_levels}
-					></Button>
-				</Link>
+				>
+					<ResetIcon className={styles.main_buttons_icon} />
+				</Button>
 			)}
 			<Dropdown
 				title={dict.pick_item}
+				onClick={toggleOpenItem}
 				content={[
 					{ id: 'empty', value: '0', text: dict.empty },
 					{ id: 'head', value: '1', text: dict.head },
@@ -78,7 +93,12 @@ export default function Controls(props) {
 						? dict.conductor
 						: dict.conductor
 				}
-			></Dropdown>
+			>
+				<AnimatedPlusMinusIcon
+					className={styles.main_buttons_icon}
+					isOpened={isOpenedItem}
+				/>
+			</Dropdown>
 			<Dropdown
 				title={dict.pick_speed}
 				content={[
@@ -87,6 +107,7 @@ export default function Controls(props) {
 					{ id: 'tail', value: '30', text: dict.fast },
 					{ id: 'conductor', value: '10', text: dict.unlimited },
 				]}
+				onClick={toggleOpenSpeed}
 				onItemChange={props.onSpeedChange}
 				selected={
 					parseInt(props.reproductionTime) === 210
@@ -99,7 +120,12 @@ export default function Controls(props) {
 						? dict.unlimited
 						: dict.medium
 				}
-			></Dropdown>
+			>
+				<AnimatedPlusMinusIcon
+					className={styles.main_buttons_icon}
+					isOpened={isOpenedSpeed}
+				/>
+			</Dropdown>
 			{!props.isMain && (
 				<>
 					<form

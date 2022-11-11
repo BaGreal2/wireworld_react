@@ -12,9 +12,10 @@ export default function PostSchema({ onClick, text, children }) {
 		>
 			<Button
 				id="post_schema"
-				className={styles.upload_btn}
+				className={`${styles.upload_btn}`}
 				text={text}
 				action={onClick}
+				isUpload={true}
 			>
 				{children}
 			</Button>
