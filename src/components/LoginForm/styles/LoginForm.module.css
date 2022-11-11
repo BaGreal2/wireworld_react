@@ -60,6 +60,7 @@
 	margin: 0 auto;
 	margin-bottom: 20px;
 	color: var(--color-accent);
+	border: none;
 }
 .auth_buttons {
 	margin-top: 20px;
@@ -80,6 +81,10 @@
 	margin-bottom: 15px;
 	width: 150px;
 	height: 40px;
+}
+.sign_in > span {
+	padding: 0;
+	text-align: center;
 }
 .redirect {
 	color: var(--color-accent);
