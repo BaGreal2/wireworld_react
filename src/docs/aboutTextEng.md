@@ -39,7 +39,7 @@ This application was created so that anyone else who loves cellular automata, in
 
 ## Used technologies
 
-This web application is built using the Javascript library [React.js](https://uk.reactjs.org/), and this page is rendered using the Markdown Preprocessor [Remarkable](https://github.com/jonschlinkert/remarkable). The server is written in [Node.js](https://nodejs.org/uk/) using [Express.js](https://expressjs.com/) and [JWT-tokens](https://jwt .io/).
+This web application is built using the Javascript library [React.js](https://uk.reactjs.org/), and this page is rendered using the Markdown Preprocessor [Remarkable](https://github.com/jonschlinkert/remarkable). The server is written in [Node.js](https://nodejs.org/uk/) using [Express.js](https://expressjs.com/) and [JWT-tokens](https://jwt.io/).
 
 ## Links to GitHub
 
