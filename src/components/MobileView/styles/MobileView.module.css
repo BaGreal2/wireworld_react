@@ -7,4 +7,5 @@
 .mobile_view_text {
 	color: var(--color-accent);
 	font-size: 1.5em;
+	border: none;
 }
