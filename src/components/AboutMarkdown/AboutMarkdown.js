@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import ReactMarkdown from 'react-markdown';
 import { Remarkable } from 'remarkable';
 import { sanitize } from 'dompurify';
 import aboutTextUkr from '../../docs/aboutTextUkr.md';

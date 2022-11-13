@@ -27,7 +27,7 @@ function Dropdown(props) {
 								key={i}
 								onClick={() => {
 									props.onItemChange(elem.value);
-
+									props.onClick();
 									toggleDropdownFunc();
 								}}
 								value={elem.value}

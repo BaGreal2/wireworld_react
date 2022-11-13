@@ -1,0 +1,53 @@
+.searchbar {
+	display: block;
+
+	color: var(--color-accent);
+	font-size: 1.1em;
+	width: 100%;
+	height: 100%;
+	height: 40px;
+
+	transition: all 0.3s linear;
+	outline: none;
+	border: none;
+	background-color: transparent;
+	border-bottom: 2px solid var(--color-accent);
+	font-family: 'Ubuntu Mono', monospace;
+}
+.auth_input_container {
+	position: absolute;
+	top: 100px;
+	left: 40%;
+	transform: translateX(-40%);
+	width: 30%;
+	height: 60px;
+	margin-top: 10px;
+}
+
+.auth_label {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	font-size: 10px;
+	color: var(--color-side-text);
+	pointer-events: none;
+	transition: all 300ms ease;
+}
+.auth_input::placeholder {
+	color: transparent;
+}
+.auth_input:placeholder-shown ~ .auth_label {
+	font-size: 16px;
+	top: 16px;
+	left: 4px;
+}
+.auth_input:focus ~ .auth_label {
+	top: 0px;
+	left: 0px;
+	font-size: 10px;
+}
+.auth_input_container:hover ~ .auth_label {
+	top: 0px;
+	left: 0px;
+	font-size: 10px;
+}

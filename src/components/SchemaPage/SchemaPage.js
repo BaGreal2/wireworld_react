@@ -141,6 +141,7 @@ export default function SchemaPage(props) {
 						startLabel={startLabel}
 						lang={props.lang}
 						isMain={false}
+						isStart={isStart}
 						isOwner={
 							JSON.parse(JSON.parse(localStorage.getItem('persist:auth')).user)
 								._id === schema.creator

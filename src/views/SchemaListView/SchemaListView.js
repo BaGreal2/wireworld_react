@@ -5,9 +5,11 @@ import { Alert } from '../../components/Alert';
 import { Topbar } from '../../components/Topbar';
 
 import { SchemasListPage } from '../../components/SchemasListPage';
+import SchemaListSearchbar from './SchemaListSearchbar';
 
 import { setLanguage, setTheme, updateDict } from '../../handlers/lookSwitches';
 import dictionary from '../../dictionary.json';
+import SchemaListSelectSort from './SchemaListSelectSort';
 
 function schemasReducer(state, { type, payload }) {
 	switch (type) {
@@ -26,6 +28,8 @@ export default function SchemaListView() {
 	const [schemasLoading, setSchemasLoading] = useState(false);
 	const [error, setError] = useState(null);
 	const [page, setPage] = useState(1);
+	const [search, setSearch] = useState('');
+	const [selectedSort, setSelectedSort] = useState('ratingAvg');
 	const [count, setCount] = useState();
 	const [schemas, schemasDispatch] = useReducer(schemasReducer, []);
 	const [update, setUpdate] = useState(false);
@@ -61,10 +65,13 @@ export default function SchemaListView() {
 	useEffect(() => {
 		updateDict(lang, dict, setDict);
 		setSchemasLoading(true);
+		console.log(
+			`/schemas?perPage=5&page=${page}&search=${search}&sortBy=${selectedSort}`
+		);
 
 		axios({
 			method: 'GET',
-			url: `/schemas?perPage=5&page=${page}`,
+			url: `/schemas?perPage=5&page=${page}&search=${search}&sortBy=${selectedSort}`,
 		})
 			.then((res) => {
 				schemasDispatch({ type: 'SET', payload: res.data.schemas });
@@ -72,7 +79,7 @@ export default function SchemaListView() {
 			})
 			.catch((error) => setError(error))
 			.finally(() => setSchemasLoading(false));
-	}, [page, update, lang, theme, dict]);
+	}, [page, update, lang, theme, dict, search, selectedSort]);
 
 	return (
 		<Container>
@@ -83,6 +90,19 @@ export default function SchemaListView() {
 				needBack={true}
 				lang={lang}
 			></Topbar>
+			<SchemaListSearchbar
+				search={search}
+				setSearch={setSearch}
+				searchPlaceholder={dict.search}
+			/>
+			<SchemaListSelectSort
+				sort={dict.sort}
+				rating={dict.rating}
+				title={dict.title}
+				author={dict.author}
+				selectedSort={selectedSort}
+				setSelectedSort={setSelectedSort}
+			/>
 			{schemasLoading && (
 				<Flex justifyContent="center">
 					<CircularProgress
@@ -112,6 +132,8 @@ export default function SchemaListView() {
 					count={count}
 					update={update}
 					updateList={updateList}
+					search={search}
+					setSearch={setSearch}
 				/>
 			)}
 		</Container>
