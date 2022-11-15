@@ -19,11 +19,13 @@ export default function HomeView() {
 	const [startLabel, setStartLabel] = useState(() => {
 		return localStorage.getItem('language') === 'eng' ? 'Start' : 'Старт';
 	});
+	// eslint-disable-next-line no-unused-vars
 	const [size, setSize] = useState(() => {
 		return localStorage.getItem('size')
 			? JSON.parse(localStorage.getItem('size'))
 			: 50;
 	});
+	// eslint-disable-next-line no-unused-vars
 	const [fullGrid, setFullGrid] = useState(() => {
 		if (localStorage.getItem('fullGrid')) {
 			return JSON.parse(localStorage.getItem('fullGrid'));
@@ -41,6 +43,7 @@ export default function HomeView() {
 			return JSON.parse(JSON.stringify(saveGrid));
 		}
 	});
+	// eslint-disable-next-line no-unused-vars
 	const [offsetX, setOffsetX] = useState(() => {
 		if (localStorage.getItem('offsetX')) {
 			return JSON.parse(localStorage.getItem('offsetX'));
@@ -48,6 +51,7 @@ export default function HomeView() {
 			return 0;
 		}
 	});
+	// eslint-disable-next-line no-unused-vars
 	const [offsetY, setOffsetY] = useState(() => {
 		if (localStorage.getItem('offsetY')) {
 			return JSON.parse(localStorage.getItem('offsetY'));
@@ -55,6 +59,7 @@ export default function HomeView() {
 			return 0;
 		}
 	});
+	// eslint-disable-next-line no-unused-vars
 	const [grid, setGrid] = useState(() => {
 		if (localStorage.getItem('grid')) {
 			return JSON.parse(localStorage.getItem('grid'));
