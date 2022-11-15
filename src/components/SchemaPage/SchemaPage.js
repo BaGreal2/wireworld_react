@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState, useReducer } from 'react';
+import React, { useEffect, useState, useReducer, useRef } from 'react';
 import { CircularProgress, Flex } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 
@@ -30,12 +30,12 @@ export default function SchemaPage(props) {
 		return localStorage.getItem('language') === 'eng' ? 'Start' : 'Старт';
 	});
 	const [schema, schemaDispatch] = useReducer(schemaReducer, []);
+	let fullGrid = useRef([]);
 	const [schemaLoading, setSchemaLoading] = useState(true);
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
 		setSchemaLoading(true);
-		console.log(props);
 
 		axios({
 			method: 'GET',
@@ -43,6 +43,23 @@ export default function SchemaPage(props) {
 		})
 			.then((res) => {
 				schemaDispatch({ type: 'SET', payload: res.data.schema });
+				for (let i = 0; i < res.data.schema.size + 50; i++) {
+					fullGrid.current[i] = new Array(res.data.schema.size + 50);
+					for (let j = 0; j < res.data.schema.size + 50; j++) {
+						if (
+							i > 24 &&
+							i < 26 + res.data.schema.size &&
+							j > 24 &&
+							j < 26 + res.data.schema.size
+						) {
+							fullGrid.current[i][j] = JSON.parse(res.data.schema.cell_arr)[
+								i - 25
+							][j - 25];
+						} else {
+							fullGrid.current[i][j] = 0;
+						}
+					}
+				}
 			})
 			.catch((error) => setError(error))
 			.finally(() => setSchemaLoading(false));
@@ -100,10 +117,7 @@ export default function SchemaPage(props) {
 			url: `/schemas/${schema._id}`,
 			data: dataUpdate,
 		})
-			.then((res) => {
-				console.log(res.data.editedSchema);
-				// updateList(!update);
-			})
+			.then((res) => {})
 			.catch((error) => {
 				console.dir(error);
 			});
@@ -150,7 +164,11 @@ export default function SchemaPage(props) {
 					></Controls>
 					<Grid
 						size={schema.size}
+						maxSize={schema.size}
+						fullGrid={fullGrid.current}
 						grid={JSON.parse(schema.cell_arr)}
+						offsetX={0}
+						offsetY={0}
 						nextGrid={JSON.parse(schema.cell_arr)}
 						curr_click_value={curr_click_value}
 						reproductionTime={speed}

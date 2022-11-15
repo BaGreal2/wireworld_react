@@ -49,17 +49,27 @@ export default function Burger({
 
 	const clearLocalAll = () => {
 		allowScroll();
-		let saveGrid = new Array(55);
-		for (let i = 0; i < 55; i++) {
-			saveGrid[i] = new Array(55);
+		let saveGrid = new Array(50);
+		for (let i = 0; i < 50; i++) {
+			saveGrid[i] = new Array(50);
 		}
-		for (let i = 0; i < 55; i++) {
-			for (let j = 0; j < 55; j++) {
+		for (let i = 0; i < 50; i++) {
+			for (let j = 0; j < 50; j++) {
 				saveGrid[i][j] = 0;
 			}
 		}
+		let saveFullGrid = new Array(250);
+		for (let i = 0; i < 250; i++) {
+			saveFullGrid[i] = new Array(250);
+		}
+		for (let i = 0; i < 250; i++) {
+			for (let j = 0; j < 250; j++) {
+				saveFullGrid[i][j] = 0;
+			}
+		}
 		localStorage.setItem('grid', JSON.stringify(saveGrid));
-		localStorage.setItem('size', JSON.stringify(55));
+		localStorage.setItem('fullGrid', JSON.stringify(saveFullGrid));
+		localStorage.setItem('size', JSON.stringify(50));
 		dispatch(authActions.logout());
 	};
 	return (

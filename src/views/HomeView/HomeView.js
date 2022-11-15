@@ -10,7 +10,7 @@ import dictionary from '../../dictionary.json';
 export default function HomeView() {
 	const [lang, setLangState] = useState(localStorage.getItem('language'));
 	const [theme, setThemeState] = useState(localStorage.getItem('theme'));
-	const [curr_click_value, setCurr_click_value] = useState(3);
+	const [curr_click_value, setCurr_click_value] = useState('3');
 	const [speed, setSpeed] = useState(100);
 	const [isStart, setIsStart] = useState(false);
 	const [clearGrid, setClearGrid] = useState(false);
@@ -22,7 +22,38 @@ export default function HomeView() {
 	const [size, setSize] = useState(() => {
 		return localStorage.getItem('size')
 			? JSON.parse(localStorage.getItem('size'))
-			: 55;
+			: 50;
+	});
+	const [fullGrid, setFullGrid] = useState(() => {
+		if (localStorage.getItem('fullGrid')) {
+			return JSON.parse(localStorage.getItem('fullGrid'));
+		} else {
+			let saveGrid = new Array(250);
+			for (let i = 0; i < 250; i++) {
+				saveGrid[i] = new Array(250);
+			}
+
+			for (let i = 0; i < 250; i++) {
+				for (let j = 0; j < 250; j++) {
+					saveGrid[i][j] = 0;
+				}
+			}
+			return JSON.parse(JSON.stringify(saveGrid));
+		}
+	});
+	const [offsetX, setOffsetX] = useState(() => {
+		if (localStorage.getItem('offsetX')) {
+			return JSON.parse(localStorage.getItem('offsetX'));
+		} else {
+			return 0;
+		}
+	});
+	const [offsetY, setOffsetY] = useState(() => {
+		if (localStorage.getItem('offsetY')) {
+			return JSON.parse(localStorage.getItem('offsetY'));
+		} else {
+			return 0;
+		}
 	});
 	const [grid, setGrid] = useState(() => {
 		if (localStorage.getItem('grid')) {
@@ -47,25 +78,24 @@ export default function HomeView() {
 	useEffect(() => {
 		updateDict(lang, dict, setDict, setStartLabel);
 
-		if (
-			localStorage.getItem('size') &&
-			size !== JSON.parse(localStorage.getItem('size'))
-		) {
-			setSize(JSON.parse(localStorage.getItem('size')));
-		}
+		// if (
+		// 	localStorage.getItem('size') &&
+		// 	size !== JSON.parse(localStorage.getItem('size'))
+		// ) {
+		// 	setSize(JSON.parse(localStorage.getItem('size')));
+		// }
 
-		if (
-			localStorage.getItem('grid') &&
-			JSON.stringify(grid) !== localStorage.getItem('grid')
-		) {
-			setGrid(JSON.parse(localStorage.getItem('grid')));
-		}
+		// if (
+		// 	localStorage.getItem('grid') &&
+		// 	JSON.stringify(grid) !== localStorage.getItem('grid')
+		// ) {
+		// 	setGrid(JSON.parse(localStorage.getItem('grid')));
+		// }
 	}, [lang, theme, dict, size, grid]);
 
 	//-------FUNCTIONS-----------------
 
 	const changeClickSpeed = (value) => {
-		console.log(1);
 		setSpeed(value);
 	};
 
@@ -129,9 +159,14 @@ export default function HomeView() {
 			></Controls>
 			<Grid
 				size={size}
+				maxSize={200}
+				fullGrid={fullGrid}
 				grid={grid}
+				offsetX={offsetX}
+				offsetY={offsetY}
 				nextGrid={grid}
 				curr_click_value={curr_click_value}
+				setCurr_click_value={setCurr_click_value}
 				reproductionTime={speed}
 				isStart={isStart}
 				clearGrid={clearGrid}

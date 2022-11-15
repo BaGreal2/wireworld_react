@@ -65,9 +65,6 @@ export default function SchemaListView() {
 	useEffect(() => {
 		updateDict(lang, dict, setDict);
 		setSchemasLoading(true);
-		console.log(
-			`/schemas?perPage=5&page=${page}&search=${search}&sortBy=${selectedSort}`
-		);
 
 		axios({
 			method: 'GET',

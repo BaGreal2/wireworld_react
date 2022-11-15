@@ -18,7 +18,6 @@ export default function PlayIconComp({ className, isStart }) {
 	const opacityPauseProps = useSpring({ opacity: Math.abs(opacity - 1) });
 	const opacityPlayProps = useSpring({ opacity });
 	const { points } = useSpring({ points: currProps.points });
-	// console.log(points.animation.to.toString().split(',').join(' '));
 
 	return (
 		<svg

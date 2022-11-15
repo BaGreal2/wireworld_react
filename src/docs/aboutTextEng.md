@@ -11,7 +11,7 @@ As every cellular automata, Wireworld works according to certain simple rules. I
 1. Empty -> Empty
 2. Electron head -> Electron tail
 3. Electron tail -> Conductor
-4. Conductor -> Electron head, if exactly one or two of the neighbouring cells[^third] are electron heads, otherwise remains conductor.
+4. Conductor -> Electron head, __if__ exactly one or two of the neighbouring cells[^third] are electron heads, otherwise remains conductor.
 
 Although the rules are simple, they can lead to interesting behavior:
 

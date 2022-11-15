@@ -13,7 +13,6 @@ export default function ListItem(props) {
 	const [error, setError] = useState(null);
 
 	const deletePost = () => {
-		console.log(1);
 		let data = {
 			userId: JSON.parse(JSON.parse(localStorage.getItem('persist:auth')).user)
 				._id,
@@ -25,7 +24,6 @@ export default function ListItem(props) {
 			data,
 		})
 			.then((res) => {
-				console.log('firsdeletedt');
 				props.updateList(!props.update);
 			})
 			.catch((error) => setError(error));
