@@ -6,6 +6,7 @@ import { updateDict } from '../../handlers/lookSwitches';
 import styles from './styles/NotFound.module.css';
 
 export default function NotFound() {
+	// eslint-disable-next-line no-unused-vars
 	const [lang, setLangState] = useState(localStorage.getItem('language'));
 	const [dict, setDict] = useState(dictionary.eng);
 
