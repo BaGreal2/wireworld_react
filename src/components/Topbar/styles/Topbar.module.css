@@ -95,6 +95,7 @@
 .app_title {
 	position: absolute;
 	font-family: monospace;
+	font-size: 30px;
 	margin: 0;
 	top: 25px;
 	left: 80px;

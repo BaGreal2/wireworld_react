@@ -52,9 +52,11 @@ export default function SchemaPage(props) {
 							j > 24 &&
 							j < 26 + res.data.schema.size
 						) {
-							fullGrid.current[i][j] = JSON.parse(res.data.schema.cell_arr)[
-								i - 25
-							][j - 25];
+							JSON.parse(res.data.schema.cell_arr)[i - 25] !== undefined
+								? (fullGrid.current[i][j] = JSON.parse(
+										res.data.schema.cell_arr
+								  )[i - 25][j - 25])
+								: (fullGrid.current[i][j] = 0);
 						} else {
 							fullGrid.current[i][j] = 0;
 						}

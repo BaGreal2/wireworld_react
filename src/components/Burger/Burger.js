@@ -5,6 +5,7 @@ import {
 	LogoutIcon,
 	InfoIcon,
 	ListIcon,
+	UserIcon,
 } from '../../svg';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -141,6 +142,9 @@ export default function Burger({
 					) : (
 						<>
 							{sign_in} & {sign_up}
+							<div className={styles.icon_container}>
+								<UserIcon />
+							</div>
 						</>
 					)}
 				</Link>

@@ -10,6 +10,7 @@ const RegisterView = lazy(() => import('../views/RegisterView'));
 const SchemaListView = lazy(() => import('../views/SchemaListView'));
 const UploadView = lazy(() => import('../views/UploadView'));
 const UserSchemaView = lazy(() => import('../views/UserSchemaView'));
+const NotFoundView = lazy(() => import('../views/NotFoundView'));
 
 export const routes = [
 	{
@@ -73,5 +74,11 @@ export const routes = [
 				<UserSchemaView />
 			</AuthGate.AuthRequired>
 		),
+	},
+	{
+		key: 'not_found',
+		path: urls.not_found,
+		exact: false,
+		element: <NotFoundView />,
 	},
 ];

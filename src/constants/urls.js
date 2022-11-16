@@ -5,4 +5,5 @@ export const urls = {
 	upload: '/upload',
 	schemas: '/schemas',
 	about: '/about',
+	not_found: '*',
 };

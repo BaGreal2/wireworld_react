@@ -13,3 +13,4 @@ export { default as PlayIcon } from './PlayIconComp';
 export { default as ClearIcon } from './ClearIconComp';
 export { default as ResetIcon } from './ResetIconComp';
 export { default as AnimatedPlusMinusIcon } from './AnimatedPlusMinusIconComp';
+export { default as UserIcon } from './UserIconComp';

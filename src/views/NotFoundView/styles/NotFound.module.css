@@ -1,0 +1,24 @@
+.not_found_container {
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.not_found_text,
+.not_found_err {
+	color: var(--color-accent);
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+.not_found_err {
+	font-size: 4em;
+}
+.not_found_text {
+	margin-top: 25px;
+	margin-bottom: 25px;
+	font-size: 3em;
+}
+.not_found_link {
+	font-size: 1.5em;
+}
