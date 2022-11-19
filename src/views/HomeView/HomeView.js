@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Topbar } from '../../components/Topbar';
 import { Controls } from '../../components/Controls';
+import { ControlsHint } from '../../components/ControlsHint';
 import { Grid } from '../../components/Grid';
 
 import { setLanguage, setTheme, updateDict } from '../../handlers/lookSwitches';
@@ -10,7 +11,7 @@ import dictionary from '../../dictionary.json';
 export default function HomeView() {
 	const [lang, setLangState] = useState(localStorage.getItem('language'));
 	const [theme, setThemeState] = useState(localStorage.getItem('theme'));
-	const [curr_click_value, setCurr_click_value] = useState('3');
+	const [currClickValue, setCurrClickValue] = useState('3');
 	const [speed, setSpeed] = useState(100);
 	const [isStart, setIsStart] = useState(false);
 	const [clearGrid, setClearGrid] = useState(false);
@@ -78,25 +79,11 @@ export default function HomeView() {
 		}
 	});
 
-	//-------COMPONENT REFRESH-----------------
+	//-------COMPONENT UPDATES-----------------
 
 	useEffect(() => {
 		updateDict(lang, dict, setDict, setStartLabel);
-
-		// if (
-		// 	localStorage.getItem('size') &&
-		// 	size !== JSON.parse(localStorage.getItem('size'))
-		// ) {
-		// 	setSize(JSON.parse(localStorage.getItem('size')));
-		// }
-
-		// if (
-		// 	localStorage.getItem('grid') &&
-		// 	JSON.stringify(grid) !== localStorage.getItem('grid')
-		// ) {
-		// 	setGrid(JSON.parse(localStorage.getItem('grid')));
-		// }
-	}, [lang, theme, dict, size, grid]);
+	}, [lang, dict]);
 
 	//-------FUNCTIONS-----------------
 
@@ -105,7 +92,7 @@ export default function HomeView() {
 	};
 
 	const changeClickValue = (value) => {
-		setCurr_click_value(value);
+		setCurrClickValue(value);
 	};
 
 	const toggleStart = () => {
@@ -148,11 +135,11 @@ export default function HomeView() {
 				lang_func={toggleLang}
 				needTitle={true}
 				lang={lang}
-			></Topbar>
+			/>
 			<Controls
 				onValueChange={changeClickValue}
 				onSpeedChange={changeClickSpeed}
-				curr_click_value={curr_click_value}
+				currClickValue={currClickValue}
 				reproductionTime={speed}
 				toggleStart={toggleStart}
 				toggleClear={toggleClear}
@@ -161,7 +148,7 @@ export default function HomeView() {
 				lang={lang}
 				isStart={isStart}
 				isMain={true}
-			></Controls>
+			/>
 			<Grid
 				size={size}
 				maxSize={200}
@@ -170,8 +157,8 @@ export default function HomeView() {
 				offsetX={offsetX}
 				offsetY={offsetY}
 				nextGrid={grid}
-				curr_click_value={curr_click_value}
-				setCurr_click_value={setCurr_click_value}
+				currClickValue={currClickValue}
+				setCurrClickValue={setCurrClickValue}
 				reproductionTime={speed}
 				isStart={isStart}
 				clearGrid={clearGrid}
@@ -182,7 +169,8 @@ export default function HomeView() {
 				theme={theme}
 				showUpload={true}
 				isMain={true}
-			></Grid>
+			/>
+			<ControlsHint />
 		</>
 	);
 }

@@ -1,0 +1,6 @@
+.hint_container {
+	width: 73vh;
+	color: var(--color-buttons);
+	margin: 0 auto;
+	line-height: 20px;
+}

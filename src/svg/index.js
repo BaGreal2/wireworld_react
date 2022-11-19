@@ -14,3 +14,5 @@ export { default as ClearIcon } from './ClearIconComp';
 export { default as ResetIcon } from './ResetIconComp';
 export { default as AnimatedPlusMinusIcon } from './AnimatedPlusMinusIconComp';
 export { default as UserIcon } from './UserIconComp';
+export { default as ArrowLeftIcon } from './ArrowLeftIconComp';
+export { default as ArrowRightIcon } from './ArrowRightIconComp';

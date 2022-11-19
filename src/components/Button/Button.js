@@ -21,7 +21,7 @@ function Button({
 					isMain ? styles.main_buttons : ''
 				}`}
 				onClick={action}
-				type={type ? type : 'button'}
+				type={type}
 				disabled={disabled}
 			>
 				{text ? (

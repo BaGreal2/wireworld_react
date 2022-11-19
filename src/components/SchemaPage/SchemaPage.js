@@ -20,7 +20,7 @@ function schemaReducer(state, { type, payload }) {
 }
 
 export default function SchemaPage(props) {
-	const [curr_click_value, setCurr_click_value] = useState(3);
+	const [currClickValue, setCurrClickValue] = useState(3);
 	const [speed, setSpeed] = useState(100);
 	const [isStart, setIsStart] = useState(false);
 	const [clearGrid, setClearGrid] = useState(false);
@@ -73,7 +73,7 @@ export default function SchemaPage(props) {
 	};
 
 	const changeClickValue = (value) => {
-		setCurr_click_value(value);
+		setCurrClickValue(value);
 	};
 
 	const toggleStart = () => {
@@ -149,7 +149,7 @@ export default function SchemaPage(props) {
 					<Controls
 						onValueChange={changeClickValue}
 						onSpeedChange={changeClickSpeed}
-						curr_click_value={curr_click_value}
+						currClickValue={currClickValue}
 						reproductionTime={speed}
 						toggleStart={toggleStart}
 						toggleClear={toggleClear}
@@ -172,7 +172,7 @@ export default function SchemaPage(props) {
 						offsetX={0}
 						offsetY={0}
 						nextGrid={JSON.parse(schema.cell_arr)}
-						curr_click_value={curr_click_value}
+						currClickValue={currClickValue}
 						reproductionTime={speed}
 						isStart={isStart}
 						clearGrid={clearGrid}

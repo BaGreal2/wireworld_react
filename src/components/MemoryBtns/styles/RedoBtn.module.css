@@ -1,0 +1,28 @@
+.redo {
+	position: relative;
+	width: 40px;
+	padding: 0;
+	height: 40px;
+	left: -18.5vh;
+	bottom: 74.105vh;
+	border: 2px solid var(--color-buttons);
+	background-color: var(--color-buttons);
+	transition: 0.3s linear all;
+	color: var(--color-primary);
+}
+.redo > span {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.redo:hover {
+	background-color: var(--color-primary);
+}
+.redo:hover:enabled > span {
+	color: var(--color-accent);
+}
+.redo:disabled,
+.redu[disabled] {
+	background-color: var(--color-buttons);
+	opacity: 0.7;
+}

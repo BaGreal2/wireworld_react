@@ -3,6 +3,7 @@ import { useBeforeunload } from 'react-beforeunload';
 import { Canvas } from '../Canvas';
 import { UploadBtn } from '../UploadBtn';
 import { UploadIcon } from '../../svg';
+import { UndoBtn, RedoBtn } from '../MemoryBtns';
 
 import styles from './styles/Grid.module.css';
 
@@ -18,6 +19,49 @@ export default function Grid(props) {
 	const [offsetX, setOffsetX] = useState(props.offsetX);
 	const nextGrid = useRef(JSON.parse(JSON.stringify(grid)));
 	const childCanvas = useRef(null);
+	const [strokeCount, setStrokeCount] = useState(1);
+	const [saveArray, setSaveArray] = useState([JSON.stringify(props.fullGrid)]);
+	const [disableRedo, setDisableRedo] = useState(true);
+	const [disableUndo, setDisableUndo] = useState(true);
+
+	//-------COMPONENT UPDATES----------------
+
+	useBeforeunload((e) => {
+		if (props.isMain) {
+			localStorage.setItem('grid', JSON.stringify(grid));
+			localStorage.setItem('fullGrid', JSON.stringify(fullGrid));
+			localStorage.setItem('offsetX', JSON.stringify(offsetX));
+			localStorage.setItem('offsetY', JSON.stringify(offsetY));
+			localStorage.setItem('size', JSON.stringify(size));
+		}
+	});
+
+	useEffect(() => {
+		const timer = setInterval(play, props.reproductionTime);
+
+		if (props.clearGrid) {
+			clearGrids();
+			props.toggleClear();
+			setClearGrid(false);
+		}
+
+		if (props.resetGrid) {
+			resetGrids();
+			props.toggleReset();
+			setResetGrid(false);
+		}
+
+		return () => {
+			clearInterval(timer);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [
+		props.resetGrid,
+		props.clearGrid,
+		props.isStart,
+		props.reproductionTime,
+		grid,
+	]);
 
 	//-------GRID FUNCTIONS----------------
 
@@ -117,6 +161,29 @@ export default function Grid(props) {
 		setGrid(JSON.parse(JSON.stringify(saveGrid)));
 	};
 
+	const resetGrids = () => {
+		clearGrids();
+		setSize(50);
+		setOffsetX(0);
+		setOffsetY(0);
+		setDisableRedo(true);
+		setDisableUndo(true);
+		setSaveArray([JSON.stringify(props.fullGrid)]);
+		setStrokeCount(1);
+		let saveGrid = new Array(50);
+		for (let i = 0; i < 50; i++) {
+			nextGrid.current[i] = new Array(50);
+			saveGrid[i] = new Array(50);
+		}
+		for (let i = 0; i < 50; i++) {
+			for (let j = 0; j < 50; j++) {
+				saveGrid[i][j] = 0;
+				nextGrid.current[i][j] = 0;
+			}
+		}
+		setGrid(JSON.parse(JSON.stringify(saveGrid)));
+	};
+
 	const setNewResGrid = (valueInt) => {
 		if (valueInt >= 1 && valueInt <= props.maxSize + 50) {
 			setSize(valueInt);
@@ -130,25 +197,45 @@ export default function Grid(props) {
 			}
 			for (let i = 0; i < valueInt; i++) {
 				for (let j = 0; j < valueInt; j++) {
-					saveGrid[i][j] =
+					if (
 						fullGrid[
 							i +
 								(size - valueInt) / 2 +
 								(props.maxSize + 50 - size) / 2 -
 								offsetY
-						] !== undefined
-							? fullGrid[
+						]
+					) {
+						if (
+							fullGrid[
+								i +
+									(size - valueInt) / 2 +
+									(props.maxSize + 50 - size) / 2 -
+									offsetY
+							][
+								j +
+									(size - valueInt) / 2 +
+									(props.maxSize + 50 - size) / 2 -
+									offsetX
+							]
+						) {
+							saveGrid[i][j] =
+								fullGrid[
 									i +
 										(size - valueInt) / 2 +
 										(props.maxSize + 50 - size) / 2 -
 										offsetY
-							  ][
+								][
 									j +
 										(size - valueInt) / 2 +
 										(props.maxSize + 50 - size) / 2 -
 										offsetX
-							  ]
-							: 0;
+								];
+						} else {
+							saveGrid[i][j] = 0;
+						}
+					} else {
+						saveGrid[i][j] = 0;
+					}
 					nextGrid.current[i][j] = 0;
 				}
 			}
@@ -160,8 +247,66 @@ export default function Grid(props) {
 
 	//-------CLICK FUNCTIONS----------------
 
+	const handleUndo = () => {
+		if (strokeCount - 2 < 0) {
+			return;
+		}
+		if (strokeCount - 2 === 0) {
+			setDisableUndo(true);
+		}
+		setDisableRedo(false);
+		let saveFullGrid = JSON.parse(saveArray[strokeCount - 2]);
+		for (let i = 0; i < size; i++) {
+			for (let j = 0; j < size; j++) {
+				if (saveFullGrid[i + (props.maxSize + 50 - size) / 2 - offsetY]) {
+					if (
+						j + (props.maxSize + 50 - size) / 2 - offsetX <
+						props.maxSize + 49
+					) {
+						nextGrid.current[i][j] =
+							saveFullGrid[i + (props.maxSize + 50 - size) / 2 - offsetY][
+								j + (props.maxSize + 50 - size) / 2 - offsetX
+							];
+					}
+				}
+			}
+		}
+		copyAndResetGrid();
+		setFullGrid(saveFullGrid);
+		setStrokeCount((prev) => prev - 1);
+	};
+
+	const handleRedo = () => {
+		if (strokeCount > saveArray.length - 1) {
+			return;
+		}
+		if (strokeCount === saveArray.length - 1) {
+			setDisableRedo(true);
+		}
+		setDisableUndo(false);
+		let saveFullGrid = JSON.parse(saveArray[strokeCount]);
+		for (let i = 0; i < size; i++) {
+			for (let j = 0; j < size; j++) {
+				if (saveFullGrid[i + (props.maxSize + 50 - size) / 2 - offsetY]) {
+					if (
+						j + (props.maxSize + 50 - size) / 2 - offsetX <
+						props.maxSize + 49
+					) {
+						nextGrid.current[i][j] =
+							saveFullGrid[i + (props.maxSize + 50 - size) / 2 - offsetY][
+								j + (props.maxSize + 50 - size) / 2 - offsetX
+							];
+					}
+				}
+			}
+		}
+		copyAndResetGrid();
+		setFullGrid(saveFullGrid);
+		setStrokeCount((prev) => prev + 1);
+	};
+
 	const changeGridRes = (value) => {
-		let valueInt = parseInt(value);
+		let valueInt = Number(value);
 		if (valueInt % 2 !== 0) {
 			if (valueInt < size) {
 				valueInt = valueInt - 1;
@@ -171,24 +316,24 @@ export default function Grid(props) {
 		}
 		setNewResGrid(valueInt);
 	};
+
 	const incGridRes = () => {
 		let valueInt = size + 2;
 		setNewResGrid(valueInt);
 	};
+
 	const decGridRes = () => {
 		let valueInt = size - 2;
 		setNewResGrid(valueInt);
 	};
+
 	const shiftGrid = (shiftBy) => {
 		let saveGrid = JSON.parse(JSON.stringify(grid));
 		switch (shiftBy) {
 			case 'up':
 				for (let i = 0; i < size; i++) {
 					for (let j = 0; j < size; j++) {
-						if (
-							fullGrid[i + 1 + (props.maxSize + 50 - size) / 2 - offsetY] !==
-							undefined
-						) {
+						if (fullGrid[i + 1 + (props.maxSize + 50 - size) / 2 - offsetY]) {
 							saveGrid[i][j] =
 								fullGrid[i + 1 + (props.maxSize + 50 - size) / 2 - offsetY][
 									j + (props.maxSize + 50 - size) / 2 - offsetX
@@ -205,10 +350,7 @@ export default function Grid(props) {
 			case 'down':
 				for (let i = 0; i < size; i++) {
 					for (let j = 0; j < size; j++) {
-						if (
-							fullGrid[i - 1 + (props.maxSize + 50 - size) / 2 - offsetY] !==
-							undefined
-						) {
+						if (fullGrid[i - 1 + (props.maxSize + 50 - size) / 2 - offsetY]) {
 							saveGrid[i][j] =
 								fullGrid[i - 1 + (props.maxSize + 50 - size) / 2 - offsetY][
 									j + (props.maxSize + 50 - size) / 2 - offsetX
@@ -226,18 +368,21 @@ export default function Grid(props) {
 			case 'left':
 				for (let i = 0; i < size; i++) {
 					for (let j = 0; j < size; j++) {
-						if (
-							fullGrid[i + (props.maxSize + 50 - size) / 2 - offsetY] !==
-							undefined
-						) {
-							saveGrid[i][j] =
-								fullGrid[i + (props.maxSize + 50 - size) / 2 - offsetY][
-									j + 1 + (props.maxSize + 50 - size) / 2 - offsetX
-								];
+						if (fullGrid[i + (props.maxSize + 50 - size) / 2 - offsetY]) {
+							if (
+								j + 1 + (props.maxSize + 50 - size) / 2 - offsetX <
+								props.maxSize + 49
+							) {
+								saveGrid[i][j] =
+									fullGrid[i + (props.maxSize + 50 - size) / 2 - offsetY][
+										j + 1 + (props.maxSize + 50 - size) / 2 - offsetX
+									];
+							} else {
+								return;
+							}
 						} else {
 							return;
 						}
-
 						nextGrid.current[i][j] = 0;
 					}
 				}
@@ -247,14 +392,15 @@ export default function Grid(props) {
 			case 'right':
 				for (let i = 0; i < size; i++) {
 					for (let j = 0; j < size; j++) {
-						if (
-							fullGrid[i + (props.maxSize + 50 - size) / 2 - offsetY] !==
-							undefined
-						) {
-							saveGrid[i][j] =
-								fullGrid[i + (props.maxSize + 50 - size) / 2 - offsetY][
-									j - 1 + (props.maxSize + 50 - size) / 2 - offsetX
-								];
+						if (fullGrid[i + (props.maxSize + 50 - size) / 2 - offsetY]) {
+							if (j - 1 + (props.maxSize + 50 - size) / 2 - offsetX > 0) {
+								saveGrid[i][j] =
+									fullGrid[i + (props.maxSize + 50 - size) / 2 - offsetY][
+										j - 1 + (props.maxSize + 50 - size) / 2 - offsetX
+									];
+							} else {
+								return;
+							}
 						} else {
 							return;
 						}
@@ -270,6 +416,7 @@ export default function Grid(props) {
 				break;
 		}
 	};
+
 	const handleKeyBinds = (e) => {
 		let valueInt = null;
 		switch (e.key) {
@@ -283,31 +430,31 @@ export default function Grid(props) {
 				break;
 			case 'j':
 			case 'ArrowDown':
-				shiftGrid('down');
+				shiftGrid('up');
 				break;
 			case 'h':
 			case 'ArrowLeft':
-				shiftGrid('left');
+				shiftGrid('right');
 				break;
 			case 'k':
 			case 'ArrowUp':
-				shiftGrid('up');
+				shiftGrid('down');
 				break;
 			case 'l':
 			case 'ArrowRight':
-				shiftGrid('right');
+				shiftGrid('left');
 				break;
 			case '1':
-				props.setCurr_click_value('1');
+				props.setCurrClickValue('1');
 				break;
 			case '2':
-				props.setCurr_click_value('2');
+				props.setCurrClickValue('2');
 				break;
 			case '3':
-				props.setCurr_click_value('3');
+				props.setCurrClickValue('3');
 				break;
 			case '4':
-				props.setCurr_click_value('0');
+				props.setCurrClickValue('0');
 				break;
 			case ' ':
 				props.toggleStart();
@@ -320,6 +467,11 @@ export default function Grid(props) {
 				break;
 			default:
 				break;
+		}
+		if (e.key === 'z' && (e.ctrlKey || e.metaKey)) {
+			handleUndo();
+		} else if (e.key === 'y' && (e.ctrlKey || e.metaKey)) {
+			handleRedo();
 		}
 	};
 	const saveLocalGridScreen = () => {
@@ -343,60 +495,6 @@ export default function Grid(props) {
 		setGrid(JSON.parse(JSON.stringify(saveGrid)));
 		setFullGrid(JSON.parse(JSON.stringify(saveFullGrid)));
 	};
-
-	//-------COMPONENT CHANGES----------------
-
-	useBeforeunload((e) => {
-		if (props.isMain) {
-			localStorage.setItem('grid', JSON.stringify(grid));
-			localStorage.setItem('fullGrid', JSON.stringify(fullGrid));
-			localStorage.setItem('offsetX', JSON.stringify(offsetX));
-			localStorage.setItem('offsetY', JSON.stringify(offsetY));
-			localStorage.setItem('size', JSON.stringify(size));
-		}
-	});
-
-	useEffect(() => {
-		const timer = setInterval(play, props.reproductionTime);
-
-		if (props.clearGrid) {
-			clearGrids();
-			props.toggleClear();
-			setClearGrid(false);
-		}
-
-		if (props.resetGrid) {
-			clearGrids();
-			setSize(50);
-			setOffsetX(0);
-			setOffsetY(0);
-			let saveGrid = new Array(50);
-			for (let i = 0; i < 50; i++) {
-				nextGrid.current[i] = new Array(50);
-				saveGrid[i] = new Array(50);
-			}
-			for (let i = 0; i < 50; i++) {
-				for (let j = 0; j < 50; j++) {
-					saveGrid[i][j] = 0;
-					nextGrid.current[i][j] = 0;
-				}
-			}
-			setGrid(JSON.parse(JSON.stringify(saveGrid)));
-			props.toggleReset();
-			setResetGrid(false);
-		}
-
-		return () => {
-			clearInterval(timer);
-		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [
-		props.resetGrid,
-		props.clearGrid,
-		props.isStart,
-		props.reproductionTime,
-		grid,
-	]);
 
 	return (
 		<div className={styles.grid_main_container}>
@@ -425,22 +523,10 @@ export default function Grid(props) {
 					className={styles.input_resolution}
 				></input>
 				<div className={styles.inc_container}>
-					<button
-						name="inc"
-						className={styles.inc_buttons}
-						onClick={() => {
-							incGridRes();
-						}}
-					>
+					<button className={styles.inc_buttons} onClick={() => incGridRes()}>
 						⬆
 					</button>
-					<button
-						name="dcm"
-						className={styles.inc_buttons}
-						onClick={() => {
-							decGridRes();
-						}}
-					>
+					<button className={styles.inc_buttons} onClick={() => decGridRes()}>
 						⬇
 					</button>
 				</div>
@@ -448,19 +534,28 @@ export default function Grid(props) {
 
 			<div className={styles.grid_container}>
 				<Canvas
-					curr_click_value={props.curr_click_value}
+					currClickValue={props.currClickValue}
 					size={size}
 					grid={grid}
+					fullGrid={fullGrid}
 					updateGrid={updateGridFromCanvas}
 					theme={props.theme}
 					forwardedRef={childCanvas}
 					onKeyPress={handleKeyBinds}
+					saveArray={saveArray}
+					setSaveArray={setSaveArray}
+					strokeCount={strokeCount}
+					setStrokeCount={setStrokeCount}
+					setDisableRedo={setDisableRedo}
+					setDisableUndo={setDisableUndo}
 				></Canvas>
 				{props.showUpload && (
 					<UploadBtn onClick={saveLocalGridScreen} text={''}>
 						<UploadIcon />
 					</UploadBtn>
 				)}
+				<UndoBtn disabled={disableUndo} onClick={handleUndo} />
+				<RedoBtn disabled={disableRedo} onClick={handleRedo} />
 			</div>
 		</div>
 	);

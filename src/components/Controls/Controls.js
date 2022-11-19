@@ -83,13 +83,13 @@ export default function Controls(props) {
 				]}
 				onItemChange={props.onValueChange}
 				selected={
-					parseInt(props.curr_click_value) === 0
+					Number(props.currClickValue) === 0
 						? dict.empty
-						: parseInt(props.curr_click_value) === 1
+						: Number(props.currClickValue) === 1
 						? dict.head
-						: parseInt(props.curr_click_value) === 2
+						: Number(props.currClickValue) === 2
 						? dict.tail
-						: parseInt(props.curr_click_value) === 3
+						: Number(props.currClickValue) === 3
 						? dict.conductor
 						: dict.conductor
 				}
@@ -110,13 +110,13 @@ export default function Controls(props) {
 				onClick={toggleOpenSpeed}
 				onItemChange={props.onSpeedChange}
 				selected={
-					parseInt(props.reproductionTime) === 210
+					Number(props.reproductionTime) === 210
 						? dict.slow
-						: parseInt(props.reproductionTime) === 100
+						: Number(props.reproductionTime) === 100
 						? dict.medium
-						: parseInt(props.reproductionTime) === 30
+						: Number(props.reproductionTime) === 30
 						? dict.fast
-						: parseInt(props.reproductionTime) === 10
+						: Number(props.reproductionTime) === 10
 						? dict.unlimited
 						: dict.medium
 				}

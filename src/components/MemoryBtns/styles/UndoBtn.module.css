@@ -1,0 +1,28 @@
+.undo {
+	position: relative;
+	width: 40px;
+	padding: 0;
+	height: 40px;
+	left: -19.5vh;
+	bottom: 74.105vh;
+	border: 2px solid var(--color-buttons);
+	background-color: var(--color-buttons);
+	transition: 0.3s linear all;
+	color: var(--color-primary);
+}
+.undo > span {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.undo:hover {
+	background-color: var(--color-primary);
+}
+.undo:hover:enabled > span {
+	color: var(--color-accent);
+}
+.undo:disabled,
+.undo[disabled] {
+	background-color: var(--color-buttons);
+	opacity: 0.7;
+}
