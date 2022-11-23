@@ -130,7 +130,7 @@ export default function Controls(props) {
 				<>
 					<form
 						className={styles.rate_schema_container}
-						onSubmit={props.sendRate}
+						onSubmit={!props.userRated ? props.sendRate : props.retractRate}
 					>
 						<label
 							className={styles.rate_schema_label}
@@ -140,7 +140,8 @@ export default function Controls(props) {
 						</label>
 						<select
 							className={styles.rate_schema_select}
-							disabled={props.isOwner ? true : false}
+							disabled={props.isOwner || props.userRated ? true : false}
+							defaultValue={props.selectedRate.toString()}
 						>
 							<option value="1">1 {dict.star}</option>
 							<option value="2">2 {dict.stars}</option>
@@ -152,7 +153,7 @@ export default function Controls(props) {
 							type="submit"
 							id={'submit_rating'}
 							isMain={true}
-							text={dict.rate}
+							text={props.userRated ? dict.retract : dict.rate}
 							disabled={props.isOwner ? true : false}
 						/>
 					</form>

@@ -37,6 +37,7 @@
 		"next": "Next",
 		"no_schemas": "No schemas found!",
 		"rate": "Rate",
+		"retract": "Retract",
 		"star": "Star",
 		"stars": "Stars",
 		"stars_5": "Stars",
@@ -51,7 +52,8 @@
 		"sort": "Sort",
 		"err404": "Error 404",
 		"not_found": "Page not found!",
-		"return_home": "Return home"
+		"return_home": "Return home",
+		"controls_hint": "h, j, k, l (←, ↓, ↑, →) - movement; c, r - clear/reset grid; space - start; 1, 2, 3, 4 - item selection; ctrl+z/ctrl+y - undo/redo; +/- - zoom;"
 	},
 	"ukr": {
 		"start": "Старт",
@@ -91,6 +93,7 @@
 		"next": "Наступна",
 		"no_schemas": "Не знайдено жодних схем!",
 		"rate": "Оцінити",
+		"retract": "Змінити",
 		"star": "Зірка",
 		"stars": "Зірки",
 		"stars_5": "Зірок",
@@ -105,6 +108,7 @@
 		"sort": "Сортування",
 		"err404": "Помилка 404",
 		"not_found": "Сторінку не знайдено!",
-		"return_home": "На головну"
+		"return_home": "На головну",
+		"controls_hint": "h, j, k, l (←, ↓, ↑, →) - пересування; c, r - очистити/скинути сітку; пробіл - старт; 1, 2, 3, 4 - обрати елемент; ctrl+z/ctrl+y - скасувати/повернути; +/- - зум;"
 	}
 }

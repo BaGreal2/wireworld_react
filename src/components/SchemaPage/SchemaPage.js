@@ -25,6 +25,8 @@ export default function SchemaPage(props) {
 	const [isStart, setIsStart] = useState(false);
 	const [clearGrid, setClearGrid] = useState(false);
 	const [resetGrid, setResetGrid] = useState(false);
+	const [userRated, setUserRated] = useState(false);
+	const [selectedRate, setSelectedRate] = useState(0);
 	const searchParams = useParams();
 	const [startLabel, setStartLabel] = useState(() => {
 		return localStorage.getItem('language') === 'eng' ? 'Start' : 'Старт';
@@ -43,6 +45,34 @@ export default function SchemaPage(props) {
 		})
 			.then((res) => {
 				schemaDispatch({ type: 'SET', payload: res.data.schema });
+				setUserRated(() => {
+					return res.data.schema.userRated?.length > 0
+						? res.data.schema.userRated.some(
+								(elem) =>
+									elem.userId ===
+									JSON.parse(
+										JSON.parse(localStorage.getItem('persist:auth')).user
+									)._id
+						  )
+						: false;
+				});
+				setSelectedRate(() => {
+					return res.data.schema.userRated.some(
+						(elem) =>
+							elem.userId ===
+							JSON.parse(JSON.parse(localStorage.getItem('persist:auth')).user)
+								._id
+					)
+						? res.data.schema.userRated.find(
+								(elem) =>
+									elem.userId ===
+									JSON.parse(
+										JSON.parse(localStorage.getItem('persist:auth')).user
+									)._id
+						  )?.userRate
+						: 0;
+				});
+
 				for (let i = 0; i < res.data.schema.size + 50; i++) {
 					fullGrid.current[i] = new Array(res.data.schema.size + 50);
 					for (let j = 0; j < res.data.schema.size + 50; j++) {
@@ -66,7 +96,7 @@ export default function SchemaPage(props) {
 			.catch((error) => setError(error))
 			.finally(() => setSchemaLoading(false));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [userRated]);
 
 	const changeClickSpeed = (value) => {
 		setSpeed(value);
@@ -103,16 +133,14 @@ export default function SchemaPage(props) {
 
 	const sendRate = (data) => {
 		data.preventDefault();
+		setUserRated(true);
 		let dataNum = Number(data.target[0].value);
 		let newRating = [...schema.rating, dataNum];
 		let dataUpdate = {
-			title: schema.title,
-			description: schema.description,
-			cell_arr: schema.cell_arr,
-			size: schema.size,
 			rating: newRating,
-			creator: schema.creator,
-			creatorName: schema.creatorName,
+			userRated: schema.userRated,
+			userId: JSON.parse(JSON.parse(localStorage.getItem('persist:auth')).user)
+				._id,
 		};
 		axios({
 			method: 'PUT',
@@ -124,6 +152,33 @@ export default function SchemaPage(props) {
 				console.dir(error);
 			});
 	};
+
+	const retractRate = (data) => {
+		data.preventDefault();
+		setUserRated(false);
+		let dataNum = Number(data.target[0].value);
+		let findRateIndex = schema.rating.indexOf(dataNum);
+		let cloneSchemaRating = schema.rating.slice();
+		if (findRateIndex > -1) {
+			cloneSchemaRating.splice(findRateIndex, 1);
+		}
+		let dataUpdate = {
+			rating: cloneSchemaRating,
+			userRated: schema.userRated,
+			userId: JSON.parse(JSON.parse(localStorage.getItem('persist:auth')).user)
+				._id,
+		};
+		axios({
+			method: 'PUT',
+			url: `/schemas/retract/${schema._id}`,
+			data: dataUpdate,
+		})
+			.then((res) => {})
+			.catch((error) => {
+				console.dir(error);
+			});
+	};
+
 	return (
 		<div>
 			{schemaLoading && (
@@ -155,6 +210,8 @@ export default function SchemaPage(props) {
 						toggleClear={toggleClear}
 						toggleReset={toggleReset}
 						startLabel={startLabel}
+						userRated={userRated}
+						setUserRated={setUserRated}
 						lang={props.lang}
 						isMain={false}
 						isStart={isStart}
@@ -163,6 +220,8 @@ export default function SchemaPage(props) {
 								._id === schema.creator
 						}
 						sendRate={sendRate}
+						retractRate={retractRate}
+						selectedRate={selectedRate}
 					></Controls>
 					<Grid
 						size={schema.size}

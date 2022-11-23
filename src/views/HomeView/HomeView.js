@@ -170,7 +170,7 @@ export default function HomeView() {
 				showUpload={true}
 				isMain={true}
 			/>
-			<ControlsHint />
+			<ControlsHint controls_hint={dict.controls_hint} />
 		</>
 	);
 }
