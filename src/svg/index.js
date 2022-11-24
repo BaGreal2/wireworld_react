@@ -16,3 +16,7 @@ export { default as AnimatedPlusMinusIcon } from './AnimatedPlusMinusIconComp';
 export { default as UserIcon } from './UserIconComp';
 export { default as ArrowLeftIcon } from './ArrowLeftIconComp';
 export { default as ArrowRightIcon } from './ArrowRightIconComp';
+export { default as StarIcon } from './StarIconComp';
+export { default as RetractIcon} from './RetractIconComp';
+export {default as UpIcon} from './UpIconComp';
+export {default as DownIcon} from './DownIconComp';

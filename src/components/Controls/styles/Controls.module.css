@@ -1,24 +1,28 @@
 .controls {
-	width: 73vh;
-	margin: auto auto;
-	margin-top: 50px;
+	/*width: 73vh;*/
+  width: fit-content;
+	margin: 50px auto;
 	margin-bottom: 0;
 	padding-top: 20px;
 	padding-bottom: 20px;
 	display: flex;
-	justify-content: space-between;
+  gap: 40px;
+	/*justify-content: space-between;*/
+}
+.controls_wrapper {
+  margin: 0 auto;
 }
 .controls_upload {
-	width: 78vh;
+	width: fit-content;
 	margin: auto auto;
 	margin-top: 50px;
 	margin-bottom: 20px;
 	display: flex;
-	gap: 10px;
+	gap: 30px;
 }
 
 .rate_schema_container {
-	width: 50%;
+	width: fit-content;
 	display: flex;
 	gap: 10px;
 	text-align: center;
@@ -27,10 +31,10 @@
 	color: var(--color-accent);
 	text-align: left;
 	padding-top: 3px;
-	width: fit-content;
+	width: 60px;
 }
 .rate_schema_select {
-	width: 60%;
+	width: 160px;
 	background-color: var(--color-buttons);
 	color: var(--color-primary);
 	cursor: pointer;
