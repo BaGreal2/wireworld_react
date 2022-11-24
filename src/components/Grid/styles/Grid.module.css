@@ -63,3 +63,14 @@
 .cross_res {
 	font-family: monospace;
 }
+.memory_container {
+  display: flex;
+  width: fit-content;
+  height: 40px;
+  position: relative;
+  bottom: calc(74.5vh + 40px);
+  left: -13vh;
+  margin: 0;
+  gap: 10px;
+
+}

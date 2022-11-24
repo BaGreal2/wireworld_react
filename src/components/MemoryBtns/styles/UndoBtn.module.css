@@ -1,10 +1,7 @@
 .undo {
-	position: relative;
 	width: 40px;
 	padding: 0;
 	height: 40px;
-	left: -19.5vh;
-	bottom: 74.105vh;
 	border: 2px solid var(--color-buttons);
 	background-color: var(--color-buttons);
 	transition: 0.3s linear all;

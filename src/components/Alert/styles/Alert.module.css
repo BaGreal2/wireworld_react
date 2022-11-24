@@ -21,6 +21,7 @@
 .alert_title {
 	margin: 0;
 	padding: 0;
+  border: none;
 	height: 40%;
 	padding-top: 7px;
 	text-align: left;

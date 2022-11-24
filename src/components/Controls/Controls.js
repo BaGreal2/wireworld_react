@@ -48,6 +48,7 @@ export default function Controls(props) {
         isMain={true}
         text={props.startLabel}
         action={props.toggleStart}
+        tooltip={dict.start_hint}
       >
         <PlayIcon
           className={styles.main_buttons_icon}
@@ -60,6 +61,7 @@ export default function Controls(props) {
           isMain={true}
           text={dict.clear}
           action={props.toggleClear}
+          tooltip={dict.clear_hint}
         >
           <ClearIcon className={styles.main_buttons_icon} />
         </Button>
@@ -70,12 +72,14 @@ export default function Controls(props) {
           isMain={true}
           text={dict.reset}
           action={props.toggleReset}
+          tooltip={dict.reset_hint}
         >
           <ResetIcon className={styles.main_buttons_icon} />
         </Button>
       )}
       <Dropdown
         title={dict.pick_item}
+        tooltip={dict.elements_hint}
         onClick={toggleOpenItem}
         content={[
           { id: 'empty', value: '0', text: dict.empty },
@@ -163,6 +167,7 @@ export default function Controls(props) {
           </form>
         </>
       )}
+
     </div>
   );
 }

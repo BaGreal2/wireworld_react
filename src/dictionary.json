@@ -53,7 +53,12 @@
 		"err404": "Error 404",
 		"not_found": "Page not found!",
 		"return_home": "Return home",
-		"controls_hint": "h, j, k, l (←, ↓, ↑, →) - movement; c, r - clear/reset grid; space - start; 1, 2, 3, 4 - item selection; ctrl+z/ctrl+y - undo/redo; +/- - zoom;"
+    "memory_hint": "ctrl+z/ctrl+y",
+    "start_hint": "Press space",
+    "clear_hint": "Press c",
+    "reset_hint": "Press r",
+    "elements_hint": "Press 1, 2, 3, 4 to choose",
+    "zoom_hint": "+/-"
 	},
 	"ukr": {
 		"start": "Старт",
@@ -109,6 +114,9 @@
 		"err404": "Помилка 404",
 		"not_found": "Сторінку не знайдено!",
 		"return_home": "На головну",
-		"controls_hint": "h, j, k, l (←, ↓, ↑, →) - пересування; c, r - очистити/скинути сітку; пробіл - старт; 1, 2, 3, 4 - обрати елемент; ctrl+z/ctrl+y - скасувати/повернути; +/- - зум;"
+    "start_hint": "Натисніть пробіл",
+    "clear_hint": "Натисніть c",
+    "reset_hint": "Натисніть r",
+    "elements_hint": "Натисніть 1, 2, 3, 4 для вибору"
 	}
 }

@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useBeforeunload } from 'react-beforeunload';
+import ReactTooltip from 'react-tooltip';
 import { Canvas } from '../Canvas';
 import { UploadBtn } from '../UploadBtn';
 import { UploadIcon, UpIcon, DownIcon } from '../../svg';
 import { UndoBtn, RedoBtn } from '../MemoryBtns';
 
+import dictionary from '../../dictionary.json';
 import styles from './styles/Grid.module.css';
 
 export default function Grid(props) {
@@ -522,7 +524,7 @@ export default function Grid(props) {
           }}
           className={styles.input_resolution}
         ></input>
-        <div className={styles.inc_container}>
+        <div className={styles.inc_container} data-offset="{'left': 0, 'right': 10}" data-place="right" data-tip={dictionary.eng.zoom_hint}>
           <button className={styles.inc_buttons} onClick={() => incGridRes()}>
             <UpIcon className={styles.icon_size} />
           </button>
@@ -554,9 +556,12 @@ export default function Grid(props) {
             <UploadIcon />
           </UploadBtn>
         )}
+        <div data-tip={dictionary.eng.memory_hint} className={styles.memory_container}>
         <UndoBtn disabled={disableUndo} onClick={handleUndo} />
         <RedoBtn disabled={disableRedo} onClick={handleRedo} />
       </div>
+      </div>
+        <ReactTooltip place="left" type="dark" offset={{left: 10}} effect="solid" delayShow={700} />
     </div>
   );
 }
