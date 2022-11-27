@@ -162,7 +162,6 @@
 }
 .dropdown_element > .dropdown_element_text {
 	color: var(--color-primary);
-	/* color: red; */
 }
 .dropdown_element:hover > .dropdown_element_text {
 	color: var(--color-accent);

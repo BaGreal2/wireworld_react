@@ -36,7 +36,6 @@ export default function AnimatedThemeIconComp({ isDarkMode }) {
 			width="24"
 			height="24"
 			viewBox="0 0 24 24"
-			// className="theme-icon"
 			fill="none"
 			strokeWidth="2"
 			strokeLinecap="round"
@@ -49,12 +48,7 @@ export default function AnimatedThemeIconComp({ isDarkMode }) {
 		>
 			<mask id="myMask2">
 				<rect x="0" y="0" width="100%" height="100%" fill="white" />
-				<animated.circle
-					style={maskedCircleProps}
-					r="9"
-					// className="theme-icon"
-					fill="black"
-				/>
+				<animated.circle style={maskedCircleProps} r="9" fill="black" />
 			</mask>
 
 			<animated.circle
@@ -62,7 +56,6 @@ export default function AnimatedThemeIconComp({ isDarkMode }) {
 				cy="12"
 				style={centerCircleProps}
 				className="theme-icon"
-				// fill="black"
 				mask="url(#myMask2)"
 			/>
 			<animated.g stroke="currentColor" style={linesProps}>

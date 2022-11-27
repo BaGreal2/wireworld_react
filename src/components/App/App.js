@@ -1,4 +1,3 @@
-// import MobileView from '../MobileView/MovileView';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React, { Suspense, useEffect } from 'react';
 import { useDispatch } from 'react-redux';

@@ -174,7 +174,6 @@ pre {
 blockquote {
 	padding: 1px 5px 1px 10px;
 	border-left: 4px solid var(--color-side-text);
-	/* background: var(--color-primary-hue-second); */
 	transition: all 0.3s linear;
 }
 
