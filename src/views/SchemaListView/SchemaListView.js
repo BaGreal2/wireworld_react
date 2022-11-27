@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import axios from 'axios';
-import { Container, CircularProgress, Flex } from '@chakra-ui/react';
+import { Container, CircularProgress } from '@chakra-ui/react';
 import { Alert } from '../../components/Alert';
 import { Topbar } from '../../components/Topbar';
 
