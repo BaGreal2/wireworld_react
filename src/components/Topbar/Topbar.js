@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Burger } from '../Burger';
 
@@ -26,9 +26,6 @@ export default function Topbar({ theme_func, lang_func, lang }) {
 		} else if (lang === 'eng' && dict !== dictionary.eng) {
 			setDict(dictionary.eng);
 		}
-		// return () => {
-		// 	window.removeEventListener('scroll', addShadow);
-		// };
 	}, [lang, dict]);
 
 	return (
@@ -37,7 +34,7 @@ export default function Topbar({ theme_func, lang_func, lang }) {
 				<Link to="/" className={styles.app_title}>
 					<h1 className={styles.app_title_text}>WireWorld</h1>
 				</Link>
-				<div className={styles.switches}>
+				<div className={styles.burger_container}>
 					<Burger
 						user_schemas={dict.user_schemas}
 						change_lang={dict.change_lang}

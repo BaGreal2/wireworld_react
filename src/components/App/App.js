@@ -30,9 +30,6 @@ import '../../config/axios';
 
 export default function App() {
 	const dispatch = useDispatch();
-	// const isMobile = window.matchMedia(
-	// 	'only screen and (max-width: 760px)'
-	// ).matches;
 
 	useEffect(() => {
 		dispatch(authOperations.fetchUserData());

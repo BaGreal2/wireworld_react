@@ -155,7 +155,7 @@
 	padding: 0;
 }
 
-.switches {
+.burger_container {
 	padding: 0;
 	margin: 0;
 	display: flex;
@@ -164,48 +164,6 @@
 	margin-right: 60px;
 }
 
-.switch {
-	background-color: var(--color-primary);
-	text-align: center;
-	vertical-align: middle;
-	width: 40px;
-	height: 40px;
-	margin: 0;
-	padding: 0;
-	margin-bottom: 10px;
-}
-
-.switch::after {
-	content: var(--switch-content);
-	color: var(--color-accent);
-	font-size: 25px;
-	margin: 0 auto;
-}
-
-.switch_lang {
-	background-color: var(--color-primary);
-	text-align: center;
-	vertical-align: middle;
-	width: 40px;
-	height: 40px;
-	margin: 0;
-	padding: 0;
-}
-
-.switch_lang::after {
-	content: var(--lang-switch-content);
-	color: var(--color-accent);
-	font-size: 15px;
-	margin: 0 auto;
-}
-
-.btn_switch {
-	transition: all 0.3s ease;
-}
-.btn_switch:hover {
-	box-shadow: -7px -7px 20px 0px #fff9, -4px -4px 5px 0px #fff9,
-		7px 7px 20px 0px rgba(0, 0, 0, 0.591), 4px 4px 5px 0px rgba(0, 0, 0, 0.623);
-}
 @media all and (min-width: 0px) and (max-width: 768px) {
 	.app_title_text {
 		font-size: 20px;

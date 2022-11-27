@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { CircularProgress, Container } from '@chakra-ui/react';
 import axios from 'axios';
-import { Alert } from '../../components/Alert';
-import { Container, CircularProgress } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Alert } from '../../components/Alert';
 import { Topbar } from '../../components/Topbar';
 import { UploadForm } from '../../components/UploadForm';
 
-import { setLanguage, setTheme, updateDict } from '../../handlers/lookSwitches';
 import dictionary from '../../dictionary.json';
+import { setLanguage, setTheme, updateDict } from '../../handlers/lookSwitches';
 
 import styles from './styles/UploadView.module.css';
 
