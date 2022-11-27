@@ -1,9 +1,9 @@
 .login_wrapper {
 	height: calc(100vh - 100px);
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .login {
 	width: 100%;
@@ -95,4 +95,10 @@
 .redirect {
 	color: var(--color-accent);
 	font-size: 12px;
+}
+
+@media all and (min-width: 0px) and (max-width: 768px) {
+	.auth_input_container {
+		width: 300px;
+	}
 }

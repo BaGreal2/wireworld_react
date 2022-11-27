@@ -63,8 +63,11 @@ body {
 	max-width: 100vw;
 	-webkit-tap-highlight-color: transparent;
 	height: 100vh;
-	touch-action: none;
 	overflow-x: hidden;
+}
+
+canvas {
+	touch-action: none;
 }
 
 input[type='number'] {
@@ -189,6 +192,7 @@ img {
 	display: block;
 	margin: 0 auto;
 	height: 300px;
+	max-width: 98%;
 }
 
 th {

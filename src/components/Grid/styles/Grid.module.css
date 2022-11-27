@@ -72,3 +72,10 @@
 	margin: 0;
 	gap: 10px;
 }
+
+@media all and (min-width: 0px) and (max-width: 768px) {
+	.memory_container {
+		bottom: 40px;
+		left: 0;
+	}
+}

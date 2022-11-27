@@ -2,7 +2,7 @@
 	position: relative;
 	width: fit-content;
 	left: 75vh;
-  z-index: 0;
+	z-index: 0;
 	bottom: 73.535vh;
 }
 
@@ -30,4 +30,10 @@
 }
 .redirect_link:focus {
 	text-decoration: var(--color-accent) solid underline;
+}
+@media all and (min-width: 0px) and (max-width: 768px) {
+	.upload_link {
+		bottom: -5px;
+		left: 85%;
+	}
 }

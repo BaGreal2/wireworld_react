@@ -1,4 +1,4 @@
-import MobileView from '../MobileView/MovileView';
+// import MobileView from '../MobileView/MovileView';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React, { Suspense, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -30,9 +30,9 @@ import '../../config/axios';
 
 export default function App() {
 	const dispatch = useDispatch();
-	const isMobile = window.matchMedia(
-		'only screen and (max-width: 760px)'
-	).matches;
+	// const isMobile = window.matchMedia(
+	// 	'only screen and (max-width: 760px)'
+	// ).matches;
 
 	useEffect(() => {
 		dispatch(authOperations.fetchUserData());
@@ -40,19 +40,19 @@ export default function App() {
 
 	return (
 		<div>
-			{isMobile ? (
+			{/* {isMobile ? (
 				<MobileView />
-			) : (
-				<Suspense fallback={null}>
-					<Router>
-						<Routes>
-							{routes.map((route) => (
-								<Route {...route} />
-							))}
-						</Routes>
-					</Router>
-				</Suspense>
-			)}
+			) : ( */}
+			<Suspense fallback={null}>
+				<Router>
+					<Routes>
+						{routes.map((route) => (
+							<Route {...route} />
+						))}
+					</Routes>
+				</Router>
+			</Suspense>
+			{/* )} */}
 		</div>
 	);
 }

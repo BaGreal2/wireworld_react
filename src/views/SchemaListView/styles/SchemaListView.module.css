@@ -14,3 +14,9 @@
 	justify-content: center;
 	align-items: center;
 }
+@media all and (min-width: 0px) and (max-width: 768px) {
+	.search_sort_container {
+		margin-top: 40px;
+		gap: 20px;
+	}
+}

@@ -13,8 +13,8 @@
 	font-family: 'Ubuntu Mono', monospace;
 }
 .auth_input_container {
-  margin-top: 10px;
-  position: relative;
+	margin-top: 10px;
+	position: relative;
 	width: 30%;
 	height: 60px;
 }
@@ -45,4 +45,9 @@
 	top: 0px;
 	left: 0px;
 	font-size: 10px;
+}
+@media all and (min-width: 0px) and (max-width: 768px) {
+	.auth_input_container {
+		width: 40%;
+	}
 }

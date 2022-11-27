@@ -1,9 +1,9 @@
 .upload_container {
-  height: calc(100vh - 100px);
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	height: calc(100vh - 100px);
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .upload_form {
 	width: 100%;
@@ -127,4 +127,15 @@
 	transform: translateY(-50%);
 	right: 9%;
 	width: 15%;
+}
+@media all and (min-width: 0px) and (max-width: 768px) {
+	.upload_form {
+		width: 80%;
+	}
+	.title_input_container {
+		width: 300px;
+	}
+	.description_input_container {
+		width: 300px;
+	}
 }

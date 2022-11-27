@@ -79,6 +79,13 @@
 	opacity: 1;
 	transition: background 0.3s linear, right 0.3s ease-in-out;
 }
+@media all and (min-width: 0px) and (max-width: 768px) {
+	.menu_content {
+		right: -100vw;
+		width: 100vw;
+		max-height: -webkit-fill-available;
+	}
+}
 
 .content_opened {
 	right: 0px;

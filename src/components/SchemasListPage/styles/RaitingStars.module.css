@@ -39,3 +39,26 @@
 	color: var(--color-accent);
 	width: 10%;
 }
+
+@media all and (min-width: 0px) and (max-width: 768px) {
+	.rating_wrapper {
+		width: 30%;
+		margin-bottom: 5px;
+	}
+	.stars_outer::before {
+		font-size: 1.1em;
+		height: fit-content;
+		margin-left: 10px;
+	}
+
+	.stars_inner::before {
+		font-size: 1.1em;
+		height: fit-content;
+		margin-left: 10px;
+	}
+	.stars_number {
+		width: 30%;
+		height: fit-content;
+		font-size: 0.9em;
+	}
+}
