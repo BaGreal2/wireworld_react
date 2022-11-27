@@ -12,10 +12,11 @@
 }
 .theme-light {
 	--color-primary: white;
+	--color-primary-lower: rgba(255, 255, 255, 0.8);
+	--color-primary-lower-lower: rgba(255, 255, 255, 0.4);
 	--color-accent: black;
 	--color-primary-hue: rgb(235, 234, 234);
 	--color-buttons: black;
-	--switch-content: '\263C';
 	--color-side-text: #676767;
 	--color-primary-hue-second: rgb(240, 238, 238);
 	--color-conductor: #f9f348;
@@ -27,10 +28,11 @@
 }
 .theme-dark {
 	--color-primary: rgb(49, 47, 47);
+	--color-primary-lower: rgba(49, 47, 47, 0.8);
+	--color-primary-lower-lower: rgba(49, 47, 47, 0.4);
 	--color-accent: rgb(252, 240, 240);
 	--color-primary-hue: rgb(30, 30, 30);
 	--color-buttons: rgb(204, 201, 201);
-	--switch-content: '\263E';
 	--color-side-text: #9d9c9c;
 	--color-primary-hue-second: rgb(40, 40, 40);
 	--color-conductor: #e0c134;
@@ -58,12 +60,9 @@ body {
 	font-family: 'Ubuntu Mono', monospace;
 	background-color: var(--color-primary);
 	transition: 0.3s linear all;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	min-height: 100vh;
 	max-width: 100vw;
 	-webkit-tap-highlight-color: transparent;
+	height: 100vh;
 	touch-action: none;
 	overflow-x: hidden;
 }

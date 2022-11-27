@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Alert } from '../../components/Alert';
+import { Container, CircularProgress } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { Topbar } from '../../components/Topbar';
 import { UploadForm } from '../../components/UploadForm';
 
 import { setLanguage, setTheme, updateDict } from '../../handlers/lookSwitches';
 import dictionary from '../../dictionary.json';
+
+import styles from './styles/UploadView.module.css';
 
 export default function UploadView() {
 	const [lang, setLangState] = useState(localStorage.getItem('language'));
@@ -50,7 +53,8 @@ export default function UploadView() {
 				console.dir(error);
 				setError(error);
 				setLoading(false);
-			});
+			})
+			.finally(() => setLoading(false));
 	}
 
 	const toggleLang = () => {
@@ -62,15 +66,7 @@ export default function UploadView() {
 	};
 
 	return (
-		<>
-			{error && !loading && (
-				<Alert
-					alertTitle={error.message}
-					alertDescription={error.responce?.data.message}
-					className="upload-alert"
-				/>
-			)}
-
+		<Container>
 			<Topbar
 				theme_func={toggleTheme}
 				lang_func={toggleLang}
@@ -78,12 +74,29 @@ export default function UploadView() {
 				needBack={true}
 				lang={lang}
 			></Topbar>
+			{error && !loading && (
+				<Alert
+					alertTitle={error.message}
+					alertDescription={error.responce?.data.message}
+					className="upload-alert"
+				/>
+			)}
+			{loading && (
+				<div className={styles.circular_container}>
+					<CircularProgress
+						isIndeterminate
+						size="100px"
+						thickness="5px"
+						color="black"
+					/>
+				</div>
+			)}
 			<UploadForm
 				title={dict.title}
 				description={dict.description}
 				post={dict.post}
 				onSubmit={createSchema}
 			/>
-		</>
+		</Container>
 	);
 }

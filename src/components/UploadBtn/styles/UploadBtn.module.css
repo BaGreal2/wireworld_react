@@ -2,11 +2,11 @@
 	position: relative;
 	width: fit-content;
 	left: 75vh;
+  z-index: 0;
 	bottom: 73.535vh;
 }
 
 .upload_btn {
-	position: relative;
 	height: 50px;
 	width: 50px;
 	border: 2px solid var(--color-buttons);

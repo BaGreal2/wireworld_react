@@ -6,10 +6,11 @@ import { Topbar } from '../../components/Topbar';
 
 import { SchemasListPage } from '../../components/SchemasListPage';
 import SchemaListSearchbar from './SchemaListSearchbar';
+import SchemaListSelectSort from './SchemaListSelectSort';
 
 import { setLanguage, setTheme, updateDict } from '../../handlers/lookSwitches';
 import dictionary from '../../dictionary.json';
-import SchemaListSelectSort from './SchemaListSelectSort';
+import styles from './styles/SchemaListView.module.css';
 
 function schemasReducer(state, { type, payload }) {
 	switch (type) {
@@ -87,28 +88,30 @@ export default function SchemaListView() {
 				needBack={true}
 				lang={lang}
 			></Topbar>
-			<SchemaListSearchbar
-				search={search}
-				setSearch={setSearch}
-				searchPlaceholder={dict.search}
-			/>
-			<SchemaListSelectSort
-				sort={dict.sort}
-				rating={dict.rating}
-				title={dict.title}
-				author={dict.author}
-				selectedSort={selectedSort}
-				setSelectedSort={setSelectedSort}
-			/>
+			<div className={styles.search_sort_container}>
+				<SchemaListSearchbar
+					search={search}
+					setSearch={setSearch}
+					searchPlaceholder={dict.search}
+				/>
+				<SchemaListSelectSort
+					sort={dict.sort}
+					rating={dict.rating}
+					title={dict.title}
+					author={dict.author}
+					selectedSort={selectedSort}
+					setSelectedSort={setSelectedSort}
+				/>
+			</div>
 			{schemasLoading && (
-				<Flex justifyContent="center">
+				<div className={styles.circular_container}>
 					<CircularProgress
 						isIndeterminate
 						size="100px"
 						thickness="5px"
 						color="black"
 					/>
-				</Flex>
+				</div>
 			)}
 			{error && !schemasLoading && (
 				<Alert

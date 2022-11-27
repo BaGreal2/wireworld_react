@@ -1,12 +1,10 @@
 .searchbar {
 	display: block;
-
 	color: var(--color-accent);
 	font-size: 1.1em;
 	width: 100%;
 	height: 100%;
 	height: 40px;
-
 	transition: all 0.3s linear;
 	outline: none;
 	border: none;
@@ -15,13 +13,10 @@
 	font-family: 'Ubuntu Mono', monospace;
 }
 .auth_input_container {
-	position: absolute;
-	top: 100px;
-	left: 40%;
-	transform: translateX(-40%);
+  margin-top: 10px;
+  position: relative;
 	width: 30%;
 	height: 60px;
-	margin-top: 10px;
 }
 
 .auth_label {

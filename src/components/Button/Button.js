@@ -20,7 +20,7 @@ function Button({
         id={id}
         className={`${styles.custom_btn} ${className} ${isMain ? styles.main_buttons : ''
           }`}
-        onClick={action}
+        onClick={() => action && action()}
         type={type}
         disabled={disabled}
         data-tip={tooltip}

@@ -1,0 +1,16 @@
+.search_sort_container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 40px;
+	width: 100%;
+	height: 80px;
+	margin-top: 100px;
+}
+.circular_container {
+	display: flex;
+	width: 100vw;
+	height: 65vh;
+	justify-content: center;
+	align-items: center;
+}
