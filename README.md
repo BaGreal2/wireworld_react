@@ -35,7 +35,7 @@ App consists of 7 pages:
 You can visit home and about pages without registration, but to see other user's schemas you have to login/register.
 The home page is a main page of an app, here you can fully build your WireWorld schema and deploy it!
 
-# MIT License
+## MIT License
 
 Copyright (c) 2022 Kravchenko Artem
 
