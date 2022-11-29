@@ -2,12 +2,12 @@
 
 This is a variation of a famous cellular automata - wireworld with some kind of network in it.
 
-## Tech stack💻
+## Tech stack 💻
 
 This app is build on JavaScript with React, Redux and some another small libraries.
 Authorization is done via NodeJS on back-end.
 
-## How to run🚀
+## How to run 🚀
 
 I used regular npx create-react-app, so to install all dependencies you need to run:
 
@@ -21,7 +21,7 @@ After installation is complete you only need to run:
 npm start
 ```
 
-## How to use💭
+## How to use 💭
 
 App consists of 7 pages:
 - Registration page
