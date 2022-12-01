@@ -576,14 +576,24 @@ export default function Grid(props) {
 					</UploadBtn>
 				)}
 				{isMobile ? (
-					<div className={styles.memory_container}>
+					<div
+						className={
+							props.isMain
+								? styles.memory_container
+								: styles.memory_container_user
+						}
+					>
 						<UndoBtn disabled={disableUndo} onClick={handleUndo} />
 						<RedoBtn disabled={disableRedo} onClick={handleRedo} />
 					</div>
 				) : (
 					<div
 						data-tip={dictionary.eng.memory_hint}
-						className={styles.memory_container}
+						className={
+							props.isMain
+								? styles.memory_container
+								: styles.memory_container_user
+						}
 					>
 						<UndoBtn disabled={disableUndo} onClick={handleUndo} />
 						<RedoBtn disabled={disableRedo} onClick={handleRedo} />

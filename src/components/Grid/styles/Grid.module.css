@@ -72,10 +72,24 @@
 	margin: 0;
 	gap: 10px;
 }
+.memory_container_user {
+	display: flex;
+	width: fit-content;
+	height: 40px;
+	position: relative;
+	bottom: calc(74.5vh - 8.5px);
+	left: -13vh;
+	margin: 0;
+	gap: 10px;
+}
 
 @media all and (min-width: 0px) and (max-width: 768px) {
 	.memory_container {
 		bottom: 40px;
+		left: 0;
+	}
+	.memory_container_user {
+		bottom: -10px;
 		left: 0;
 	}
 }

@@ -1,11 +1,11 @@
-import axios from 'axios';
-import React, { useEffect, useState, useReducer, useRef } from 'react';
 import { CircularProgress, Flex } from '@chakra-ui/react';
+import axios from 'axios';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Grid } from '../Grid';
-import { Controls } from '../Controls';
 import { Alert } from '../Alert';
+import { Controls } from '../Controls';
+import { Grid } from '../Grid';
 
 import '../../config/axios';
 import styles from './styles/SchemaPage.module.css';
@@ -222,7 +222,7 @@ export default function SchemaPage(props) {
 						sendRate={sendRate}
 						retractRate={retractRate}
 						selectedRate={selectedRate}
-					></Controls>
+					/>
 					<Grid
 						size={schema.size}
 						maxSize={schema.size}
@@ -242,7 +242,7 @@ export default function SchemaPage(props) {
 						theme={props.theme}
 						showUpload={false}
 						isMain={false}
-					></Grid>
+					/>
 				</>
 			)}
 		</div>

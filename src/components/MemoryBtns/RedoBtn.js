@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from '../Button';
 import { ArrowRightIcon } from '../../svg';
+import { Button } from '../Button';
 
 import styles from './styles/RedoBtn.module.css';
 

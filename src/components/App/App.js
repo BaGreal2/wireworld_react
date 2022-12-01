@@ -36,9 +36,6 @@ export default function App() {
 
 	return (
 		<div>
-			{/* {isMobile ? (
-				<MobileView />
-			) : ( */}
 			<Suspense fallback={null}>
 				<Router>
 					<Routes>
@@ -48,7 +45,6 @@ export default function App() {
 					</Routes>
 				</Router>
 			</Suspense>
-			{/* )} */}
 		</div>
 	);
 }

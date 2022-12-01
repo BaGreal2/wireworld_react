@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from '../Button';
 import { ArrowLeftIcon } from '../../svg';
+import { Button } from '../Button';
 
 import styles from './styles/UndoBtn.module.css';
 

@@ -45,10 +45,10 @@ function Dropdown(props) {
             props.onClick();
           }}
           className={styles.title}
-        data-tip={props.tooltip}
-        data-padding="10px 10px 10px 10px"
-        data-place="bottom"
-        data-offset="{'left': 0, 'right': 0}"
+          data-tip={props.tooltip}
+          data-padding="10px 10px 10px 10px"
+          data-place="bottom"
+          data-offset="{'left': 0, 'right': 0}"
         >
           {props.title}
           {props.children ? props.children : <></>}
