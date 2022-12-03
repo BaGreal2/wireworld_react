@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
 import useEventListener from '@use-it/event-listener';
+import React, { useEffect, useRef, useState } from 'react';
 
 import styles from './styles/Canvas.module.css';
 
@@ -131,7 +131,7 @@ export default function Canvas(props) {
 
 	//-------CLICK FUNCTIONS----------------
 
-	const mouseUpEvent = (e) => {
+	const pointerUpEvent = (e) => {
 		let saveFullGrid = JSON.stringify(props.fullGrid);
 		let copySaveArray = JSON.parse(JSON.stringify(props.saveArray));
 		copySaveArray[props.strokeCount] = saveFullGrid;
@@ -221,7 +221,7 @@ export default function Canvas(props) {
 			height={
 				!isMobile ? window.innerHeight * 0.73 * 3 : window.innerWidth * 0.98 * 3
 			}
-			onMouseUp={(e) => mouseUpEvent(e)}
+			onPointerUp={(e) => pointerUpEvent(e)}
 		/>
 	);
 }
