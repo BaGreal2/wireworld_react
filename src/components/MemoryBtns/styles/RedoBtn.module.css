@@ -1,11 +1,11 @@
 .redo {
-	width: 40px;
-	padding: 0;
-	height: 40px;
-	border: 2px solid var(--color-buttons);
-	background-color: var(--color-buttons);
-	transition: 0.3s linear all;
-	color: var(--color-primary);
+	width: 40px !important;
+	padding: 0 !important;
+	height: 40px !important;
+	border: 2px solid var(--color-buttons) !important;
+	background-color: var(--color-buttons) !important;
+	transition: 0.3s linear all !important;
+	color: var(--color-primary) !important;
 }
 .redo > span {
 	display: flex;
@@ -13,7 +13,7 @@
 	align-items: center;
 }
 .redo:hover {
-	background-color: var(--color-primary);
+	background-color: var(--color-primary) !important;
 }
 .redo:hover:enabled > span {
 	color: var(--color-accent);

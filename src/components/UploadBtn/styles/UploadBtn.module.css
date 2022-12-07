@@ -7,13 +7,13 @@
 }
 
 .upload_btn {
-	height: 50px;
-	width: 50px;
-	border: 2px solid var(--color-buttons);
-	background-color: var(--color-buttons);
+	height: 50px !important;
+	width: 50px !important;
+	border: 2px solid var(--color-buttons) !important;
+	background-color: var(--color-buttons) !important;
 	line-height: 42px;
-	transition: 0.3s linear all;
-	padding: 0;
+	transition: 0.3s linear all !important;
+	padding: 0 !important;
 	color: var(--color-primary);
 }
 .upload_btn:hover {
