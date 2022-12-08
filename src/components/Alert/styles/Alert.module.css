@@ -48,3 +48,9 @@
 	margin: 0 auto;
 	transition: 0.1s linear all;
 }
+
+@media all and (min-width: 0px) and (max-width: 768px) {
+  .alert_container {
+    width: 90%;
+  }
+}

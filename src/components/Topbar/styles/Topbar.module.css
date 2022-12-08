@@ -171,7 +171,7 @@
 	.app_title {
 		margin-left: 30px;
 	}
-	.switches {
-		margin-right: 30px;
-	}
+  .burger_container {
+    margin-right: 30px;
+  }
 }

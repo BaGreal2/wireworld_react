@@ -191,7 +191,8 @@ a[title]:after {
 img {
 	display: block;
 	margin: 0 auto;
-	height: 300px;
+  min-height: 200px;
+	max-height: 300px;
 	max-width: 98%;
 }
 
