@@ -137,7 +137,7 @@ export default function Burger({
 				>
 					{isAuthenticated ? (
 						<>
-							{logout}
+							{`${logout} (${JSON.parse(JSON.parse(localStorage.getItem('persist:auth')).user)?.username})`}
 							<div className={styles.icon_container}>
 								<LogoutIcon />
 							</div>
