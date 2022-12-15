@@ -15,7 +15,7 @@
 .redo:hover {
 	background-color: var(--color-primary) !important;
 }
-.redo:hover:enabled > span {
+.redo:hover > span {
 	color: var(--color-accent);
 }
 .redo:disabled,

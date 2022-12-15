@@ -15,7 +15,7 @@
 .undo:hover {
 	background-color: var(--color-primary) !important;
 }
-.undo:hover:enabled > span {
+.undo:hover > span {
 	color: var(--color-accent);
 }
 .undo:disabled,
